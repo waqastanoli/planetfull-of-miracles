@@ -1,0 +1,22 @@
+{
+  "name": "planetfull-of-miracles",
+  "version": "1.0.0",
+  "description": "Planetful of Miracles",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/waqastanoli/planetfull-of-miracles.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/waqastanoli/planetfull-of-miracles/issues"
+  },
+  "homepage": "https://github.com/waqastanoli/planetfull-of-miracles#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
