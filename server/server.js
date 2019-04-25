@@ -9,10 +9,12 @@ import cors from 'cors';
 import http from 'http';
 import fs from 'fs';
 import webpackConfig from '../webpack.config.babel';
+var validator = require('express-validator');
  var https = require('https');
 // cors settings
 const app = express();
 app.use(cors());
+app.use(validator())
 const indexPath = path.join(__dirname, '../dist', 'index.html');
 const compiler = webpack(webpackConfig);
 app.use(express.static('./dist'));
@@ -67,11 +69,12 @@ routing();
 import productRoutes from './routes/product_routes';
 import orderRoutes from './routes/order_routes';
 import userRoutes from './routes/user_routes';
-
+import verification_routes from './routes/verification_routes';
 function routing() {
   app.use('/api/v1/products', productRoutes);
   app.use('/api/v1/orders', orderRoutes);
   app.use('/api/v1/users', userRoutes);
+  //app.use('/verification', verification_routes);
 }
 
 app.get('*', (_, res) => { res.sendFile(indexPath); });

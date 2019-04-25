@@ -52,6 +52,38 @@ const registerAction = (user, cartItems) => {
     });
   }
 }
+const verifyAction = (token, email) => {
+
+  return (dispatch) => {
+    dispatch({ type: 'ACCOUNTS' });
+    
+    axios.post(`${API_URL.API_URL}/api/v1/users/verify`, {
+      token: token,
+      email: email
+    })
+    .then(res => {
+      const { status, data, error, token } = res.data;
+       if  (status) {
+      const decoded = jwt_decode(data);
+        dispatch({ type: 'ACCOUNTS_FULFILLED', payload: { account: decoded, token:data }});
+        dispatch(setCurrentUser({
+          isAuthenticated:true,
+          user:decoded,
+          token:data
+        }));
+        dispatch(setCurrentUserCart({
+          cartItems:decoded.cartItems?decoded.cartItems:[]
+        }));
+        localStorage.setItem('jwtToken', data);
+        setAuthToken(data);
+      } else {
+        dispatch({ type: 'ACCOUNTS_REJECTED', payload:  error });
+      }
+    }).catch(err => {
+      console.log(' *** ERROR *** ', err);
+    });
+  }
+}
 const loginAction = (user) => {
 
   return (dispatch) => {
@@ -84,7 +116,10 @@ const loginAction = (user) => {
     });
   }
 }
-
+export const clearErrors = (history) => dispatch => {
+  dispatch({ type: 'CLEAR_ERRORS'});
+  console.log('i was here man')
+}
 export const logoutUser = (history) => dispatch => {
     localStorage.removeItem('jwtToken');
     setAuthToken(false);
@@ -100,4 +135,4 @@ export const logoutUser = (history) => dispatch => {
 	
     history.push('/signin');
 }
-export default { registerAction, loginAction, logoutUser };
+export default { clearErrors, verifyAction, registerAction, loginAction, logoutUser };

@@ -1,7 +1,11 @@
 import User from '../models/users';
+import Token from '../models/Token';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-const create = async(req,res,next) => {
+import crypto from 'crypto';
+import sendVerificationEmail  from '../lib/SendGridEmailHelper';
+
+exports.create = async(req,res,next) => {
   try {
     
     var not_exist = true;
@@ -23,9 +27,11 @@ const create = async(req,res,next) => {
               name:req.body.name,
               email:req.body.email,
               password:req.body.password,
+              isVerified:false,
               cartItems:req.body.cartItems
             }
           );
+
         bcrypt.genSalt(10, (err, salt) => {
             if(err) console.error('There was an error', err);
             else {
@@ -42,6 +48,8 @@ const create = async(req,res,next) => {
         if(!newUser)
           return res.send({status: false, error: 'user can\'t be created'});
         else{
+          var token = await Token.create({ _userId: newUser._id, token: crypto.randomBytes(16).toString('hex') });
+          sendVerificationEmail(req , newUser.email, token.token);
           const payload = {
               id: newUser.id,
               name: newUser.name,
@@ -64,8 +72,53 @@ const create = async(req,res,next) => {
 
     return res.send({status: false, error: err.message});
   }
-}
-const login = async(req,res,next) => {
+};
+exports.confirm = async(req,res,next) => {
+  req.assert('email', 'Email is not valid').isEmail();
+    req.assert('email', 'Email cannot be blank').notEmpty();
+    req.assert('token', 'Token cannot be blank').notEmpty();
+    req.sanitize('email').normalizeEmail({ remove_dots: false });
+ 
+    // Check for validation errors    
+    var errors = req.validationErrors();
+    if (errors) return res.status(400).send(errors);
+ 
+    // Find a matching token
+    Token.findOne({ token: req.body.token }, function (err, token) {
+        if (!token) return res.status(200).send({ status: false, type: 'not-verified', error: 'We were unable to find a valid token. Your token may have expired.' });
+ 
+        // If we found a token, find a matching user
+        User.findOne({ _id: token._userId, email: req.body.email }, function (err, user) {
+            if (!user) return res.status(200).send({status: false,  error: 'We were unable to find a user for this token.' });
+            if (user.isVerified) return res.status(200).send({status: false,  type: 'already-verified', error: 'This user has already been verified.' });
+ 
+            // Verify and save the user
+            user.isVerified = true;
+            user.save(function (err) {
+                if (err) { return res.status(500).send({ msg: err.message }); }
+                
+                
+                const payload = {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                    cartItems: user.cartItems
+                }
+                jwt.sign(payload, 'secret', {
+                    expiresIn: 3600
+                }, (err, token) => {
+                    if(err) console.error('There is some error in token', err);
+                    else {
+                        return res.send({status: true, message: 'Thank you, The account has been verified.', data: token});
+                    }
+                });
+                    
+                //res.status(200).send({status: true, message:"Thank you, The account has been verified."});
+            });
+        });
+    });
+};
+exports.login = async(req,res,next) => {
   try {
     const email = req.body.email;
     const password = req.body.password;
@@ -74,6 +127,9 @@ const login = async(req,res,next) => {
         .then(user => {
         if(!user) {
             return res.send({status: false, error: 'Email does not exist, please create an account'});
+        }
+        if(user && user.isVerified==false) {
+            return res.send({status: false, error: 'Account not active, please check your email to verify your account'});
         }
         bcrypt.compare(password, user.password)
                 .then(isMatch => {
@@ -103,10 +159,11 @@ const login = async(req,res,next) => {
   catch(err) {
     return res.send({status: false, error: err.message});
   }
-}
+};
 
 
-export default {
+/*export default {
   create,
-  login
-}
+  login,
+  confirm
+}*/

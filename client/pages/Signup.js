@@ -18,6 +18,7 @@ class Signup extends Component {
         email:'',
         verifyemail:'',
         password: '',
+        confirmpassword: '',
       },
         submitted: false,
       errors:{
@@ -25,6 +26,8 @@ class Signup extends Component {
         email:'',
         verifyemail:'',
         password: '',
+        confirmpassword: '',
+        t_c:'',
       }
     };
 
@@ -35,8 +38,13 @@ class Signup extends Component {
     this.email = React.createRef();
     this.verifyemail = React.createRef();
     this.password = React.createRef();
+    this.confirmpassword = React.createRef();
+    this.t_c = React.createRef();
+    const { dispatch } = props;
+    dispatch(Action.clearErrors());
   }
   validateInput(name, value, type){
+    console.log(name);
     var error='';
     switch(name){
       case 'name':
@@ -54,17 +62,35 @@ class Signup extends Component {
         if(error=='' && (type=='submit' || type=='blur')){
           var emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
           error = emailValid ? '' : value+' is invalid Email';
+          if(error==''){
+           if (this.verifyemail.current.value !== this.email.current.value) {
+                 error="Emails don't match";
+            }
+          }
         }
       break;
       case 'password':
         error=(value=='')?"Password is required":'';
       break;
+      case 'confirmpassword':
+        error=(value=='')?"Confirm Password is required":'';
+        if(error==''){
+           if (this.password.current.value !== this.confirmpassword.current.value) {
+              error="Passwords don't match";
+          }
+      }
+      break;
+      case 't_c':
+        error=(this.t_c.current.checked)?'':"Accept Terms and conditions to register";
+      break;
+
     }
     const { errors } = this.state;
     errors[name] = error
     this.setState({errors,errors});
   }
   handleChange(event) {
+    
       const { name, value } = event.target;
       this.validateInput(name, value, event.type);
       const { user } = this.state;
@@ -83,13 +109,20 @@ class Signup extends Component {
       this.validateInput(this.email.current.name, this.email.current.value, 'blur');
       this.validateInput(this.verifyemail.current.name, this.verifyemail.current.value, 'blur');
       this.validateInput(this.password.current.name, this.password.current.value, 'blur');
+      this.validateInput(this.confirmpassword.current.name, this.confirmpassword.current.value, 'blur');
+      
       this.setState({ submitted: true });
       const { user, errors } = this.state;
 
       const { dispatch } = this.props;
-      if (errors.name=='' && errors.email=='' && errors.password=='') {
-          dispatch(Action.registerAction(user, cartItems));
-      }
+      
+        if (errors.name=='' && errors.email=='' && errors.verifyemail=='' && errors.password=='' && errors.confirmpassword=='') {
+            if(this.t_c.current.checked){
+              dispatch(Action.registerAction(user, cartItems));
+              }else {
+            this.validateInput(this.t_c.current.name, this.t_c.current.value, 'blur');
+          }
+        } 
   }
   componentDidMount() {
       if(this.props.auth.isAuthenticated) {
@@ -158,6 +191,13 @@ class Signup extends Component {
                         <div className="help-block"> {errors.password}</div>
                     }
                 </div>
+                <div className={'form-group' + (submitted && !user.confirmpassword ? ' has-error' : '')}>
+                    <label htmlFor="confirmpassword">Confirm Password</label>
+                    <input type="password" className="form-control" name="confirmpassword" value={user.confirmpassword} onChange={this.handleChange} onBlur={this.handleChange} ref={this.confirmpassword}/>
+                    {errors.confirmpassword!='' &&
+                        <div className="help-block"> {errors.confirmpassword}</div>
+                    }
+                </div>
                 <div className={'form-group' + (submitted && !user.mobile ? ' has-error' : '')}>
                     <label htmlFor="mobile">Mobile No<small>(optional)</small></label>
                     <input type="text" className="form-control" name="mobile" value={user.mobile} onChange={this.handleChange} onBlur={this.handleChange} ref={this.mobile}/>
@@ -166,18 +206,20 @@ class Signup extends Component {
                     }
                 </div>
                 <div className="a-row">
-<input type="checkbox" name='t_c' id='t_c' />&nbsp;&nbsp;
-          I accept terms and conditions & privacy policy
-          
+<input type="checkbox" onClick={() => this.validateInput(this.t_c.current.name, this.t_c.current.value, "blur")} name='t_c' id='t_c' value="1"  ref={this.t_c}/>&nbsp;&nbsp;
+          I accept <a  onClick={() => this.setState({ lgShow: true })}>terms and conditions & privacy policy</a>
+          {errors.t_c!='' &&
+                        <div className="help-block"> {errors.t_c}</div>
+                    }
             </div>
                 <Modal size="lg" show={this.state.lgShow} onHide={lgClose} aria-labelledby="example-modal-sizes-title-lg"
         >
           <Modal.Header closeButton>
             <Modal.Title id="example-modal-sizes-title-lg">
-              Large Modal
+              Terms and Conditions & privacy policy 
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body>...</Modal.Body>
+          <Modal.Body>Terms and Conditions & privacy policy...</Modal.Body>
         </Modal>
 
                 <div className="form-group">

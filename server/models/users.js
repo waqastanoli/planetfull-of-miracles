@@ -5,6 +5,7 @@ const userSchema = mongoose.Schema({
   email: String,
   password: String,
   cartItems:mongoose.Mixed,
+  isVerified: { type: Boolean, default: false }
 }, {
   timestamps: {createdAt: 'created_at', updatedAt: 'updated_At'}
 });

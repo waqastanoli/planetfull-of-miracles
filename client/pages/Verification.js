@@ -6,8 +6,10 @@ import Alert from 'react-bootstrap/Alert';
 import Action from '../actions/accountActions';
 import AlertMessage from '../layout/AlertMessage';
 import { NavLink } from 'react-router-dom';
-class Signin extends Component {
+const override = 'display: block;margin: 0 auto;border-color: red;';
+class Verification extends Component {
   constructor(props) {
+
     super(props);
     this.state = {
       user: {
@@ -27,8 +29,6 @@ class Signin extends Component {
     this.validateInput = this.validateInput.bind(this);
     this.email = React.createRef();
     this.password = React.createRef();
-    const { dispatch } = props;
-    dispatch(Action.clearErrors());
   }
   validateInput(name, value, type){
     var error='';
@@ -51,6 +51,15 @@ class Signin extends Component {
   componentDidMount() {
       if(this.props.auth.isAuthenticated) {
           this.props.history.push('/');
+      }
+      let search = window.location.search;
+      let params = new URLSearchParams(search);
+
+      let token = params.get('token');
+      let email = params.get('email');
+      const { dispatch } = this.props;
+      if (token && email) {
+          dispatch(Action.verifyAction(token, email));
       }
   }
   componentWillReceiveProps(nextProps) {
@@ -102,39 +111,20 @@ class Signin extends Component {
     }
       {auth.isAuthenticated==false &&
       <div className="row justify-content-lg-center justify-content-md-center justify-content-sm-center">
-        <div className="col-md-auto col-lg-auto col-sm-auto  a-box-inner  col-md-4 col-lg-4 col-sm-4">
+        <div className="col-md-auto col-lg-auto col-sm-auto col-md-4 col-lg-4 col-sm-4">
             {error!=null &&
       <AlertMessage type="danger" heading="" message={error} />
     } 
-            <h2>Sign in</h2>
-            <form name="form" onSubmit={this.handleSubmit}>
-                <div className={'form-group' + (submitted && !user.email ? ' has-error' : '')}>
-                    <label htmlFor="email">Email</label>
-                    <input type="text" className="form-control" name="email" value={user.email} onChange={this.handleChange} onBlur={this.handleChange} ref={this.email}/>
-                    {errors.email!='' &&
-                        <div className="help-block"> {errors.email}</div>
-                    }
-                </div>
-                <div className={'form-group' + (submitted && !user.password ? ' has-error' : '')}>
-                    <label htmlFor="password">Password</label>
-                    <input type="password" className="form-control" name="password" value={user.password} onChange={this.handleChange} onBlur={this.handleChange} ref={this.password}/>
-                    {errors.password!='' &&
-                        <div className="help-block"> {errors.password}</div>
-                    }
-                </div>
-                <div className="form-group">
-                    <button className="col-md-12 btn btn-blue btn-ask-pro-det">Sign in</button>
-                    {fetching && 
-                        <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                    }
-                    
-                </div>
-            </form>
-            <div className="a-divider-inner"></div>
-            <div className="a-row">
-          Don't have an account?
-          <NavLink to="/register" className='login-anchor'>Create your account</NavLink>
-        </div>
+            
+            {error==null && 
+            <FadeLoader
+                css={override}
+                sizeUnit={"px"}
+                size={150}
+                color={'#123abc'}
+                loading={true}
+              />
+              }
             </div>
 
         </div>
@@ -150,6 +140,6 @@ export default connect(
     account: state.account,
     auth: state.auth,
   })
-)(Signin);
+)(Verification);
 
 

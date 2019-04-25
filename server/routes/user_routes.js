@@ -11,4 +11,8 @@ router.route('/signin')
   // POST
   .post( userController.login ); 
 
+router.route('/verify')
+  // POST
+  .post( userController.confirm );   
+
 export default router;
