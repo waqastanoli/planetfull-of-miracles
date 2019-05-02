@@ -27,6 +27,7 @@ exports.create = async(req,res,next) => {
               name:req.body.name,
               email:req.body.email,
               password:req.body.password,
+              mobile:req.body.mobile,
               isVerified:false,
               cartItems:req.body.cartItems
             }

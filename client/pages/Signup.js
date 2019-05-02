@@ -7,6 +7,8 @@ import Modal from 'react-bootstrap/Modal';
 import Action from '../actions/accountActions';
 import AlertMessage from '../layout/AlertMessage';
 import { NavLink } from 'react-router-dom';
+import logo from '../public/jocallio/image/logo.png';
+import loginimage from '../public/jocallio/image/loginimage.png';
 class Signup extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +21,7 @@ class Signup extends Component {
         verifyemail:'',
         password: '',
         confirmpassword: '',
+        mobile:'',
       },
         submitted: false,
       errors:{
@@ -27,6 +30,7 @@ class Signup extends Component {
         verifyemail:'',
         password: '',
         confirmpassword: '',
+        mobile:'',
         t_c:'',
       }
     };
@@ -40,6 +44,7 @@ class Signup extends Component {
     this.password = React.createRef();
     this.confirmpassword = React.createRef();
     this.t_c = React.createRef();
+    this.mobile = React.createRef();
     const { dispatch } = props;
     dispatch(Action.clearErrors());
   }
@@ -110,7 +115,7 @@ class Signup extends Component {
       this.validateInput(this.verifyemail.current.name, this.verifyemail.current.value, 'blur');
       this.validateInput(this.password.current.name, this.password.current.value, 'blur');
       this.validateInput(this.confirmpassword.current.name, this.confirmpassword.current.value, 'blur');
-      
+      this.validateInput(this.mobile.current.name, this.mobile.current.value, 'blur');
       this.setState({ submitted: true });
       const { user, errors } = this.state;
 
@@ -119,14 +124,14 @@ class Signup extends Component {
         if (errors.name=='' && errors.email=='' && errors.verifyemail=='' && errors.password=='' && errors.confirmpassword=='') {
             if(this.t_c.current.checked){
               dispatch(Action.registerAction(user, cartItems));
-              }else {
+              } else {
             this.validateInput(this.t_c.current.name, this.t_c.current.value, 'blur');
           }
         } 
   }
   componentDidMount() {
       if(this.props.auth.isAuthenticated) {
-          this.props.history.push('/');
+          this.props.history.push('/'+nextProps.account.account.name)
       }
   }
   componentWillReceiveProps(nextProps) {
@@ -150,68 +155,83 @@ class Signup extends Component {
     let lgClose = () => this.setState({ lgShow: false });
     return (
 
-      <div className="container">
-     
+      <div>
+     <main className="loginScreen clearfix">
     {auth.isAuthenticated &&
       <AlertMessage type="success" heading="Congratulations, Account Created Successfully" message="You will be logged in Automatically." />
     }
       {auth.isAuthenticated==false &&
-      <div className="row justify-content-lg-center justify-content-md-center justify-content-sm-center">
+      <div className="leftPanel">
         <div className="col-md-auto col-lg-auto col-sm-auto  a-box-inner  col-md-4 col-lg-4 col-sm-4">
             {error!=null &&
       <AlertMessage type="danger" heading="" message={error} />
     } 
-            <h2>Create account</h2>
+    <div className="logohere">
+                <a href="" title="logo"><img height="20" width="99"  src={logo} alt="image" /></a>
+            </div>
+            <h2>Registration</h2>
             <form name="form" onSubmit={this.handleSubmit}>
-                <div className={'form-group' + (submitted && !user.name ? ' has-error' : '')}>
-                    <label htmlFor="name">Name</label>
-                    <input type="text" className="form-control" name="name" value={user.name} onBlur={this.handleChange} onChange={this.handleChange} ref={this.name} />
+                <div className={'form-input' + (submitted && !user.name ? ' has-error' : '')}>
+                    <label>
+                    <input required type="text" className="form-control" name="name" value={user.name} onBlur={this.handleChange} onChange={this.handleChange} ref={this.name} />
+                    <span className="placeholder">Name</span>
                     {errors.name!='' &&
                         <div className="help-block"> {errors.name}</div>
-                    }
+                    }</label>
                 </div>
-                <div className={'form-group' + (submitted && !user.email ? ' has-error' : '')}>
-                    <label htmlFor="email">Email</label>
-                    <input type="text" className="form-control" name="email" value={user.email} onChange={this.handleChange} onBlur={this.handleChange} ref={this.email}/>
+                <div className={'form-input' + (submitted && !user.email ? ' has-error' : '')}>
+                    <label>
+                    <input required type="text" className="form-control" name="email" value={user.email} onChange={this.handleChange} onBlur={this.handleChange} ref={this.email}/>
+                    <span className="placeholder">Email</span>
                     {errors.email!='' &&
                         <div className="help-block"> {errors.email}</div>
-                    }
+                    }</label>
                 </div>
-                <div className={'form-group' + (submitted && !user.verifyemail ? ' has-error' : '')}>
-                    <label htmlFor="verifyemail">Verify Email</label>
-                    <input type="text" className="form-control" name="verifyemail" value={user.verifyemail} onChange={this.handleChange} onBlur={this.handleChange} ref={this.verifyemail}/>
+                <div className={'form-input' + (submitted && !user.verifyemail ? ' has-error' : '')}>
+                    <label>
+                    <input required type="text" className="form-control" name="verifyemail" value={user.verifyemail} onChange={this.handleChange} onBlur={this.handleChange} ref={this.verifyemail}/>
+                    <span className="placeholder">Verify Email</span>
                     {errors.verifyemail!='' &&
                         <div className="help-block"> {errors.verifyemail}</div>
                     }
+                    </label>
                 </div>
-                <div className={'form-group' + (submitted && !user.password ? ' has-error' : '')}>
-                    <label htmlFor="password">Password</label>
-                    <input type="password" className="form-control" name="password" value={user.password} onChange={this.handleChange} onBlur={this.handleChange} ref={this.password}/>
+                <div className={'form-input' + (submitted && !user.password ? ' has-error' : '')}>
+                    <label>
+                    <input required type="password" className="form-control" name="password" value={user.password} onChange={this.handleChange} onBlur={this.handleChange} ref={this.password}/>
+                    <span className="placeholder">Password</span>
                     {errors.password!='' &&
                         <div className="help-block"> {errors.password}</div>
                     }
+                    </label>
                 </div>
-                <div className={'form-group' + (submitted && !user.confirmpassword ? ' has-error' : '')}>
-                    <label htmlFor="confirmpassword">Confirm Password</label>
-                    <input type="password" className="form-control" name="confirmpassword" value={user.confirmpassword} onChange={this.handleChange} onBlur={this.handleChange} ref={this.confirmpassword}/>
+                <div className={'form-input' + (submitted && !user.confirmpassword ? ' has-error' : '')}>
+                    <label>
+                    <input required type="password" className="form-control" name="confirmpassword" value={user.confirmpassword} onChange={this.handleChange} onBlur={this.handleChange} ref={this.confirmpassword}/>
+                    <span className="placeholder">Confirm Password</span>
                     {errors.confirmpassword!='' &&
                         <div className="help-block"> {errors.confirmpassword}</div>
                     }
+                    </label>
                 </div>
-                <div className={'form-group' + (submitted && !user.mobile ? ' has-error' : '')}>
-                    <label htmlFor="mobile">Mobile No<small>(optional)</small></label>
-                    <input type="text" className="form-control" name="mobile" value={user.mobile} onChange={this.handleChange} onBlur={this.handleChange} ref={this.mobile}/>
+
+                <div className={'form-input' + (submitted && !user.mobile ? ' has-error' : '')}>
+                    <label>
+                    <input required type="text" className="form-control" name="mobile" value={user.mobile} onChange={this.handleChange} onBlur={this.handleChange} ref={this.mobile}/>
+                    <span className="placeholder">Mobile No.<i>(optional)</i></span>
                     {errors.mobile!='' &&
                         <div className="help-block"> {errors.mobile}</div>
                     }
+                    </label>
                 </div>
-                <div className="a-row">
-<input type="checkbox" onClick={() => this.validateInput(this.t_c.current.name, this.t_c.current.value, "blur")} name='t_c' id='t_c' value="1"  ref={this.t_c}/>&nbsp;&nbsp;
-          I accept <a  onClick={() => this.setState({ lgShow: true })}>terms and conditions & privacy policy</a>
-          {errors.t_c!='' &&
-                        <div className="help-block"> {errors.t_c}</div>
+                <label className="pure-material-checkbox">
+                    <input type="checkbox" onClick={() => this.validateInput(this.t_c.current.name, this.t_c.current.value, "blur")} name='t_c' id='t_c' value="1"  ref={this.t_c}/>
+                    <span>I Accept  <a  onClick={() => this.setState({ lgShow: true })}>terms and conditions & privacy policy</a></span>
+                    {errors.t_c!='' &&
+                        <div className="help-block-terms"> {errors.t_c}</div>
                     }
-            </div>
+                </label>
+                <button className="buttonLogin">Register</button>
                 <Modal size="lg" show={this.state.lgShow} onHide={lgClose} aria-labelledby="example-modal-sizes-title-lg"
         >
           <Modal.Header closeButton>
@@ -222,24 +242,24 @@ class Signup extends Component {
           <Modal.Body>Terms and Conditions & privacy policy...</Modal.Body>
         </Modal>
 
-                <div className="form-group">
-                    <button className="col-md-12 btn btn-blue btn-ask-pro-det">Create your account</button>
-                    {fetching && 
-                        <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                    }
-                    
-                </div>
+              
             </form>
-            <div className="a-divider-inner"></div>
-            <div className="a-row">
-          Already have an account?
-          <NavLink to="/signin" className='login-anchor'>Sign in</NavLink>
-        </div>
+            
+           
+
             </div>
 
         </div>
 
       }
+<div className="rightPanel"><img src={loginimage} alt="login"/>
+            <div className="textholder">
+                <div className="title">Welcome to Family</div>
+                <p>A workspace to over 12 Million influencers around the globe.</p>
+            </div>
+        </div>
+      </main>
+      <div className="loginHolder">Already have an account? <NavLink to="/signin" className='login-anchor'>Login to your account.</NavLink></div>
         </div>
       
     );

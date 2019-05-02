@@ -27,6 +27,7 @@ const registerAction = (user, cartItems) => {
 	    name: user.name,
 	    email: user.email,
 	    password: user.password,
+      mobile: user.mobile,
       cartItems:cartItems
 	  })
     .then(res => {

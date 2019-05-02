@@ -20,7 +20,7 @@ export const renderRoutes = () => {
   return (
     <div>
       <Switch>
-        <Route exact path="/" render={ props => <AppRoute Component={Home} Layout={AppContainer} props={props} /> } />
+        
         <Route exact path="/register" render={ props => <AppRoute Component={Signup} Layout={MinimumContainer} props={props} /> } />
         <Route exact path="/signin" render={ props => <AppRoute Component={Signin} Layout={MinimumContainer} props={props} /> } />
         <Route exact path="/verification" render={ props => <AppRoute Component={Verification} Layout={MinimumContainer} props={props} /> } />
@@ -28,6 +28,7 @@ export const renderRoutes = () => {
         <Route exact path="/product/wishlist" render={ props => <AppRoute Component={Wishlist} Layout={AppContainer} props={props} type={'wishlist'} /> } />
         <Route exact path="/product/cart" render={ props => <AppRoute Component={Cart} Layout={AppContainer} props={props} type={'cart'} /> } />
         <Route exact path="/product/checkout" render={ props => <AppRoute Component={Checkout} Layout={AppContainer} props={props} type={'checkout'} /> } />
+        <Route exact path="/:userName" render={ props => <AppRoute Component={Home} Layout={AppContainer} props={props} /> } />
       </Switch>
     </div>
   )

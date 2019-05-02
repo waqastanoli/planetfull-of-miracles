@@ -5,7 +5,10 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import Action from '../actions/accountActions';
 // image
-import logo from '../public/images/logo.png';
+import logo from '../public/jocallio/image/logo.png';
+
+import small_profile_img from '../public/jocallio/image/small_profile.png';
+
 // sub components
 import Checkout from './header/Checkout';
 import HeaderNav from './header/HomeBreadCrumbs';
@@ -36,82 +39,40 @@ class Header extends Component {
   render() {
     const { cartItems, auth } = this.props;
     if(auth.isAuthenticated){
-      var helloname = "Hello "+auth.user.name;
+      var helloname = auth.user.name;
     }
     
     return (
-      <header className="header-wrap_abm">
-        <div className='top-nav-wrp'>
-          <div className="container">
-            <div className="row">
-              <div className="col-sm-6">
-                {/*<select className='lang-op'>
-                                  <option value="En">En</option>
-                                  <option value="Fr" >Fr</option>
-                                </select>*/}
-                {/*<select className='curren-op'>
-                                  <option>$USD</option>
-                                  <option>$CAD</option>
-                                </select> */}
-              </div>
-              <div className="col-sm-6 h_top-lks-wrp">
-                { !auth.isAuthenticated &&
-                <NavDropdown title="Accounts" id="collasible-nav-dropdown" className="top-lks">
-                  <NavDropdown.Item onClick={() => this.props.history.push('signin')}>Sign in</NavDropdown.Item>
-                  <NavDropdown.Item onClick={() => this.props.history.push('register')}>Sign up</NavDropdown.Item>
-                </NavDropdown>
-              }
-              { auth.isAuthenticated &&
-                  <NavDropdown title={helloname} id="collasible-nav-dropdown" className="top-lks">
-                  <NavDropdown.Item href="#">My Account</NavDropdown.Item>
-                  {/*<NavDropdown.Item href="#">My Orders</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => this.props.history.push('/product/wishlist')}>My Wishlist</NavDropdown.Item>*/}
-                  <NavDropdown.Item href="#" onClick={this.onLogout.bind(this)}>Logout</NavDropdown.Item>
-                </NavDropdown>
-              }
-                <NavLink to="/product/cart" className='top-lks'>MY CART <span className='cart-items'>{cartItems.cartItems.length}</span></NavLink>
-                
-              </div>
+      
+    <header>
+        <div className="main clearfix">
+            <div className="logo">
+                <a href="#" title="JocialIO">
+                    <img src={logo} alt="JocialIO" />
+                </a>
             </div>
-          </div>
+            <div className="search">
+                <span className="sprite iconsearch"></span>
+                <input type="Search" value="" placeholder="Search" name="hello" />
+            </div>
+            <div className="fright">
+                <div className="buttonHolder inline-block">
+                    <button className="button" id="myBtn">how it works</button>
+                </div>
+                <div className="login inline-block">
+                    <div className="imageHolder inline-block"><img src={small_profile_img} alt="image"/></div>
+                   
+                    
+                { auth.isAuthenticated &&
+                  <NavDropdown title={helloname} id="collasible-nav-dropdown" className="profile_name">
+                  <NavDropdown.Item href="#">My Account</NavDropdown.Item>
+                    <NavDropdown.Item href="#" onClick={this.onLogout.bind(this)}>Logout</NavDropdown.Item>
+                </NavDropdown>
+              }
+                </div>
+            </div>
         </div>
-        <nav className="navbar navbar-expand-lg navbar-light">
-				  <div className="container">
-            <NavLink to='/' className="navbar-brand" ><img className='logo_image' src={logo} /></NavLink>
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-					    <span className="navbar-toggler-icon"></span>
-					  </button>
-            <div className="collapse navbar-collapse float-right" id="navbarSupportedContent">
-					    <ul className="navbar-nav">
-                <li className='nav-item'>
-                  <NavLink to='/' className="nav-link active" title="Landing Pages">All product</NavLink>
-                </li>
-                <li className='nav-item'>
-                  <a className="nav-link" href="#" title="Elements">About</a>
-                </li>
-                <li className='nav-item'>
-                  <a className="nav-link" href="#" title="Contact">Solution</a>
-                </li>
-                <li className='nav-item'>
-                  <a className="nav-link" href="#" title="Buy Now">News</a>
-                </li> 
-                <li className='nav-item'>
-                  <a className="nav-link" href="#" title="Buy Now">Careers</a>
-                </li> 
-                <li className='nav-item'>
-                  <a className="nav-link" href="#" title="Buy Now">Contact</a>
-                </li> 
-                <li className='nav-item nav-item-src'>
-                  <i className='fa fa-search'></i>
-                </li> 
-					    </ul> 
-					  </div>
-          </div>
-        </nav>
-        {
-          this.NavHandle()
-        }
-      </header>
+    </header>
     )
   }
 }
