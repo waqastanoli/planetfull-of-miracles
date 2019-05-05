@@ -3,8 +3,78 @@ import Token from '../models/Token';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
+var formidable = require('formidable');
+var fs = require('fs');
 import sendVerificationEmail  from '../lib/SendGridEmailHelper';
+exports.updatesection = async(req,res,next) => {
+  const id = req.params.id;
 
+  const type = req.body.type;
+  console.log(type);
+  User.findOne({_id:id})
+    .then(user => {
+      // Verify and save the user
+      if(type=='current')
+      user.current_situation = req.body.value;
+      if(type=='future')
+      user.future_vision = req.body.value;
+      
+      user.save(function (err) {
+        if (err) { return res.status(500).send({ msg: err.message }); }
+      })
+      return res.send({status: true, msg: 'Saved successfully'});
+    })
+}
+exports.profilepic = async(req,res,next) => {
+   const id = req.params.id;
+   const pictype = req.params.type;
+   var form = new formidable.IncomingForm();
+    form.parse(req, function (err, fields, files) {
+      var oldpath = files.imageFiles.path;
+      var newpath = 'dist/public/'+id+'/'+pictype+'/' + files.imageFiles.name;
+      var pubpath = 'public/'+pictype+'/'+id+'/'+ files.imageFiles.name;
+      var userdir = 'dist/public/'+id;
+
+      if (!fs.existsSync(userdir)){
+        fs.mkdirSync(userdir);
+      }
+      userdir=userdir+'/'+pictype
+      if (!fs.existsSync(userdir)){
+        fs.mkdirSync(userdir);
+      }
+       // Read the file
+        fs.readFile(oldpath, function (err, data) {
+            if (err) throw err;
+            console.log('File read!');
+
+            // Write the file
+            fs.writeFile(newpath, data, function (err) {
+                if (err) throw err;
+                User.findOne({_id:id})
+                .then(user => {
+                  // Verify and save the user
+                  if(pictype=='profile')
+                  user.image = files.imageFiles.name;
+                  if(pictype=='cover')
+                  user.cover = files.imageFiles.name;
+                  
+                  user.save(function (err) {
+                    if (err) { return res.status(500).send({ msg: err.message }); }
+                  })
+                })
+                res.send([pubpath]);
+                res.end();
+                console.log('File written!');
+            });
+
+            // Delete the file
+            fs.unlink(oldpath, function (err) {
+                if (err) throw err;
+                console.log('File deleted!');
+            });
+        });
+ });
+}
 exports.create = async(req,res,next) => {
   try {
     
@@ -154,6 +224,38 @@ exports.login = async(req,res,next) => {
                         return res.send({status: false, error: 'Incorrect Password, please try again'});
                     }
                 });
+    });
+    
+  }
+  catch(err) {
+    return res.send({status: false, error: err.message});
+  }
+};
+exports.profile = async(req,res,next) => {
+  try {
+    const name = req.params.name;
+
+    User.findOne({name:name})
+        .then(user => {
+        if(!user) {
+            return res.send({status: false, error: 'User does not exist'});
+        }
+        var payload = {
+  id:user._id,          
+  name:user.name,
+  image:user.image,
+  cover:user.cover,
+  badge: null,
+  current_situation:user.current_situation,
+  future_vision:user.future_vision,
+  inspire:[],
+  aspire:[],
+  proud_chart:[],
+  serving_me:[],
+  serving_others:[],
+  suggestions_list: []
+};
+        return res.send({status: true, message: 'successfull', data: payload});
     });
     
   }

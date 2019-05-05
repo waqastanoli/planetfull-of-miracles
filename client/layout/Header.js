@@ -59,17 +59,26 @@ class Header extends Component {
                 <div className="buttonHolder inline-block">
                     <button className="button" id="myBtn">how it works</button>
                 </div>
-                <div className="login inline-block">
+                { !auth.isAuthenticated &&
+                   <div className="login inline-block">
+                <NavDropdown title="Accounts" id="collasible-nav-dropdown" className="profile_name">
+                  <NavDropdown.Item onClick={() => this.props.history.push('signin')}>Sign in</NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => this.props.history.push('register')}>Sign up</NavDropdown.Item>
+                </NavDropdown>
+                </div>
+              }
+                {auth.isAuthenticated && <div className="login inline-block">
                     <div className="imageHolder inline-block"><img src={small_profile_img} alt="image"/></div>
                    
                     
-                { auth.isAuthenticated &&
+                 
                   <NavDropdown title={helloname} id="collasible-nav-dropdown" className="profile_name">
                   <NavDropdown.Item href="#">My Account</NavDropdown.Item>
+                  <NavDropdown.Item href="#">Settings</NavDropdown.Item>
                     <NavDropdown.Item href="#" onClick={this.onLogout.bind(this)}>Logout</NavDropdown.Item>
                 </NavDropdown>
-              }
-                </div>
+              
+                </div>}
             </div>
         </div>
     </header>

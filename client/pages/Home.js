@@ -3,10 +3,14 @@ import { connect } from 'react-redux';
 import { css } from '@emotion/core';
 import { FadeLoader } from 'react-spinners';
 
-import Actions from '../actions/productsAction';
+//import Actions from '../actions/productsAction';
+import Actions from '../actions/profileActions';
 import Product from './home/Product';
 import Pagination from '../layout/Pagination';
 import SearchInput from '../layout/SearchInput';
+import placeholdercover from '../public/jocallio/image/placeholdercover.png';
+
+import profileplaceholder from '../public/jocallio/image/profileplaceholder.png';
 import resource_2 from '../public/jocallio/image/resource_2.png';
 import resource_1 from '../public/jocallio/image/resource_1.png';
 import resource_3 from '../public/jocallio/image/resource_3.png';
@@ -23,67 +27,113 @@ import slider_image_one from '../public/jocallio/image/slider_image_one.png';
 import slider_image_two from '../public/jocallio/image/slider_image_two.png';
 
 import small_profileL from '../public/jocallio/image/small_profileL.png';
+import ImagesUploader from 'react-images-uploader';
+import 'react-images-uploader/styles.css';
+import 'react-images-uploader/font.css';
 
+//import Popup from "reactjs-popup";
+import Popup from './Popup';
+import AlertMessage from '../layout/AlertMessage';
+import {Modal, Button, Alert} from 'react-bootstrap';
+import API_URL from '../config/API_URL';
+import EdiText from 'react-editext'
 const override = 'display: block;margin: 0 auto;border-color: red;';
 
 class Home extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-    }
+
+    const {  auth , match} =props;
+    var logged_in = false;
+    
+    if(auth && match.params.userName==auth.user.name)
+    logged_in = auth.isAuthenticated;
+    this.state = { modaltype:'',alert:false ,show: false, logged_in: logged_in }
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   componentDidMount() {
     this.setState({ search:'' })
-    const { dispatch } = this.props;
+    const { dispatch, match } = this.props;
     this.state.dispatch = dispatch;
-    dispatch(Actions.getProductsAction(this.props.products.page, this.props.products.perpage));
+
+    dispatch(Actions.getProfileAction(match.params.userName));
   }
-  gotoPage = (childstate) => {
-    
-    this.state.dispatch(Actions.getProductsAction(childstate.currentPage, childstate.pageLimit, this.state.search));
+  onSave = (type, val) => {
+    const { products, auth , match, fetched, profile, dispatch} = this.props;
+    dispatch(Actions.updateSection(profile.id, type, val));
+
   }
   search = (val) => {
     this.setState({ search:val })
     //console.log(this.props)
     const { dispatch } = this.props;
-    dispatch(Actions.getProductsAction(1, this.props.products.perpage, val));
+    //dispatch(Actions.getProductsAction(1, this.props.products.perpage, val));
   }
   searchProduct = (e) => {
 
     const { dispatch, products } = this.props;
     if(e.key === 'Enter') {
-      dispatch(Actions.searchProductAction(products, e.target.value));
+      //dispatch(Actions.searchProductAction(products, e.target.value));
     }
   }
   _handleKeyPress =(e)=>{
     const { dispatch, products } = this.props;
     if(e.key === 'Enter') {
       const { dispatch } = this.props;
-      dispatch(Actions.getProductsAction(1, this.props.products.perpage, e.target.value));
+      //dispatch(Actions.getProductsAction(1, this.props.products.perpage, e.target.value));
+    }
+  }
+  handleClose() {
+    this.setState({ show: false });
+  }
+
+  handleShow(type) {
+    const { auth } = this.props;
+
+     var logged_in = this.state.logged_in;
+     if(logged_in){
+      
+      this.setState({ modaltype:type, show: true });
+
     }
   }
   render() {
-    const { products } = this.props;
-    
-    this.state.page = this.props.products.page
-    
+    const { dispatch, products, auth , match, fetched, profile} = this.props;
+    const  logged_in = this.state.logged_in;
+    if(profile.image==null)
+    var profile_img=profileplaceholder;
+    else
+    var profile_img = API_URL.API_URL+'/public/'+profile.id+'/profile/'+profile.image;
+    if(profile.cover==null)
+    var cover_img = placeholdercover
+    else 
+    var cover_img = API_URL.API_URL+'/public/'+profile.id+'/cover/'+profile.cover;
+
     return (
-      <main className="main">
+
+      <main className={"main "+((logged_in)?'logged_in':'')}>
         
         <div className="topbanner">
             <div className="imagearea">
-                <img src={top_profile} alt="image" />
+                <img src={cover_img} alt="image" />
                 <div className="profileS">
-                    <div className="imageHolder">
-                        <img src={small_profileL} alt="image"/>
+                    <div className="imageHolder"  onClick={(e) => this.handleShow('profile', e)}>
+                        <img src={profile_img} alt="image"/>
+                        <div className="profile-text-block"> 
+    <p>Update</p>
+  </div>
                         <div className="iconholder"><span className="sprite"></span></div>
                     </div>
-                    <div className="name">Rachel Rose</div>
+
+                    <div className="name">{profile.name}</div>
+                    {logged_in && 
                     <div className="editcover">
-                        <a href="#" title="Edit Cover"> <span className="sprite icon"></span> Edit Cover</a>
+                        <a   onClick={(e) => this.handleShow('cover', e)} title="Edit Cover"> <span className="sprite icon"></span> Edit Cover</a>
                     </div>
+                    }
                 </div>
             </div>
             <div className="content">
@@ -127,7 +177,44 @@ class Home extends Component {
                 </ul>
             </div>
         </div>
+        
+                
 
+        <Modal show={this.state.show} onHide={this.handleClose} className="profile_image_popup">
+          <span className="close" onClick={this.handleClose}>close </span>
+          <Modal.Header>
+            <Modal.Title>Upload a Photo</Modal.Title>
+          </Modal.Header>
+          <Modal.Body><ImagesUploader
+                url={API_URL.API_URL+"/api/v1/users/pic/"+auth.user.id+'/'+this.state.modaltype}
+                optimisticPreviews
+                onLoadEnd={(err, img_res) => {
+                    if (err) {
+                        console.error(err);
+                    }
+                    if(img_res.length){
+                      if(this.state.modaltype=='profile')
+                      this.setState({ alert: {type:'success',heading:'',message:'Profile Image updated successfully'} });
+                      else
+                        this.setState({ alert: {type:'success',heading:'',message:'Cover Image updated successfully'} });
+                      setTimeout(function(){
+                        this.setState({alert:false});
+                    }.bind(this),5000);
+                      this.handleClose()
+                      var splited_res = img_res[0].split("/");
+                      //console.log(splited_res)
+                      if(this.state.modaltype=='profile')
+                        profile.image = splited_res[splited_res.length-1]
+                      else
+                        profile.cover = splited_res[splited_res.length-1]
+                    }
+                }}
+                label=""
+                multiple={false}
+                /></Modal.Body>
+          
+        </Modal>
+        { this.state.alert && <AlertMessage type={this.state.alert.type} heading={this.state.alert.heading} message={this.state.alert.message} />}
         <div className="clearfix holder">
             <div className="shadowbox SliderHolder">
                 <div className="topslider">
@@ -240,22 +327,49 @@ class Home extends Component {
             <div className="shadowbox CurrentLife">
               <h2>My Current Life </h2>
               <div className="scroll holder">
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-                <p>Perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
-              </div>
+              {!logged_in &&
+                profile.current_situation
+              }
+              {profile.name && logged_in && <EdiText
+  type='textarea'
+  inputProps={{
+    className: 'textarea',
+    placeholder: 'Add your current situation here',
+    style: {
+      outline: 'none',
+      minWidth: 'auto'
+    },
+    rows: 10
+  }}
+
+  value={profile.current_situation}
+   onSave={(e) => this.onSave('current', e)}
+/>}
+                     </div>
 
 
             </div>
             <div className="shadowbox FutureVision"><h2>My Future Vision</h2>
 
               <div className="scroll holder">
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-                <p>Perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
-                <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. </p>
+              {!logged_in &&
+                profile.future_vision
+              }
+                {profile.name && logged_in && <EdiText
+  type='textarea'
+  inputProps={{
+    className: 'textarea',
+    placeholder: 'Add your Future Vision here',
+    style: {
+      outline: 'none',
+      minWidth: 'auto'
+    },
+    rows: 10
+  }}
+
+  value={profile.future_vision}
+   onSave={(e) => this.onSave('future', e)}
+/>}
               </div>
             </div>
         </div>
@@ -583,6 +697,7 @@ class Home extends Component {
 
 export default connect(
   state => ({
-    products: state.products
+    profile: state.profile,
+    auth:state.auth
   })
 )(Home);

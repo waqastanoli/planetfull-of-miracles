@@ -6,7 +6,15 @@ const router = express.Router();
 router.route('/register')
   // POST
   .post( userController.create );
-
+router.route('/profile/:name')
+  // POST
+  .get( userController.profile ); 
+router.route('/pic/:id/:type')
+  // POST
+  .post( userController.profilepic );  
+router.route('/:id')
+  // POST
+  .put( userController.updatesection );  
 router.route('/signin')
   // POST
   .post( userController.login ); 

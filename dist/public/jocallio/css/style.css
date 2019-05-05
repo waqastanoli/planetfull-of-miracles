@@ -100,7 +100,7 @@ header .login .dropdown:before { border-width: 3px 3px 0 3px; top: 2px; border-c
 .topbanner .name { display: inline-block; vertical-align: 15px; margin-left: 28px; font-size: 22px; font-weight: 700; color: #fff; }
 .topbanner .editcover { width: 126px; height: 38px; transition: background .3s ease-in-out; background: rgba(0, 0, 0, .4); border-radius: 5px; float: right; margin-top: 22px; text-align: center; line-height: 38px; font-size: 14px; color: #fff; }
 .topbanner .editcover:hover { background: rgba(0, 0, 0, 1); }
-.topbanner .editcover a { color: #fff; display: block; }
+.topbanner .editcover a { cursor:pointer;color: #fff; display: block; }
 .topbanner .editcover a .icon { background-position: -51px -1px; width: 20px; height: 16px; vertical-align: -3px; margin-right: 6px; }
 .topbanner .content { box-shadow: inset 1px 0px 0px #eaedf3, 1px 0px 3px rgb(0, 0, 0, 0.2); border-radius: 0px 0px 5px 0px; padding: 18px 0 11px }
 .topbanner .content ul { width: 81%; margin-left: 130px; display: flex; flex-wrap: nowrap; justify-content: space-between; }
@@ -390,4 +390,29 @@ margin-top: 5px;
     border-right: .3em solid transparent;
     border-bottom: 0;
     border-left: .3em solid transparent;
+}
+.profile_name a{color: #9ea0a5}
+.logged_in .imageHolder:hover .profile-text-block{
+	display: block;
+	cursor: pointer;
+}
+.logged_in .profile-text-block {
+		display: none;
+      border-radius: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    color: white;
+    background-color: black;
+    opacity: 0.5;
+    height: 120px;
+    width: 120px;
+    text-align: center;
+}
+.profile-text-block p{
+	     margin-top: 50%;
+}
+.profile_image_popup .modal-content{background-color: white;}
+.CurrentLife .holder button{
+	padding: 0px;
 }

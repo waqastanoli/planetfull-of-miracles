@@ -137,7 +137,7 @@ class Signup extends Component {
   componentWillReceiveProps(nextProps) {
       if(nextProps.auth.isAuthenticated) {
           setTimeout(() => {
-             this.props.history.push('/')
+             this.props.history.push('/'+nextProps.account.account.name)
         }, 500);
       }
       if(nextProps.errors) {
