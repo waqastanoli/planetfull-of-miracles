@@ -49,9 +49,11 @@ class Home extends Component {
     
     if(auth && match.params.userName==auth.user.name)
     logged_in = auth.isAuthenticated;
-    this.state = { modaltype:'',alert:false ,show: false, logged_in: logged_in }
+    this.state = {proudshow: false, modaltype:'',alert:false ,show: false, logged_in: logged_in }
     this.handleShow = this.handleShow.bind(this);
+    this.proudhandleShow = this.proudhandleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
+  this.proudhandleClose = this.proudhandleClose.bind(this);
   }
 
   componentDidMount() {
@@ -89,7 +91,12 @@ class Home extends Component {
   handleClose() {
     this.setState({ show: false });
   }
-
+  proudhandleShow(){
+    this.setState({ proudshow: true });
+  }
+  proudhandleClose(){
+    this.setState({ proudshow: false });
+  }
   handleShow(type) {
     const { auth } = this.props;
 
@@ -203,8 +210,9 @@ class Home extends Component {
                       this.handleClose()
                       var splited_res = img_res[0].split("/");
                       //console.log(splited_res)
-                      if(this.state.modaltype=='profile')
+                      if(this.state.modaltype=='profile'){
                         profile.image = splited_res[splited_res.length-1]
+                      }
                       else
                         profile.cover = splited_res[splited_res.length-1]
                     }
@@ -440,10 +448,18 @@ class Home extends Component {
                     </li>
                   </ul></div>
               </div></section>
+        <Modal show={this.state.proudshow} className="proud_modal" onHide={this.proudhandleClose}>
+          <span className="close" onClick={this.proudhandleClose}>close </span>
+          <Modal.Header>
+            <Modal.Title>Add Proud</Modal.Title>
+          </Modal.Header>
+          <Modal.Body></Modal.Body>
+          
+        </Modal>      
         <section className="shadowbox Proud">
           <h2>P.R.O.U.D Chart</h2>
             <div className="sideBtn">
-              <div className="addButton"><a href="#" title="ADD"><span data-icon="plus"></span>ADD</a></div>
+              <div className="addButton"><a title="ADD" onClick={(e) => this.proudhandleShow('add', e)}><span data-icon="plus"></span>ADD</a></div>
               <div className="addButton"><a href="#" title="EDIT">EDIT</a></div>
             </div>
 

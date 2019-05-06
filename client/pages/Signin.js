@@ -111,7 +111,7 @@ class Signin extends Component {
     }
              
             <div className="logohere">
-                <a href="" title="logo"><img height="20" width="99"  src={logo} alt="image" /></a>
+                <a href="" title="logo"><img width="99"  src={logo} alt="image" /></a>
             </div>
             
             <h2>Login</h2>

@@ -167,7 +167,7 @@ class Signup extends Component {
       <AlertMessage type="danger" heading="" message={error} />
     } 
     <div className="logohere">
-                <a href="" title="logo"><img height="20" width="99"  src={logo} alt="image" /></a>
+                <a href="" title="logo"><img width="99"  src={logo} alt="image" /></a>
             </div>
             <h2>Registration</h2>
             <form name="form" onSubmit={this.handleSubmit}>

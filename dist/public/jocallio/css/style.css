@@ -423,3 +423,5 @@ margin-top: 5px;
 .styles_Editext__buttons_container__1kphL button{
 	padding: 0px;
 }
+.addButton{ cursor: pointer; }
+.proud_modal .modal-content{ background-color: white; }
