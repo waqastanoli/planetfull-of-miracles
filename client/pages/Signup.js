@@ -217,7 +217,7 @@ class Signup extends Component {
 
                 <div className={'form-input' + (submitted && !user.mobile ? ' has-error' : '')}>
                     <label>
-                    <input required type="text" className="form-control" name="mobile" value={user.mobile} onChange={this.handleChange} onBlur={this.handleChange} ref={this.mobile}/>
+                    <input type="text" className="form-control" name="mobile" value={user.mobile} onChange={this.handleChange} onBlur={this.handleChange} ref={this.mobile}/>
                     <span className="placeholder">Mobile No.<i>(optional)</i></span>
                     {errors.mobile!='' &&
                         <div className="help-block"> {errors.mobile}</div>

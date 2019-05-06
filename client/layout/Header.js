@@ -53,7 +53,7 @@ class Header extends Component {
             </div>
             <div className="search">
                 <span className="sprite iconsearch"></span>
-                <input type="Search" value="" placeholder="Search" name="hello" />
+                <input type="Search" placeholder="Search" name="hello" />
             </div>
             <div className="fright">
                 <div className="buttonHolder inline-block">

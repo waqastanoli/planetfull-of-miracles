@@ -342,7 +342,7 @@ class Home extends Component {
     rows: 10
   }}
 
-  value={profile.current_situation}
+  value={(profile.current_situation)?profile.current_situation:''}
    onSave={(e) => this.onSave('current', e)}
 />}
                      </div>
@@ -367,7 +367,7 @@ class Home extends Component {
     rows: 10
   }}
 
-  value={profile.future_vision}
+  value={(profile.future_vision)?profile.future_vision:''}
    onSave={(e) => this.onSave('future', e)}
 />}
               </div>
@@ -493,7 +493,7 @@ class Home extends Component {
              Sort by : 
             <div className="styled-select">
              <select>
-               <option selected="">Current</option>
+               <option>Current</option>
                <option>Current y</option>
                <option>Current n</option>
              </select>

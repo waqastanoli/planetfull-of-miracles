@@ -8,7 +8,7 @@ export default class Footer extends Component {
       <div id="myModal" className="modal">
         <div className="modal-content">
           <span className="close">close </span>
-          <iframe width="640" height="360" src="https://www.youtube.com/embed/TmerVCmPgA0" frameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe width="640" height="360" src="https://www.youtube.com/embed/TmerVCmPgA0" frameBorder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
         </div>
       </div>
       </div>

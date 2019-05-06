@@ -79,7 +79,8 @@ button:hover { opacity: .7; }
 
 /* Header CSS */
 header { height: 38px; padding: 16px 0; background: #fff; box-shadow: 1px 0px 0px #eaedf3; }
-header .logo { float: left; border-right: solid 1px #eaedf3; padding: 9px 30px 9px 0; }
+header .logo { float: left; border-right: solid 1px #eaedf3; padding: 9px 30px 9px 0; padding-top: 0px;
+    padding-bottom: 0px;}
 header .search { float: left; margin-left: 30px; margin-top: 8px; }
 header .search .iconsearch { height: 20px; width: 20px; background-position: -3px -29px; }
 header .search input[type="search"] { vertical-align: middle; border: none; margin-left: 8px; height: 20px; width: 150px; color: #9ea0a5; font-size: 14px; }
@@ -413,6 +414,12 @@ margin-top: 5px;
 	     margin-top: 50%;
 }
 .profile_image_popup .modal-content{background-color: white;}
-.CurrentLife .holder button{
+.styles_Editext__buttons_container__1kphL{
+	position: absolute;
+	right: 22px;
+    top: 3px;
+}
+.holder textarea{width: 100%;}
+.styles_Editext__buttons_container__1kphL button{
 	padding: 0px;
 }
