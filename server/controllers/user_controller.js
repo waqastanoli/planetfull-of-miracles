@@ -124,6 +124,7 @@ exports.create = async(req,res,next) => {
           const payload = {
               id: newUser.id,
               name: newUser.name,
+              image: newUser.image,
               email: newUser.email,
               cartItems: newUser.cartItems
           }
@@ -173,6 +174,7 @@ exports.confirm = async(req,res,next) => {
                     id: user.id,
                     name: user.name,
                     email: user.email,
+                    image: user.image,
                     cartItems: user.cartItems
                 }
                 jwt.sign(payload, 'secret', {
@@ -208,6 +210,7 @@ exports.login = async(req,res,next) => {
                         const payload = {
                             id: user.id,
                             name: user.name,
+                            image: user.image,
                             email: user.email,
                             cartItems: user.cartItems
                         }

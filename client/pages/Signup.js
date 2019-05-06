@@ -131,14 +131,14 @@ class Signup extends Component {
   }
   componentDidMount() {
       if(this.props.auth.isAuthenticated) {
-          this.props.history.push('/'+nextProps.account.account.name)
+          this.props.history.push('/'+this.props.auth.user.name);
       }
   }
   componentWillReceiveProps(nextProps) {
       if(nextProps.auth.isAuthenticated) {
-          setTimeout(() => {
-             this.props.history.push('/'+nextProps.account.account.name)
-        }, 500);
+
+             this.props.history.push('/'+nextProps.auth.user.name)
+
       }
       if(nextProps.errors) {
         this.setState({

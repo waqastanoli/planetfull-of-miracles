@@ -20,7 +20,7 @@ export const renderRoutes = () => {
   return (
     <div>
       <Switch>
-        
+        <Route exact path="/" render={ props => <AppRoute Component={Signin} Layout={MinimumContainer} props={props} /> } />
         <Route exact path="/register" render={ props => <AppRoute Component={Signup} Layout={MinimumContainer} props={props} /> } />
         <Route exact path="/signin" render={ props => <AppRoute Component={Signin} Layout={MinimumContainer} props={props} /> } />
         <Route exact path="/verification" render={ props => <AppRoute Component={Verification} Layout={MinimumContainer} props={props} /> } />

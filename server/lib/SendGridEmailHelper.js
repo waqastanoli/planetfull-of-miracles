@@ -1,6 +1,6 @@
 const sendGrid = require('sendgrid').mail;
 const sg = require('sendgrid')('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');
-
+import API_URL from '../../client/config/API_URL';
 module.exports = (req, to, token) => {
     const hostUrl = process.env.hostURL;
     const request = sg.emptyRequest({
@@ -23,7 +23,7 @@ module.exports = (req, to, token) => {
         content: [
       {
         type: 'text/plain',
-        value: `Click on this link to verify your email ${req.protocol + '://' + req.get('host')}/verification?token=${token}&email=${to}`
+        value: `Click on this link to verify your email ${API_URL.API_URL}/verification?token=${token}&email=${to}`
       }
     ]
       }

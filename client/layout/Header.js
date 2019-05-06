@@ -6,9 +6,9 @@ import _ from 'lodash';
 import Action from '../actions/accountActions';
 // image
 import logo from '../public/jocallio/image/logo.png';
-
+import API_URL from '../config/API_URL';
 import small_profile_img from '../public/jocallio/image/small_profile.png';
-
+import profileplaceholder from '../public/jocallio/image/profileplaceholder.png';
 // sub components
 import Checkout from './header/Checkout';
 import HeaderNav from './header/HomeBreadCrumbs';
@@ -37,10 +37,15 @@ class Header extends Component {
       dispatch(Action.logoutUser(this.props.history));
   }
   render() {
-    const { cartItems, auth } = this.props;
+    const { cartItems, auth, profile } = this.props;
     if(auth.isAuthenticated){
       var helloname = auth.user.name;
     }
+    console.log(profile);
+    if(auth.user.image==null)
+    var profile_img=profileplaceholder;
+    else
+    var profile_img = API_URL.API_URL+'/public/'+auth.user.id+'/profile/'+auth.user.image;
     
     return (
       
@@ -68,7 +73,7 @@ class Header extends Component {
                 </div>
               }
                 {auth.isAuthenticated && <div className="login inline-block">
-                    <div className="imageHolder inline-block"><img src={small_profile_img} alt="image"/></div>
+                    <div className="imageHolder inline-block"><img src={profile_img} alt="image"/></div>
                    
                     
                  
@@ -88,7 +93,7 @@ class Header extends Component {
 
 export default connect(
   state => ({
-    cartItems: state.cartItems,
+    profile: state.profile,
     auth:state.auth
   })
 )(withRouter(Header));
