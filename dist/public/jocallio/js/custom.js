@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  window.loadsliderscripts=function(){
   $('#oneslider').slick({
   	arrows:false,
   	autoplay: true,
@@ -15,7 +16,7 @@ $(document).ready(function(){
 });
 
   
-  $('.TabFirst').tabslet();
+  //$('.TabFirst').tabslet();
   $('.TabSecond').tabslet();
   
 // Get the modal
@@ -38,6 +39,7 @@ window.onclick = function(event) {
     modal.style.display = "none";
     body.classList.remove("hidden");
   }
+}
 }
 });
 

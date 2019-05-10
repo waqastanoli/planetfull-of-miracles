@@ -41,7 +41,7 @@ class Header extends Component {
     if(auth.isAuthenticated){
       var helloname = auth.user.name;
     }
-    console.log(profile);
+    
     if(auth.user.image==null)
     var profile_img=profileplaceholder;
     else
@@ -78,7 +78,7 @@ class Header extends Component {
                     
                  
                   <NavDropdown title={helloname} id="collasible-nav-dropdown" className="profile_name">
-                  <NavDropdown.Item href="#">My Account</NavDropdown.Item>
+                  <NavDropdown.Item href={helloname} >My Account</NavDropdown.Item>
                   <NavDropdown.Item href="#">Settings</NavDropdown.Item>
                     <NavDropdown.Item href="#" onClick={this.onLogout.bind(this)}>Logout</NavDropdown.Item>
                 </NavDropdown>

@@ -1,5 +1,6 @@
 import User from '../models/users';
 import Token from '../models/Token';
+import Prouds from '../models/prouds';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
@@ -129,7 +130,7 @@ exports.create = async(req,res,next) => {
               cartItems: newUser.cartItems
           }
           jwt.sign(payload, 'secret', {
-              expiresIn: 3600
+              expiresIn: 7200
           }, (err, token) => {
               if(err) console.error('There is some error in token', err);
               else {
@@ -178,7 +179,7 @@ exports.confirm = async(req,res,next) => {
                     cartItems: user.cartItems
                 }
                 jwt.sign(payload, 'secret', {
-                    expiresIn: 3600
+                    expiresIn: 7200
                 }, (err, token) => {
                     if(err) console.error('There is some error in token', err);
                     else {
@@ -215,7 +216,7 @@ exports.login = async(req,res,next) => {
                             cartItems: user.cartItems
                         }
                         jwt.sign(payload, 'secret', {
-                            expiresIn: 3600
+                            expiresIn: 7200
                         }, (err, token) => {
                             if(err) console.error('There is some error in token', err);
                             else {
@@ -234,6 +235,30 @@ exports.login = async(req,res,next) => {
     return res.send({status: false, error: err.message});
   }
 };
+exports.updateproud = async(req,res,next) => {
+
+  var proud_id = req.body.id;
+  if(proud_id==null){
+      const newProud = await Prouds.create(
+            {
+              _userId:req.body.user_id,
+              title:req.body.title,
+              note:req.body.note
+            }
+          );
+      return res.send({status: true, msg: 'Proud Saved successfully', Proud: newProud});
+  } else {
+    Prouds.findOne({ _id: proud_id }, function (err, proud) {
+        proud.title = req.body.title;
+        proud.note = req.body.note;
+        proud.save(function (err) {
+            if (err) { return res.status(500).send({ msg: err.message }); }
+            return res.send({status: true, msg: 'Proud Saved successfully', Proud: proud});
+        });
+    });
+  }
+  
+}
 exports.profile = async(req,res,next) => {
   try {
     const name = req.params.name;
@@ -243,22 +268,28 @@ exports.profile = async(req,res,next) => {
         if(!user) {
             return res.send({status: false, error: 'User does not exist'});
         }
-        var payload = {
-  id:user._id,          
-  name:user.name,
-  image:user.image,
-  cover:user.cover,
-  badge: null,
-  current_situation:user.current_situation,
-  future_vision:user.future_vision,
-  inspire:[],
-  aspire:[],
-  proud_chart:[],
-  serving_me:[],
-  serving_others:[],
-  suggestions_list: []
-};
+        
+        Prouds.find({_userId:user._id})
+        .then(prouds => {
+
+            var payload = {
+              id:user._id,          
+              name:user.name,
+              image:user.image,
+              cover:user.cover,
+              badge: null,
+              current_situation:user.current_situation,
+              future_vision:user.future_vision,
+              inspire:[],
+              aspire:[],
+              proud_chart:prouds,
+              serving_me:[],
+              serving_others:[],
+              suggestions_list: []
+            };
         return res.send({status: true, message: 'successfull', data: payload});
+        })
+        
     });
     
   }

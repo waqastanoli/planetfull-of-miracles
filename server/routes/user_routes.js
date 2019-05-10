@@ -6,6 +6,13 @@ const router = express.Router();
 router.route('/register')
   // POST
   .post( userController.create );
+router.route('/updateproud')
+  // POST
+  .post( userController.updateproud );  
+router.route('/updatetopic')
+  // POST
+  .post( userController.updatetopic );  
+  
 router.route('/profile/:name')
   // POST
   .get( userController.profile ); 

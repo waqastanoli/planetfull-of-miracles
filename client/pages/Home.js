@@ -8,7 +8,7 @@ import Actions from '../actions/profileActions';
 import Product from './home/Product';
 import Pagination from '../layout/Pagination';
 import SearchInput from '../layout/SearchInput';
-import placeholdercover from '../public/jocallio/image/placeholdercover.png';
+import placeholdercover from '../public/jocallio/image/placeholdercover.jpg';
 
 import profileplaceholder from '../public/jocallio/image/profileplaceholder.png';
 import resource_2 from '../public/jocallio/image/resource_2.png';
@@ -36,7 +36,8 @@ import Popup from './Popup';
 import AlertMessage from '../layout/AlertMessage';
 import {Modal, Button, Alert} from 'react-bootstrap';
 import API_URL from '../config/API_URL';
-import EdiText from 'react-editext'
+import EdiText from 'react-editext';
+import Moment from 'react-moment';
 const override = 'display: block;margin: 0 auto;border-color: red;';
 
 class Home extends Component {
@@ -49,14 +50,55 @@ class Home extends Component {
     
     if(auth && match.params.userName==auth.user.name)
     logged_in = auth.isAuthenticated;
-    this.state = {proudshow: false, modaltype:'',alert:false ,show: false, logged_in: logged_in }
+    this.state = {
+      proud: {
+        title: '',
+        note:'',
+      },
+      topic: {
+        text: '',
+        type:'inspire'
+      },
+      actions:{
+        proud:'Add',
+        id:null,
+      },
+      proudshow: false, 
+      topicshow: false,
+      modaltype:'',
+      alert:false ,
+      show: false, 
+      logged_in: logged_in,
+      errors:{
+        title:'',
+        note: '',
+      }
+    }
     this.handleShow = this.handleShow.bind(this);
     this.proudhandleShow = this.proudhandleShow.bind(this);
+    this.topichandleShow = this.topichandleShow.bind(this);
+    this.updatetopichandle = this.updatetopichandle.bind(this);
+    this.topichandleClose = this.topichandleClose.bind(this);
     this.handleClose = this.handleClose.bind(this);
-  this.proudhandleClose = this.proudhandleClose.bind(this);
+    this.proudhandleClose = this.proudhandleClose.bind(this);
+    this.proudhandleSave = this.proudhandleSave.bind(this);
+    this.topichandleSave = this.topichandleSave.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    
+    this.title = React.createRef();
+    this.note = React.createRef();
+    this.text = React.createRef();
+
   }
 
   componentDidMount() {
+    $( window ).on("load", function() {
+    if (typeof loadsliderscripts === 'function')
+      loadsliderscripts()
+
+  })
+    if (typeof loadsliderscripts === 'function')
+    loadsliderscripts()
     this.setState({ search:'' })
     const { dispatch, match } = this.props;
     this.state.dispatch = dispatch;
@@ -91,11 +133,114 @@ class Home extends Component {
   handleClose() {
     this.setState({ show: false });
   }
-  proudhandleShow(){
+  proudhandleShow(type, editproud){
+    const { proud, actions } = this.state;
+    if(type=='edit'){  
+      this.setState({
+          actions:{proud:'Edit',id:editproud._id},
+          proud: editproud
+      });
+    } else {
+      this.setState({
+          actions:{proud:'Add',id:null},
+          proud: {
+          title: '',
+          note:''
+        }
+      });
+    }
     this.setState({ proudshow: true });
+  }
+  updatetopichandle(type){
+
+    const { topic } = this.state;
+    topic.type = type;
+    this.setState({ topic: topic });
+  }
+  topichandleShow(type, edittopic){
+
+    const { proud, actions, topic } = this.state;
+
+    if(type=='edit'){
+      actions.topic= 'Edit';
+      actions.id= edittopic._id; 
+      this.setState({
+          actions:actions,
+          topic: edittopic
+      });
+    } else {
+      actions.topic= 'Add';
+      actions.id= null;
+      this.setState({
+          actions:actions,
+          topic: {
+          text: '',
+          type:topic.type
+        }
+      });
+    }
+
+    this.setState({ topicshow: true });
+  }
+  topichandleClose(){
+    this.setState({ topicshow: false });
   }
   proudhandleClose(){
     this.setState({ proudshow: false });
+  }
+  proudhandleSave(){
+    const { dispatch, match, profile } = this.props;
+    const {actions} = this.state;
+    this.validateInput(this.title.current.name, this.title.current.value, 'blur');
+    this.validateInput(this.note.current.name, this.note.current.value, 'blur');
+    const { errors } = this.state;
+     if (errors.note=='' && errors.title=='') {
+      dispatch(Actions.updateproud(profile.id,this.note.current.value,this.title.current.value,actions.id));
+      this.proudhandleClose();
+     }
+  }
+  topichandleSave(){
+    const { dispatch, match, profile } = this.props;
+    const {actions} = this.state;
+    this.validateInput(this.text.current.name, this.text.current.value, 'blur');
+    const { errors } = this.state;
+     if (errors.text=='') {
+      dispatch(Actions.updatetopic(profile.id,this.text.current.value,actions.id));
+      this.topichandleClose();
+     }
+  }
+  handleChange(event) {
+      const { name, value } = event.target;
+      this.validateInput(name, value, event.type);
+      const { proud, topic } = this.state;
+      this.setState({
+          proud: {
+              ...proud,
+              [name]: value
+          },
+          topic: {
+              ...topic,
+              [name]: value
+          }
+      });
+  }
+  validateInput(name, value, type){
+    var error='';
+    switch(name){
+      case 'title':
+        error=(value=='')?"Title is required":'';
+      break;
+      case 'note':
+        error=(value=='')?"Note is required":'';
+      break;
+      case 'text':
+        error=(value=='')?"text is required":'';
+      break;
+    }
+    
+    const { errors } = this.state;
+    errors[name] = error
+    this.setState({errors,errors});
   }
   handleShow(type) {
     const { auth } = this.props;
@@ -109,7 +254,7 @@ class Home extends Component {
   }
   render() {
     const { dispatch, products, auth , match, fetched, profile} = this.props;
-    const  logged_in = this.state.logged_in;
+    const  {logged_in ,errors, proud, topic, actions} = this.state;
     if(profile.image==null)
     var profile_img=profileplaceholder;
     else
@@ -385,15 +530,40 @@ class Home extends Component {
 
 
         <div className="clearfix">
-        
+        <Modal show={this.state.topicshow} className="proud_modal" onHide={this.topichandleClose}>
+          <span className="close" onClick={this.topichandleClose}>close </span>
+          <Modal.Header>
+            <Modal.Title><h2>{actions.topic} {topic.type} Topic</h2></Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div className={'form-input' + (errors.text ? ' has-error' : '')}>
+              <label>
+                <input value={topic.text} onChange={this.handleChange} onBlur={this.handleChange} name="text" ref={this.text} type="text" required name="text"/>
+                <span className="placeholder">Text</span>
+                {errors.text!='' &&
+                          <div className="help-block"> {errors.text}</div>
+                      }
+              </label>
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+    <Button variant="secondary" onClick={this.topichandleClose}>Close</Button>&nbsp;&nbsp;
+    <Button variant="primary" onClick={this.topichandleSave}>Save</Button>
+  </Modal.Footer>
+        </Modal>
         <section className="shadowbox Toptopic">
           <h2>My Top Topics </h2>
+          {logged_in && 
+            <div className="sideBtn">
+              <div className="addButton"><a title="ADD" onClick={(e) => this.topichandleShow('add', e)}><span data-icon="plus"></span>ADD</a></div>
+            </div>}
             <div className="toggle tabs tabs_default TabFirst" >
                   <ul className='tabs'>
-                    <li className="tab"><a href="#tab-1">Inspire</a></li>
-                    <li className="tab"><a href="#tab-2">Aspire</a></li>
+
+                    <li className={'tab' + (topic.type=='inspire' ? ' active' : '')} onClick={(e) => this.updatetopichandle('inspire', e)}><a >Inspire</a></li>
+                    <li className={'tab' + (topic.type=='aspire' ? ' active' : '')} onClick={(e) => this.updatetopichandle('aspire', e)}><a>Aspire</a></li>
                  </ul>
-                 <div id='tab-1'>
+                 <div id='tab-1' className={(topic.type=='inspire' ? 'tab-list-active' : '')}>
                   <ul className="ToptopicList">
                     <li className="clearfix">
                       <div className="left"><a href="#" title="Tousled Food">Tousled Food</a></div>
@@ -421,7 +591,7 @@ class Home extends Component {
                     </li>
                   </ul>  
                 </div>
-                <div id='tab-2'><ul className="ToptopicList">
+                <div id='tab-2' className={(topic.type=='aspire' ? 'tab-list-active' : '')}><ul className="ToptopicList">
                     <li className="clearfix">
                       <div className="left"><a href="#" title="Tousled Food">Tousled Food</a></div>
                       <div className="right"><span className="numhold">11</span> people aspiring for this topic <a href="#" className="view" title="view">view</a></div>
@@ -451,50 +621,57 @@ class Home extends Component {
         <Modal show={this.state.proudshow} className="proud_modal" onHide={this.proudhandleClose}>
           <span className="close" onClick={this.proudhandleClose}>close </span>
           <Modal.Header>
-            <Modal.Title>Add Proud</Modal.Title>
+            <Modal.Title><h2>{actions.proud} Proud</h2></Modal.Title>
           </Modal.Header>
-          <Modal.Body></Modal.Body>
-          
+          <Modal.Body>
+            <div className={'form-input' + (errors.title ? ' has-error' : '')}>
+              <label>
+                <input value={proud.title} onChange={this.handleChange} onBlur={this.handleChange} name="title" ref={this.title} type="text" required name="title"/>
+                <span className="placeholder">Title</span>
+                {errors.title!='' &&
+                          <div className="help-block"> {errors.title}</div>
+                      }
+              </label>
+            </div>
+            <div className={'form-input' + (errors.note ? ' has-error' : '')}>
+              <label>
+                <textarea  onChange={this.handleChange} onBlur={this.handleChange} name="note" ref={this.note} rows="6" cols="50" required placeholder="Note" value={proud.note}/>
+              {errors.note!='' &&
+                          <div style={{    top: "120px"}} className="help-block"> {errors.note}</div>
+                      }
+              </label>        
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+    <Button variant="secondary" onClick={this.proudhandleClose}>Close</Button>&nbsp;&nbsp;
+    <Button variant="primary" onClick={this.proudhandleSave}>Save</Button>
+  </Modal.Footer>
         </Modal>      
         <section className="shadowbox Proud">
           <h2>P.R.O.U.D Chart</h2>
+          {logged_in && 
             <div className="sideBtn">
               <div className="addButton"><a title="ADD" onClick={(e) => this.proudhandleShow('add', e)}><span data-icon="plus"></span>ADD</a></div>
-              <div className="addButton"><a href="#" title="EDIT">EDIT</a></div>
-            </div>
+            </div>}
 
 
           <ul className="scroll">
-            <li>
-              <div className="date"><span className="sprite icon"></span>10 August, 20:00</div>
-              <h3><a href="#" title="Consequuntur Magni ">Consequuntur Magni </a></h3>
-              <p>Sed ut perspiciatis unde omnis iste natus error sit volupt ut perspiciatis unde omnis iste natus error sit voluptatem</p>
+          {
+                
+                profile.proud_chart.map((proud, index) => {
+                  return (
+             <li key={proud._id}>       
+              <div className="date"><span className="sprite icon"></span><Moment format="D MMMM, HH:mm">{proud.createdAt}</Moment> </div>
+              <h3><a href="#" title={proud.title}>{proud.title}</a></h3>
+              <p>{proud.note}</p>
+              <span className="proud_actions">
+                {logged_in && <a onClick={(e) => this.proudhandleShow('edit',proud, e)} title="EDIT">EDIT</a>}
+              </span>
             </li>
-            <li>
-              <div className="date"><span className="sprite icon"></span>10 August, 20:00</div>
-              <h3><a href="#" title="Consequuntur Magni ">Consequuntur Magni </a></h3>
-              <p>Sed ut perspiciatis unde omnis iste natus error sit volupt ut perspiciatis unde omnis iste natus error sit voluptatem</p>
-            </li>
-            <li>
-              <div className="date"><span className="sprite icon"></span>10 August, 20:00</div>
-              <h3><a href="#" title="Consequuntur Magni ">Consequuntur Magni </a></h3>
-              <p>Sed ut perspiciatis unde omnis iste natus error sit volupt ut perspiciatis unde omnis iste natus error sit voluptatem</p>
-            </li>
-            <li>
-              <div className="date"><span className="sprite icon"></span>10 August, 20:00</div>
-              <h3><a href="#" title="Consequuntur Magni ">Consequuntur Magni </a></h3>
-              <p>Sed ut perspiciatis unde omnis iste natus error sit volupt ut perspiciatis unde omnis iste natus error sit voluptatem</p>
-            </li>
-            <li>
-              <div className="date"><span className="sprite icon"></span>10 August, 20:00</div>
-              <h3><a href="#" title="Consequuntur Magni ">Consequuntur Magni </a></h3>
-              <p>Sed ut perspiciatis unde omnis iste natus error sit volupt ut perspiciatis unde omnis iste natus error sit voluptatem</p>
-            </li>
-            <li>
-              <div className="date"><span className="sprite icon"></span>10 August, 20:00</div>
-              <h3><a href="#" title="Consequuntur Magni ">Consequuntur Magni </a></h3>
-              <p>Sed ut perspiciatis unde omnis iste natus error sit volupt ut perspiciatis unde omnis iste natus error sit voluptatem</p>
-            </li>
+                  )
+                }).reverse()
+              }
+            
           </ul>
 
 

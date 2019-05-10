@@ -197,7 +197,7 @@ _:-o-prefocus, .selector { .styled-select { background: none; }
 .Proud { float: right; padding: 16px 17px 21px; width: calc(100% - 60%); position: relative; }
 .Proud h2 { margin-left: 0px; border-bottom: solid 1px #f3eae0; padding-bottom: 10px; }
 .sideBtn { position: absolute; right: 0px; width: 153px; top: 20px; right: 16px; }
-.sideBtn .addButton { display: inline-block; margin: 0 8px; }
+.sideBtn .addButton {float: right; display: inline-block; margin: 0 8px; }
 .sideBtn .addButton  a { display: block; width: 58px; height: 20px; background: #f4f1ea; font-size: 12px; line-height: 1.9; text-align: center; }
 [data-icon="plus"] { position: relative; width: 10px; height: 10px; display: inline-block; margin: 0 5px 0px 0; }
 [data-icon="plus"]:before { content: ""; position: absolute; background-color: black; top: 0; left: 61%; width: 2px; height: 100%; margin-left: -2px; }
@@ -209,7 +209,7 @@ _:-o-prefocus, .selector { .styled-select { background: none; }
 .Proud li h3 { font-weight: 400; font-size: 14px; margin: 7px 0 5px; line-height: 1; }
 .Proud li h3 a { color: #37394c; }
 .Proud li h3 a:hover { color: #67aaf9; }
-.Proud li p { color: #999999; font-size: 13px; line-height: 1.3; }
+.Proud li p {    white-space: pre-line; color: #999999; font-size: 13px; line-height: 1.3; }
 .scroll { overflow-x: hidden; }
 .scroll::-webkit-scrollbar-track { border-radius: 6px; background-color: #e6f3e9; }
 .scroll::-webkit-scrollbar { width: 6px; /* background-color: #F5F5F5; */ }
@@ -420,8 +420,17 @@ margin-top: 5px;
     top: 3px;
 }
 .holder textarea{width: 100%;}
+.holder {    white-space: pre-line;}
 .styles_Editext__buttons_container__1kphL button{
 	padding: 0px;
 }
 .addButton{ cursor: pointer; }
 .proud_modal .modal-content{ background-color: white; }
+.proud_actions{
+	    float: right;
+    margin-top: -58px;
+    margin-right: 10px;
+}
+.proud_actions a{cursor:pointer; text-decoration: underline;}
+#tab-1,#tab-2{ display: none; }
+.tab-list-active{ display: block !important; }
