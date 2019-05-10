@@ -235,6 +235,30 @@ exports.login = async(req,res,next) => {
     return res.send({status: false, error: err.message});
   }
 };
+exports.updatetopic = async(req,res,next) => {
+
+  /*var proud_id = req.body.id;
+  if(proud_id==null){
+      const newProud = await Prouds.create(
+            {
+              _userId:req.body.user_id,
+              title:req.body.title,
+              note:req.body.note
+            }
+          );
+      return res.send({status: true, msg: 'Proud Saved successfully', Proud: newProud});
+  } else {
+    Prouds.findOne({ _id: proud_id }, function (err, proud) {
+        proud.title = req.body.title;
+        proud.note = req.body.note;
+        proud.save(function (err) {
+            if (err) { return res.status(500).send({ msg: err.message }); }
+            return res.send({status: true, msg: 'Proud Saved successfully', Proud: proud});
+        });
+    });
+  }*/
+  
+}
 exports.updateproud = async(req,res,next) => {
 
   var proud_id = req.body.id;
