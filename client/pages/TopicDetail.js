@@ -38,7 +38,7 @@ class TopicDetail extends Component {
             <div className="toggle tabs tabs_default TabSecond" >
                   
                  
-                    <div id='tab-3'>
+                    <div id=''>
                         <table>
                           <thead>
                             <tr>
