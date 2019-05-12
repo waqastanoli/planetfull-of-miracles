@@ -1,5 +1,17 @@
 import { LOCATION_CHANGE } from 'react-router-redux';
+const getUnique = (arr, comp)  =>  {
 
+  const unique = arr
+       .map(e => e[comp])
+
+     // store the keys of the unique objects
+    .map((e, i, final) => final.indexOf(e) === i && i)
+
+    // eliminate the dead keys & store unique objects
+    .filter(e => arr[e]).map(e => arr[e]);
+
+   return unique;
+}
 const initialState = {
 	id:null,
   fetching: false,
@@ -16,10 +28,14 @@ const initialState = {
   proud_chart:[],
   serving_me:[],
   serving_others:[],
-  suggestions_list: []
+  suggestions_list: [],
+  users:[]
 };
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
+  	case 'RESET_PROFILE':{
+  		return initialState;
+  	}
     case 'GET_PROFILE_DETAIL': {
       return {
         ...state,
@@ -63,6 +79,39 @@ const profileReducer = (state = initialState, action) => {
         proud_chart: [...state.proud_chart, action.payload.proud_chart]        
       }
     }
+	case 'TOPIC_ADDED': {
+	  if(action.payload.inspire){
+	  	var topic = action.payload.inspire;
+	  	var found = state.inspire.some(el => el._id === action.payload.inspire._id);
+	  }
+	  if(action.payload.aspire){
+	  	var topic = action.payload.aspire;
+	  	var found = state.aspire.some(el => el._id === action.payload.aspire._id);
+	  }
+	  if(found){
+	  	return {
+	        ...state
+	      }
+	  }
+	  if(action.payload.inspire) {
+      	return {
+              ...state,
+              error: null,
+              inspire: [...state.inspire, topic]        
+            }
+      }
+      if(action.payload.aspire) {
+      	return {
+              ...state,
+              error: null,
+              aspire: [...state.aspire, topic]        
+            }
+      }
+      return {
+        ...state
+      }
+    }
+
     case 'PROUD_UPDATED': {
       var proud_chart = state.proud_chart;	
       

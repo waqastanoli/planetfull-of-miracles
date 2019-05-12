@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { css } from '@emotion/core';
 import { FadeLoader } from 'react-spinners';
-
+import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
+import Rating from 'react-rating';
+import 'react-dates/initialize';
+import 'react-dates/lib/css/_datepicker.css';
 //import Actions from '../actions/productsAction';
 import Actions from '../actions/profileActions';
 import Product from './home/Product';
@@ -38,6 +41,7 @@ import {Modal, Button, Alert} from 'react-bootstrap';
 import API_URL from '../config/API_URL';
 import EdiText from 'react-editext';
 import Moment from 'react-moment';
+import Select from 'react-select';
 const override = 'display: block;margin: 0 auto;border-color: red;';
 
 class Home extends Component {
@@ -45,12 +49,13 @@ class Home extends Component {
   constructor(props) {
     super(props);
 
-    const {  auth , match} =props;
+    const {  auth , match, dispatch} =props;
     var logged_in = false;
-    
+    dispatch(Actions.resetProfileAction());
     if(auth && match.params.userName==auth.user.name)
     logged_in = auth.isAuthenticated;
     this.state = {
+      selectedOption:"Open",
       proud: {
         title: '',
         note:'',
@@ -59,12 +64,23 @@ class Home extends Component {
         text: '',
         type:'inspire'
       },
+      contract: {
+        type:'me',
+        startDate:null,
+        endDate:null,
+        status:null,
+        who:null,
+        rate:null
+      },
       actions:{
         proud:'Add',
         id:null,
       },
+      startDate:null,
+      endDate:null,
       proudshow: false, 
       topicshow: false,
+      contractshow: false,
       modaltype:'',
       alert:false ,
       show: false, 
@@ -79,11 +95,18 @@ class Home extends Component {
     this.topichandleShow = this.topichandleShow.bind(this);
     this.updatetopichandle = this.updatetopichandle.bind(this);
     this.topichandleClose = this.topichandleClose.bind(this);
+    this.handleOptionChange = this.handleOptionChange.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.proudhandleClose = this.proudhandleClose.bind(this);
     this.proudhandleSave = this.proudhandleSave.bind(this);
     this.topichandleSave = this.topichandleSave.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.topicPagehandle = this.topicPagehandle.bind(this);
+    this.contracthandleShow = this.contracthandleShow.bind(this);
+    this.contractClose = this.contractClose.bind(this);
+    this.updatecontracthandle = this.updatecontracthandle.bind(this);
+    this.contracthandleSave = this.contracthandleSave.bind(this);
+    this.updateRating = this.updateRating.bind(this);
     
     this.title = React.createRef();
     this.note = React.createRef();
@@ -96,7 +119,7 @@ class Home extends Component {
     if (typeof loadsliderscripts === 'function')
       loadsliderscripts()
 
-  })
+  });
     if (typeof loadsliderscripts === 'function')
     loadsliderscripts()
     this.setState({ search:'' })
@@ -133,6 +156,17 @@ class Home extends Component {
   handleClose() {
     this.setState({ show: false });
   }
+  handleOptionChange (changeEvent) {
+  this.setState({
+    selectedOption: changeEvent.target.value
+  });
+}
+  contracthandleShow(type, editproud){
+    this.setState({ contractshow: true });
+  }
+  contractClose() {
+    this.setState({ contractshow: false });
+  }
   proudhandleShow(type, editproud){
     const { proud, actions } = this.state;
     if(type=='edit'){  
@@ -156,6 +190,19 @@ class Home extends Component {
     const { topic } = this.state;
     topic.type = type;
     this.setState({ topic: topic });
+  }
+  updatecontracthandle(type){
+    console.log(type);
+    const { contract } = this.state;
+    contract.type = type;
+    this.setState({ contract: contract });
+  }
+  topicPagehandle(topic){
+    //console.log(topic);
+    this.props.history.push('/topic/'+topic._id)
+    /*const { topic } = this.state;
+    topic.type = type;
+    this.setState({ topic: topic });*/
   }
   topichandleShow(type, edittopic){
 
@@ -201,13 +248,24 @@ class Home extends Component {
   }
   topichandleSave(){
     const { dispatch, match, profile } = this.props;
-    const {actions} = this.state;
+    const {actions, topic} = this.state;
     this.validateInput(this.text.current.name, this.text.current.value, 'blur');
     const { errors } = this.state;
      if (errors.text=='') {
-      dispatch(Actions.updatetopic(profile.id,this.text.current.value,actions.id));
+      dispatch(Actions.updatetopic(profile.id,this.text.current.value,topic.type, actions.id));
       this.topichandleClose();
      }
+  }
+  contracthandleSave(){
+    const { dispatch, match, profile } = this.props;
+    const {actions, topic, startDate} = this.state;
+    console.log(startDate);
+    /*this.validateInput(this.text.current.name, this.text.current.value, 'blur');
+    const { errors } = this.state;
+     if (errors.text=='') {
+      dispatch(Actions.updatetopic(profile.id,this.text.current.value,topic.type, actions.id));
+      this.topichandleClose();
+     }*/
   }
   handleChange(event) {
       const { name, value } = event.target;
@@ -252,9 +310,17 @@ class Home extends Component {
 
     }
   }
+  updateRating(rate) {
+    this.setState(prevState => ({
+      contract: {
+          ...prevState.contract,
+          rate: rate
+      }
+   }))
+  }
   render() {
     const { dispatch, products, auth , match, fetched, profile} = this.props;
-    const  {logged_in ,errors, proud, topic, actions} = this.state;
+    const  {logged_in ,errors, proud, topic, actions, contract } = this.state;
     if(profile.image==null)
     var profile_img=profileplaceholder;
     else
@@ -265,7 +331,17 @@ class Home extends Component {
     var cover_img = API_URL.API_URL+'/public/'+profile.id+'/cover/'+profile.cover;
 
     return (
-
+      <div>
+      {profile.fetching && 
+            <FadeLoader
+                css={override}
+                sizeUnit={"px"}
+                size={150}
+                color={'#123abc'}
+                loading={true}
+              />
+              }
+      {profile.fetched && 
       <main className={"main "+((logged_in)?'logged_in':'')}>
         
         <div className="topbanner">
@@ -293,7 +369,7 @@ class Home extends Component {
                     <li className="Inspire">
                         <div className="left fleft"><span className="sprite icon"></span></div>
                         <div className="right fleft">
-                            <div className="num fleft">89</div>
+                            <div className="num fleft">{profile.inspire.length}</div>
                             <div className="text fleft">Inspire
                                 <div>Topics</div>
                             </div>
@@ -302,7 +378,7 @@ class Home extends Component {
                     <li className="Aspire">
                         <div className="left fleft"><span className="sprite icon"></span></div>
                         <div className="right fleft">
-                            <div className="num fleft">20</div>
+                            <div className="num fleft">{profile.aspire.length}</div>
                             <div className="text fleft">Aspire
                                 <div>Topics</div>
                             </div>
@@ -565,57 +641,24 @@ class Home extends Component {
                  </ul>
                  <div id='tab-1' className={(topic.type=='inspire' ? 'tab-list-active' : '')}>
                   <ul className="ToptopicList">
-                    <li className="clearfix">
-                      <div className="left"><a href="#" title="Tousled Food">Tousled Food</a></div>
-                      <div className="right"><span className="numhold">14</span> people aspiring for this topic <a href="#" className="view" title="view">view</a></div>
-                    </li>
-                    <li className="clearfix">
-                      <div className="left"><a href="#" title="Truck Polaroid">Truck Polaroid</a></div>
-                      <div className="right"><span className="numhold">8</span> people aspiring for this topic <a href="#" className="view" title="view">view</a></div>
-                    </li>
-                    <li className="clearfix">
-                      <div className="left"><a href="#" title="Tousled Food">Tousled Food</a></div>
-                      <div className="right"><span className="numhold">11</span> people aspiring for this topic <a href="#" className="view" title="view">view</a></div>
-                    </li>
-                    <li className="clearfix">
-                      <div className="left"><a href="#" title="Tousled Food">Tousled Food</a></div>
-                      <div className="right"><span className="numhold">29</span> people aspiring for this topic <a href="#" className="view" title="view">view</a></div>
-                    </li>
-                    <li className="clearfix">
-                      <div className="left"><a href="#" title="Tousled Food">Tousled Food</a></div>
-                      <div className="right"><span className="numhold">56</span> people aspiring for this topic <a href="#" className="view" title="view">view</a></div>
-                    </li>
-                    <li className="clearfix">
-                      <div className="left"><a href="#" title="Tousled Food">Tousled Food</a></div>
-                      <div className="right"><span className="numhold">9</span> people aspiring for this topic <a href="#" className="view" title="view">view</a></div>
-                    </li>
+                    {profile.inspire.map((inspire, index) => {
+                  return (<li key={inspire._id} className="clearfix">
+                      <div className="left"><a href="#" title="{inspire.text}">{inspire.text}</a></div>
+                      <div className="right">
+                      
+                      <span className="numhold">{inspire._userIds.length}</span> people inspiring for this topic <a  onClick={(e) => this.topicPagehandle(inspire, e)} className="view" title="view">view</a>
+                      </div>
+                    </li>)
+                }).reverse()}
                   </ul>  
                 </div>
                 <div id='tab-2' className={(topic.type=='aspire' ? 'tab-list-active' : '')}><ul className="ToptopicList">
-                    <li className="clearfix">
-                      <div className="left"><a href="#" title="Tousled Food">Tousled Food</a></div>
-                      <div className="right"><span className="numhold">11</span> people aspiring for this topic <a href="#" className="view" title="view">view</a></div>
-                    </li>
-                    <li className="clearfix">
-                      <div className="left"><a href="#" title="Truck Polaroid">Truck Polaroid</a></div>
-                      <div className="right"><span className="numhold">13</span> people aspiring for this topic <a href="#" className="view" title="view">view</a></div>
-                    </li>
-                    <li className="clearfix">
-                      <div className="left"><a href="#" title="Tousled Food">Tousled Food</a></div>
-                      <div className="right"><span className="numhold">15</span> people aspiring for this topic <a href="#" className="view" title="view">view</a></div>
-                    </li>
-                    <li className="clearfix">
-                      <div className="left"><a href="#" title="Tousled Food">Tousled Food</a></div>
-                      <div className="right"><span className="numhold">56</span> people aspiring for this topic <a href="#" className="view" title="view">view</a></div>
-                    </li>
-                    <li className="clearfix">
-                      <div className="left"><a href="#" title="Tousled Food">Tousled Food</a></div>
-                      <div className="right"><span className="numhold">57</span> people aspiring for this topic <a href="#" className="view" title="view">view</a></div>
-                    </li>
-                    <li className="clearfix">
-                      <div className="left"><a href="#" title="Tousled Food">Tousled Food</a></div>
-                      <div className="right"><span className="numhold">9</span> people aspiring for this topic <a href="#" className="view" title="view">view</a></div>
-                    </li>
+                    {profile.aspire.map((inspire, index) => {
+                  return (<li  key={inspire._id} className="clearfix">
+                      <div className="left"><a href="#" title="{inspire.text}">{inspire.text}</a></div>
+                      <div className="right"><span className="numhold">{inspire._userIds.length}</span> people aspiring for this topic <a  className="view" title="view" onClick={(e) => this.topicPagehandle(inspire, e)}>view</a></div>
+                    </li>)
+                }).reverse()}
                   </ul></div>
               </div></section>
         <Modal show={this.state.proudshow} className="proud_modal" onHide={this.proudhandleClose}>
@@ -679,9 +722,74 @@ class Home extends Component {
         </div>
         
 
-        
+        <Modal show={this.state.contractshow} className="proud_modal" onHide={this.contractClose}>
+          <span className="close" onClick={this.contractClose}>close </span>
+          <Modal.Header>
+            <Modal.Title><h2>{actions.proud} Contract</h2></Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div className={'form-input' + (errors.title ? ' has-error' : '')}>
+              <label>
+                <DateRangePicker
+  startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+  startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
+  endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+  endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
+  onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
+  focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+  onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
+/>
+                
+                {errors.title!='' &&
+                          <div className="help-block"> {errors.title}</div>
+                      }
+              </label>
+            </div>
+            <div className={'form-input' + (errors.note ? ' has-error' : '')}>
+              <label>
+                <input type="radio" value="Open" checked={this.state.selectedOption === 'Open'} onChange={this.handleOptionChange}/>
+               &nbsp; Open
+              </label>
+              <label>
+                <input type="radio" value="Completed" checked={this.state.selectedOption === 'Completed'} onChange={this.handleOptionChange}/>
+                &nbsp;Completed
+              </label>        
+            </div>
+            <div className={'form-input' + (errors.note ? ' has-error' : '')}>
+              <label>
+              <span>Who the contract is with</span>
+                <Select options={profile.users} />
+
+              {errors.note!='' &&
+                          <div style={{    top: "120px"}} className="help-block"> {errors.note}</div>
+                      }
+              </label>        
+            </div>
+<div className={'form-input' + (errors.note ? ' has-error' : '')}>
+              <label>
+              Rate&nbsp;
+            <Rating
+  emptySymbol="fa fa-star-o fa-2x"
+  fullSymbol="fa fa-star fa-2x"
+  fractions={2}
+  initialRate={0}
+  placeholderRate="Rate"
+  onChange={(rate) => (rate)}
+/>
+</label>        
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+    <Button variant="secondary" onClick={this.contractClose}>Close</Button>&nbsp;&nbsp;
+    <Button variant="primary" onClick={this.contracthandleSave}>Save</Button>
+  </Modal.Footer>
+        </Modal>
         <section className="Contracts shadowbox">
           <h2>My Contracts</h2>
+          {logged_in && 
+            <div className="sideBtn">
+              <div className="addButton"><a title="ADD" onClick={(e) => this.contracthandleShow('add', e)}><span data-icon="plus"></span>ADD</a></div>
+            </div>}
           <div className="selectHolder">
              Sort by : 
             <div className="styled-select">
@@ -696,16 +804,16 @@ class Home extends Component {
 
             <div className="toggle tabs tabs_default TabSecond" >
                   <ul className="tabs">
-                    <li className="tab active"><a href="#tab-3">Serving Me</a> </li>
-                    <li className="tab"><a href="#tab-4">Serving Others</a></li>
+                    <li className={'tab' + (contract.type=='me' ? ' active' : '')} onClick={(e) => this.updatecontracthandle('me', e)}><a>Serving Me</a> </li>
+                    <li className={'tab' + (contract.type=='others' ? ' active' : '')} onClick={(e) => this.updatecontracthandle('others', e)}><a>Serving Others</a></li>
                     
                   </ul>
                  
-                    <div id='tab-3'>
+                    <div id='tab-3' className={(contract.type=='me' ? 'tab-list-active' : '')}>
                         <table>
                           <thead>
                             <tr>
-                              <th>topic name</th>
+                              <th>metopic name</th>
                               <th>Date from - To</th>
                               <th>description</th>
                               <th>servied By</th>
@@ -769,11 +877,11 @@ class Home extends Component {
                         </table>
 
                         <div className="viewAll"><a href="viewAlllink">view all</a></div></div>
-                    <div id='tab-4'>
+                    <div id='tab-4' className={(contract.type=='others' ? 'tab-list-active' : '')}>
                         <table>
                           <thead>
                             <tr>
-                              <th>topic name</th>
+                              <th>1topic name</th>
                               <th>Date from - To</th>
                               <th>description</th>
                               <th>servied By</th>
@@ -883,7 +991,7 @@ class Home extends Component {
             </li>
           </ul>
         </section>
-    </main>
+    </main>}</div>
     )
   }
 }

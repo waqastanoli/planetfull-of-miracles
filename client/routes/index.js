@@ -9,6 +9,7 @@ import Cart from '../pages/Cart';
 import Checkout from '../pages/Checkout';
 import Signup from '../pages/Signup';
 import Signin from '../pages/Signin';
+import TopicDetail from '../pages/TopicDetail';
 import Verification from '../pages/Verification';
 // CONTAINERS //
 import AppContainer from '../containers/AppContainer';
@@ -24,7 +25,7 @@ export const renderRoutes = () => {
         <Route exact path="/register" render={ props => <AppRoute Component={Signup} Layout={MinimumContainer} props={props} /> } />
         <Route exact path="/signin" render={ props => <AppRoute Component={Signin} Layout={MinimumContainer} props={props} /> } />
         <Route exact path="/verification" render={ props => <AppRoute Component={Verification} Layout={MinimumContainer} props={props} /> } />
-        <Route exact path="/product/detail/:productID/:productName" render={ props => <AppRoute Component={ProductDetail} Layout={AppContainer} props={props} type={'detail'} /> } />
+        <Route exact path="/topic/:topicID" render={ props => <AppRoute Component={TopicDetail} Layout={AppContainer} props={props} type={'detail'} /> } />
         <Route exact path="/product/wishlist" render={ props => <AppRoute Component={Wishlist} Layout={AppContainer} props={props} type={'wishlist'} /> } />
         <Route exact path="/product/cart" render={ props => <AppRoute Component={Cart} Layout={AppContainer} props={props} type={'cart'} /> } />
         <Route exact path="/product/checkout" render={ props => <AppRoute Component={Checkout} Layout={AppContainer} props={props} type={'checkout'} /> } />

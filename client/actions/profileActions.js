@@ -1,7 +1,11 @@
 import _ from 'lodash';
 import axios from 'axios';
 import API_URL from '../config/API_URL';
-
+const resetProfileAction=()=>{
+	return (dispatch) => {
+		dispatch({ type: 'RESET_PROFILE' });
+	};
+}
 const getProfileAction = (userName)=> {
 	
 	return (dispatch) => {
@@ -70,7 +74,7 @@ const updateproud = (user_id, note, title,id=null)=> {
     });
   }
 }
-const updatetopic = (user_id, note, title,id=null)=> {
+const updatetopic = (user_id, text, type, id=null)=> {
 	
 	return (dispatch) => {
     dispatch({ type: 'UPDATE_TOPIC' });
@@ -78,18 +82,22 @@ const updatetopic = (user_id, note, title,id=null)=> {
     axios.post(`${API_URL.API_URL}/api/v1/users/updatetopic`, {
       id:id,
       user_id:user_id,
-      note: note,
-      title: title
+      text: text,
+      type: type
     })
     .then(res => {
 
       const { status, data } = res;
-      console.log(data)
+      
       if  (status) {
-      	if(id==null)
-        dispatch({ type: 'TOPIC_ADDED', payload: { proud_chart: data.Proud }});
+      	if(id==null){
+      		if(type=='inspire')
+        		dispatch({ type: 'TOPIC_ADDED', payload: { inspire: data.Topic }});
+        	if(type=='aspire')
+        		dispatch({ type: 'TOPIC_ADDED', payload: { aspire: data.Topic }});
+        }
       	else 
-		dispatch({ type: 'TOPIC_UPDATED', payload: { proud_chart: data.Proud }});      		
+		dispatch({ type: 'TOPIC_UPDATED', payload: { proud_chart: data.Topic }});      		
       } else {
         dispatch('TOPIC_REJECTED');
       }
@@ -99,4 +107,4 @@ const updatetopic = (user_id, note, title,id=null)=> {
   }
 }
 
-export default { updatetopic, updateproud, getProfileAction, updateSection };
+export default { resetProfileAction, updatetopic, updateproud, getProfileAction, updateSection };

@@ -17,7 +17,7 @@ $(document).ready(function(){
 
   
   //$('.TabFirst').tabslet();
-  $('.TabSecond').tabslet();
+  //$('.TabSecond').tabslet();
   
 // Get the modal
 var body = document.getElementsByTagName("body")[0];

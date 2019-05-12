@@ -432,5 +432,5 @@ margin-top: 5px;
     margin-right: 10px;
 }
 .proud_actions a{cursor:pointer; text-decoration: underline;}
-#tab-1,#tab-2{ display: none; }
+#tab-1,#tab-2,#tab-3,#tab-4{ display: none; }
 .tab-list-active{ display: block !important; }

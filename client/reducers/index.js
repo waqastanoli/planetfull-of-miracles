@@ -6,6 +6,7 @@ import cartReducer from './cartReducer';
 import checkoutReducer from './checkoutReducer';
 import userReducer from './userReducer';
 import authReducer from './authReducer';
+import topicReducer from './topicReducer';
 import productDetailReducer from './productDetailReducer';
 const rootReducer = (history) => combineReducers({
   profile: profileReducer,
@@ -14,6 +15,7 @@ const rootReducer = (history) => combineReducers({
   account: userReducer,
   auth: authReducer,
   productDetail: productDetailReducer,
+  topic: topicReducer,
   router: connectRouter(history)
 });
 

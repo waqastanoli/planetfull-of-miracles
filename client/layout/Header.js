@@ -18,19 +18,7 @@ import Detail from './header/Detail';
 import { NavDropdown } from 'react-bootstrap'
 class Header extends Component {
 
-  NavHandle() {
-    const { type } = this.props;
-    let component = '';
-    if(type) {
-      if(type === 'cart') component = <CartNav />
-      if(type === 'wishlist') component = <WishlistNav />
-      if(type === 'checkout') component = <Checkout />
-      if(type === 'detail') component = <Detail {...this.props}/>
-    } else {
-      component = <HeaderNav />
-    }
-    return component;
-  }
+  
   onLogout(e) {
       e.preventDefault();
       const { dispatch } = this.props;

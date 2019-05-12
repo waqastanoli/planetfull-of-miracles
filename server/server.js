@@ -69,11 +69,13 @@ routing();
 import productRoutes from './routes/product_routes';
 import orderRoutes from './routes/order_routes';
 import userRoutes from './routes/user_routes';
+import topicRoutes from './routes/topic_routes';
 import verification_routes from './routes/verification_routes';
 function routing() {
   app.use('/api/v1/products', productRoutes);
   app.use('/api/v1/orders', orderRoutes);
   app.use('/api/v1/users', userRoutes);
+  app.use('/api/v1/topic', topicRoutes);
   //app.use('/verification', verification_routes);
 }
 

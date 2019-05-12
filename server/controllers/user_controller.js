@@ -1,9 +1,11 @@
 import User from '../models/users';
 import Token from '../models/Token';
+import Topics from '../models/Topics';
 import Prouds from '../models/prouds';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
+import mongoose from 'mongoose';
 var formidable = require('formidable');
 var fs = require('fs');
 import sendVerificationEmail  from '../lib/SendGridEmailHelper';
@@ -237,26 +239,28 @@ exports.login = async(req,res,next) => {
 };
 exports.updatetopic = async(req,res,next) => {
 
-  /*var proud_id = req.body.id;
-  if(proud_id==null){
-      const newProud = await Prouds.create(
-            {
-              _userId:req.body.user_id,
-              title:req.body.title,
-              note:req.body.note
-            }
-          );
-      return res.send({status: true, msg: 'Proud Saved successfully', Proud: newProud});
-  } else {
-    Prouds.findOne({ _id: proud_id }, function (err, proud) {
-        proud.title = req.body.title;
-        proud.note = req.body.note;
-        proud.save(function (err) {
-            if (err) { return res.status(500).send({ msg: err.message }); }
-            return res.send({status: true, msg: 'Proud Saved successfully', Proud: proud});
-        });
-    });
-  }*/
+  var topic_id = req.body.id;
+  
+
+    Topics.findOneAndUpdate({
+              text:req.body.text,
+              type:req.body.type
+            },
+                {                        
+                    "$addToSet": {
+                        "_userIds": req.body.user_id
+                    }
+                },
+                { new: true,upsert:true}, function (err, doc) {
+                    if (err) { 
+                        //do something         
+                        console.log(err)             
+                    } else if (doc === null) {
+                        //do something                      
+                    } else {
+                        return res.send({status: true, msg: 'Topic Saved successfully', Topic: doc});
+                    }
+                });
   
 }
 exports.updateproud = async(req,res,next) => {
@@ -295,23 +299,34 @@ exports.profile = async(req,res,next) => {
         
         Prouds.find({_userId:user._id})
         .then(prouds => {
+          Topics.find({_userIds: { "$in" : [user._id]} })
+            .then(topics => {
+              User.find({},'_id name', function(err, users) {
+              users = users.map(function(elm) {
+   return { value: elm._id, label: elm.name};
+});
+              const inspire = topics.filter(d => d.type == 'inspire');
+              const aspire = topics.filter(d => d.type == 'aspire');
+              var payload = {
+                id:user._id,          
+                name:user.name,
+                image:user.image,
+                cover:user.cover,
+                badge: null,
+                current_situation:user.current_situation,
+                future_vision:user.future_vision,
+                inspire:inspire,
+                aspire:aspire,
+                proud_chart:prouds,
+                serving_me:[],
+                serving_others:[],
+                suggestions_list: [],
+                users:users
+              };
 
-            var payload = {
-              id:user._id,          
-              name:user.name,
-              image:user.image,
-              cover:user.cover,
-              badge: null,
-              current_situation:user.current_situation,
-              future_vision:user.future_vision,
-              inspire:[],
-              aspire:[],
-              proud_chart:prouds,
-              serving_me:[],
-              serving_others:[],
-              suggestions_list: []
-            };
-        return res.send({status: true, message: 'successfull', data: payload});
+             return res.send({status: true, message: 'successfull', data: payload});
+             });
+          })
         })
         
     });
