@@ -434,3 +434,5 @@ margin-top: 5px;
 .proud_actions a{cursor:pointer; text-decoration: underline;}
 #tab-1,#tab-2,#tab-3,#tab-4{ display: none; }
 .tab-list-active{ display: block !important; }
+.carousel .slide{background: transparent !important;}
+.smallP img{height: 60px;width: 60px;}

@@ -25,10 +25,13 @@ import small_profile_4 from '../public/jocallio/image/small_profile_4.png';
 import small_profile_2 from '../public/jocallio/image/small_profile_2.png';
 import small_profile_5 from '../public/jocallio/image/small_profile_5.png';
 import small_profile_3 from '../public/jocallio/image/small_profile_3.png';
-import slider_image_one from '../public/jocallio/image/slider_image_one.png';
+import slider_image_one from '../public/jocallio/image/FakeProfileImages/Brooks-Blog-14-1024x683.jpg';
 
-import slider_image_two from '../public/jocallio/image/slider_image_two.png';
-
+import slider_image_two from '../public/jocallio/image/FakeProfileImages/170717100550_1_900x600.jpg';
+import slider_image_three from '../public/jocallio/image/FakeProfileImages/The-Happiness-Doctor-is-In-452575741.jpg';
+import slider_image_four from '../public/jocallio/image/FakeProfileImages/living-independantly-feat.jpg';
+import slider_image_five from '../public/jocallio/image/FakeProfileImages/20180627194538-GettyImages-828514788.jpeg';
+import slider_image_six from '../public/jocallio/image/FakeProfileImages/baby.6.jpg';
 import small_profileL from '../public/jocallio/image/small_profileL.png';
 import ImagesUploader from 'react-images-uploader';
 import 'react-images-uploader/styles.css';
@@ -36,6 +39,8 @@ import 'react-images-uploader/font.css';
 
 //import Popup from "reactjs-popup";
 import Popup from './Popup';
+import Slider from './Slider';
+import ContentSlider from './ContentSlider';
 import AlertMessage from '../layout/AlertMessage';
 import {Modal, Button, Alert} from 'react-bootstrap';
 import API_URL from '../config/API_URL';
@@ -319,6 +324,38 @@ class Home extends Component {
    }))
   }
   render() {
+    const sliderimages = [
+      {
+        img:slider_image_one,
+        class:"legend",
+        label:"Family"
+      },
+      {
+        img:slider_image_two,
+        class:"legend",
+        label:"Friends"
+      },
+      {
+        img:slider_image_three,
+        class:"legend",
+        label:"Friends"
+      },
+      {
+        img:slider_image_four,
+        class:"legend",
+        label:"Fun"
+      },
+      {
+        img:slider_image_five,
+        class:"legend",
+        label:"Family"
+      },
+      {
+        img:slider_image_six,
+        class:"legend",
+        label:"Cute"
+      },
+    ]
     const { dispatch, products, auth , match, fetched, profile} = this.props;
     const  {logged_in ,errors, proud, topic, actions, contract } = this.state;
     if(profile.image==null)
@@ -445,109 +482,112 @@ class Home extends Component {
         </Modal>
         { this.state.alert && <AlertMessage type={this.state.alert.type} heading={this.state.alert.heading} message={this.state.alert.message} />}
         <div className="clearfix holder">
-            <div className="shadowbox SliderHolder">
-                <div className="topslider">
-                  <ul id="oneslider">
-                    <li><a href="#" title=""><img src={slider_image_one} alt="slider_image_one"/></a></li>
-                    <li><a href="#" title=""><img src={slider_image_two} alt="slider_image_one"/></a></li>
-                    <li><a href="#" title=""><img src={slider_image_one} alt="slider_image_one"/></a></li>
-                    <li><a href="#" title=""><img src={slider_image_two} alt="slider_image_one"/></a></li>
-                    <li><a href="#" title=""><img src={slider_image_one} alt="slider_image_one"/></a></li>
-                    <li><a href="#" title=""><img src={slider_image_two} alt="slider_image_one"/></a></li>
 
-                  </ul>
-                </div>
+            <div className="shadowbox SliderHolder">
+            <Slider sliderData={sliderimages}/>
+                {/*<div className="topslider">
+                                  <ul id="oneslider">
+                                    <li><a href="#" title=""><img src={slider_image_one} alt="slider_image_one"/></a></li>
+                                    <li><a href="#" title=""><img src={slider_image_two} alt="slider_image_one"/></a></li>
+                                    <li><a href="#" title=""><img src={slider_image_one} alt="slider_image_one"/></a></li>
+                                    <li><a href="#" title=""><img src={slider_image_two} alt="slider_image_one"/></a></li>
+                                    <li><a href="#" title=""><img src={slider_image_one} alt="slider_image_one"/></a></li>
+                                    <li><a href="#" title=""><img src={slider_image_two} alt="slider_image_one"/></a></li>
+                
+                                  </ul>
+                                </div>*/}
                 <div className="Bottomslider">
                   <h3>Photos (126)</h3>
-                  <ul id="thumbSlider">
-                    <li>
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile} alt="image"/></a></div>
-                      </div>  
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile_4} alt="image"/></a></div>
-                      </div>
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile_5} alt="image"/></a></div>
-                      </div>
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile_1} alt="image"/></a></div>
-                      </div>
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile_2} alt="image"/></a></div>
-                      </div>
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile_1} alt="image"/></a></div>
-                      </div>
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile_3} alt="image"/></a></div>
-                      </div>
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile_4} alt="image"/></a></div>
-                      </div>
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile_5} alt="image"/></a></div>
-                      </div>
-                    </li>
-                     <li>
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile_5} alt="image"/></a></div>
-                      </div>  
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile_1} alt="image"/></a></div>
-                      </div>
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile_2} alt="image"/></a></div>
-                      </div>
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile_3} alt="image"/></a></div>
-                      </div>
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile_4} alt="image"/></a></div>
-                      </div>
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile_5} alt="image"/></a></div>
-                      </div>
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile_1} alt="image"/></a></div>
-                      </div>
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile_2} alt="image"/></a></div>
-                      </div>
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile_3} alt="image"/></a></div>
-                      </div>
-                    </li>
-                     <li>
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile} alt="image"/></a></div>
-                      </div>  
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile_4} alt="image"/></a></div>
-                      </div>
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile_5} alt="image"/></a></div>
-                      </div>
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile_1} alt="image"/></a></div>
-                      </div>
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile_2} alt="image"/></a></div>
-                      </div>
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile_1} alt="image"/></a></div>
-                      </div>
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile_3} alt="image"/></a></div>
-                      </div>
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile_4} alt="image"/></a></div>
-                      </div>
-                      <div className="smallP">
-                          <div className="holder"><a href="#" title="image"><img src={small_profile_5} alt="image"/></a></div>
-                      </div>
-                    </li>
-                  </ul>
+                  <ContentSlider />
+                  {/*<ul id="thumbSlider">
+                                      <li>
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile} alt="image"/></a></div>
+                                        </div>  
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile_4} alt="image"/></a></div>
+                                        </div>
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile_5} alt="image"/></a></div>
+                                        </div>
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile_1} alt="image"/></a></div>
+                                        </div>
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile_2} alt="image"/></a></div>
+                                        </div>
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile_1} alt="image"/></a></div>
+                                        </div>
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile_3} alt="image"/></a></div>
+                                        </div>
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile_4} alt="image"/></a></div>
+                                        </div>
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile_5} alt="image"/></a></div>
+                                        </div>
+                                      </li>
+                                       <li>
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile_5} alt="image"/></a></div>
+                                        </div>  
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile_1} alt="image"/></a></div>
+                                        </div>
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile_2} alt="image"/></a></div>
+                                        </div>
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile_3} alt="image"/></a></div>
+                                        </div>
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile_4} alt="image"/></a></div>
+                                        </div>
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile_5} alt="image"/></a></div>
+                                        </div>
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile_1} alt="image"/></a></div>
+                                        </div>
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile_2} alt="image"/></a></div>
+                                        </div>
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile_3} alt="image"/></a></div>
+                                        </div>
+                                      </li>
+                                       <li>
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile} alt="image"/></a></div>
+                                        </div>  
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile_4} alt="image"/></a></div>
+                                        </div>
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile_5} alt="image"/></a></div>
+                                        </div>
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile_1} alt="image"/></a></div>
+                                        </div>
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile_2} alt="image"/></a></div>
+                                        </div>
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile_1} alt="image"/></a></div>
+                                        </div>
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile_3} alt="image"/></a></div>
+                                        </div>
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile_4} alt="image"/></a></div>
+                                        </div>
+                                        <div className="smallP">
+                                            <div className="holder"><a href="#" title="image"><img src={small_profile_5} alt="image"/></a></div>
+                                        </div>
+                                      </li>
+                                    </ul>*/}
                 </div>
 
 

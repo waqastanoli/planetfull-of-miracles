@@ -1,6 +1,6 @@
 $(document).ready(function(){
   window.loadsliderscripts=function(){
-  $('#oneslider').slick({
+  /*$('#oneslider').slick({
   	arrows:false,
   	autoplay: true,
   	dots: true,
@@ -13,7 +13,7 @@ $(document).ready(function(){
   	dotsClass: 'slick-dots',
   	fade: true,
   	draggable: false,
-});
+});*/
 
   
   //$('.TabFirst').tabslet();
