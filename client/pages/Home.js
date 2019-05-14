@@ -13,7 +13,7 @@ import Pagination from '../layout/Pagination';
 import SearchInput from '../layout/SearchInput';
 import placeholdercover from '../public/jocallio/image/placeholdercover.jpg';
 
-import profileplaceholder from '../public/jocallio/image/profileplaceholder.png';
+import profileplaceholder from '../public/jocallio/image/small_profileL.png';
 import resource_2 from '../public/jocallio/image/resource_2.png';
 import resource_1 from '../public/jocallio/image/resource_1.png';
 import resource_3 from '../public/jocallio/image/resource_3.png';
