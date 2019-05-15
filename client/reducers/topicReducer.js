@@ -32,12 +32,6 @@ const topicReducer = (state = initialState, action) => {
         ...action.payload
       }
     }
-    case 'PROFILE_REJECTED': {
-      return {
-        ...state,
-        error: action.payload
-      }
-    }
     case 'SUGGESTION_FULFILLED': {
       return {
         ...state,
@@ -45,15 +39,8 @@ const topicReducer = (state = initialState, action) => {
         ...action.payload
       }
     }
-    case 'PROUD_ADDED': {
-
-      return {
-        ...state,
-        error: null,
-        proud_chart: [...state.proud_chart, action.payload.proud_chart]        
-      }
-    }
-  case 'TOPIC_ADDED': {
+    
+  /*case 'TOPIC_ADDED': {
     if(action.payload.inspire){
       var topic = action.payload.inspire;
       var found = state.inspire.some(el => el._id === action.payload.inspire._id);
@@ -84,22 +71,9 @@ const topicReducer = (state = initialState, action) => {
       return {
         ...state
       }
-    }
+    }*/
 
-    case 'PROUD_UPDATED': {
-      var proud_chart = state.proud_chart;  
-      
-      
-      var indexfind = state.proud_chart.findIndex(function(item, i){
-      return item._id === action.payload.proud_chart._id
-    });
-      proud_chart[indexfind]=action.payload.proud_chart
-      return {
-        ...state,
-        error: null,
-        proud_chart: proud_chart        
-      }
-    }
+    
     default: {
       return state;
     }

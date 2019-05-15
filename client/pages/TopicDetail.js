@@ -56,7 +56,7 @@ class TopicDetail extends Component {
                   return (
                             <tr key={user._id} onClick={() => this.props.history.push('/'+user.name)}>
                               <td>{user.name}</td>
-                              <td>{user.current_situation}</td>
+                              <td>{ (user.current_situation)?user.current_situation.substr(0, 105)+((user.current_situation.length>105)?'...':''):''}</td>
                               <td>
                                   <div className="profile"><img src={profile_img} alt="image" /></div>
                                  
