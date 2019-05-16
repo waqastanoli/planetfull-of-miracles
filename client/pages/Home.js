@@ -979,10 +979,10 @@ class Home extends Component {
                         <table>
                           <thead>
                             <tr>
-                              <th>1topic name</th>
-                              <th>Date from - To</th>
-                              <th>description</th>
-                              <th>servied By</th>
+                              <th>From</th>
+                              <th>To</th>
+                              <th>Status</th>
+                              <th>Who</th>
 
                             </tr>
                           </thead>
