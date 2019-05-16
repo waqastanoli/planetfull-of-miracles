@@ -8,7 +8,11 @@ router.route('/register')
   .post( userController.create );
 router.route('/updateproud')
   // POST
-  .post( userController.updateproud );  
+  .post( userController.updatecontract ); 
+router.route('/updatecontract')
+  // POST
+  .post( userController.updatecontract ); 
+   
 router.route('/updatetopic')
   // POST
   .post( userController.updatetopic );  

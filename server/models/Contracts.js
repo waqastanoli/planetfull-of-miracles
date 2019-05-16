@@ -7,7 +7,8 @@ const contractSchema = new mongoose.Schema({
     status: { type: String, required: true, enum: ['Open', 'Completed'],
        default : 'Open' },
     serverType: { type: String, required: true, enum: ['me', 'others'],
-       default : 'me' },   
+       default : 'me' },  
+    who: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' },    
     rating: { type: Number },
     createdAt: { format: "%Y-%m-%d", type: Date, required: true, default: Date.now}
 });

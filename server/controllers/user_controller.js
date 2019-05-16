@@ -2,6 +2,7 @@ import User from '../models/users';
 import Token from '../models/Token';
 import Topics from '../models/Topics';
 import Prouds from '../models/prouds';
+import Contracts from '../models/Contracts';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
@@ -263,6 +264,24 @@ exports.updatetopic = async(req,res,next) => {
                 });
   
 }
+exports.updatecontract = async(req,res,next) => {
+
+  var req_cont = req.body.contract;
+  const newContract = await Contracts.create(
+            {
+              _userId:req_cont._userId,
+              from:req_cont.startDate,
+              to:req_cont.endDate,
+              status:req_cont.status,
+              serverType:req_cont.type,
+              who:req_cont.who.value
+            }
+          );
+  var responseContract = await newContract.populate('who').execPopulate();
+  
+  return res.send({status: true, msg: 'Contract Saved successfully', Contract: responseContract});
+  
+}
 exports.updateproud = async(req,res,next) => {
 
   var proud_id = req.body.id;
@@ -307,25 +326,35 @@ exports.profile = async(req,res,next) => {
 });
               const inspire = topics.filter(d => d.type == 'inspire');
               const aspire = topics.filter(d => d.type == 'aspire');
-              var payload = {
-                id:user._id,          
-                name:user.name,
-                image:user.image,
-                cover:user.cover,
-                badge: null,
-                current_situation:user.current_situation,
-                future_vision:user.future_vision,
-                inspire:inspire,
-                aspire:aspire,
-                proud_chart:prouds,
-                serving_me:[],
-                serving_others:[],
-                suggestions_list: [],
-                users:users
-              };
+              Contracts.find({_userId:user._id}).populate('who').then(contracts => {
 
-             return res.send({status: true, message: 'successfull', data: payload});
-             });
+                const serving_me = contracts.filter(d => d.serverType == 'me');
+                const serving_others = contracts.filter(d => d.serverType == 'others');
+                const openContracts = contracts.filter(d => d.status == 'Open');
+                const completedContracts = contracts.filter(d => d.status == 'Completed');
+                
+                var payload = {
+                  id:user._id,          
+                  name:user.name,
+                  image:user.image,
+                  cover:user.cover,
+                  badge: null,
+                  current_situation:user.current_situation,
+                  future_vision:user.future_vision,
+                  inspire:inspire,
+                  aspire:aspire,
+                  proud_chart:prouds,
+                  serving_me:serving_me,
+                  serving_others:serving_others,
+                  suggestions_list: [],
+                  openContracts:openContracts,
+                  completedContracts:completedContracts,
+                  users:users
+                };
+
+               return res.send({status: true, message: 'successfull', data: payload});
+               });
+              });
           })
         })
         

@@ -6,6 +6,34 @@ const resetProfileAction=()=>{
 		dispatch({ type: 'RESET_PROFILE' });
 	};
 }
+const updatecontract = (contract)=> {
+  
+  return (dispatch) => {
+    dispatch({ type: 'UPDATE_PROUD' });
+    console.log(contract)
+    axios.post(`${API_URL.API_URL}/api/v1/users/updatecontract`, {
+      contract:contract
+    })
+    .then(res => {
+
+      const { status, data } = res;
+      console.log(data)
+      if  (status) {
+        
+        if(contract.type=='me')
+         dispatch({ type: 'CONTRACT_ADDED', payload: { serving_me: data.Contract }});
+        if(contract.type=='others')
+          dispatch({ type: 'CONTRACT_ADDED', payload: { serving_others: data.Contract }});
+
+        
+      } else {
+        dispatch('CONTRACT_REJECTED');
+      }
+    }).catch(err => {
+      console.log(' *** ERROR *** ', err);
+    });
+  }
+}
 const getProfileAction = (userName)=> {
 	
 	return (dispatch) => {
@@ -107,4 +135,4 @@ const updatetopic = (user_id, text, type, id=null)=> {
   }
 }
 
-export default { resetProfileAction, updatetopic, updateproud, getProfileAction, updateSection };
+export default { updatecontract, resetProfileAction, updatetopic, updateproud, getProfileAction, updateSection };

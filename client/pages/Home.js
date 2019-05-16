@@ -47,6 +47,7 @@ import API_URL from '../config/API_URL';
 import EdiText from 'react-editext';
 import Moment from 'react-moment';
 import Select from 'react-select';
+
 const override = 'display: block;margin: 0 auto;border-color: red;';
 
 class Home extends Component {
@@ -60,6 +61,7 @@ class Home extends Component {
     if(auth && match.params.userName==auth.user.name)
     logged_in = auth.isAuthenticated;
     this.state = {
+      contractwho:null,
       selectedOption:"Open",
       proud: {
         title: '',
@@ -75,14 +77,13 @@ class Home extends Component {
         endDate:null,
         status:null,
         who:null,
+        status:"Open",
         rate:null
       },
       actions:{
         proud:'Add',
         id:null,
       },
-      startDate:null,
-      endDate:null,
       proudshow: false, 
       topicshow: false,
       contractshow: false,
@@ -93,6 +94,12 @@ class Home extends Component {
       errors:{
         title:'',
         note: '',
+      },
+      contracterrors: {
+        startDate:'',
+        endDate:'',
+        status:'',
+        who:''
       }
     }
     this.handleShow = this.handleShow.bind(this);
@@ -112,21 +119,27 @@ class Home extends Component {
     this.updatecontracthandle = this.updatecontracthandle.bind(this);
     this.contracthandleSave = this.contracthandleSave.bind(this);
     this.updateRating = this.updateRating.bind(this);
-    
+    this.handleContractwho = this.handleContractwho.bind(this); 
+    this.sendcontract = this.sendcontract.bind(this); 
     this.title = React.createRef();
     this.note = React.createRef();
     this.text = React.createRef();
 
   }
-
+  handleContractwho = (selectedOption) => {
+    this.setState(prevState => ({
+        contract: {
+            ...prevState.contract,
+            who: selectedOption
+        }
+    }))
+  }
+  changeRating( newRating, name ) {
+    this.setState({
+      rating: newRating
+    });
+  }
   componentDidMount() {
-    $( window ).on("load", function() {
-    if (typeof loadsliderscripts === 'function')
-      loadsliderscripts()
-
-  });
-    if (typeof loadsliderscripts === 'function')
-    loadsliderscripts()
     this.setState({ search:'' })
     const { dispatch, match } = this.props;
     this.state.dispatch = dispatch;
@@ -162,15 +175,31 @@ class Home extends Component {
     this.setState({ show: false });
   }
   handleOptionChange (changeEvent) {
-  this.setState({
-    selectedOption: changeEvent.target.value
-  });
-}
+    var value = changeEvent.target.value;
+    this.setState(prevState => ({
+      contract: {
+          ...prevState.contract,
+          status: value,
+          endDate:(value=='Open')?null:prevState.contract.endDate
+      }
+    }))
+  }
   contracthandleShow(type, editproud){
     this.setState({ contractshow: true });
   }
   contractClose() {
-    this.setState({ contractshow: false });
+    this.setState({ contractshow: false});
+    this.setState(prevState => ({
+        contract: {
+            ...prevState.contract, 
+            startDate:null,
+            endDate:null,
+            status:null,
+            who:null,
+            status:"Open",
+            rate:null
+        }
+    }))
   }
   proudhandleShow(type, editproud){
     const { proud, actions } = this.state;
@@ -191,23 +220,23 @@ class Home extends Component {
     this.setState({ proudshow: true });
   }
   updatetopichandle(type){
-
-    const { topic } = this.state;
-    topic.type = type;
-    this.setState({ topic: topic });
+    this.setState(prevState => ({
+        topic: {
+            ...prevState.topic,
+            type: type
+        }
+    }))
   }
   updatecontracthandle(type){
-    console.log(type);
-    const { contract } = this.state;
-    contract.type = type;
-    this.setState({ contract: contract });
+    this.setState(prevState => ({
+        contract: {
+            ...prevState.contract,
+            type: type
+        }
+    }))
   }
   topicPagehandle(topic){
-    //console.log(topic);
     this.props.history.push('/topic/'+topic._id)
-    /*const { topic } = this.state;
-    topic.type = type;
-    this.setState({ topic: topic });*/
   }
   topichandleShow(type, edittopic){
 
@@ -261,30 +290,46 @@ class Home extends Component {
       this.topichandleClose();
      }
   }
-  validate_contract(data){
-
+  validate_contract(){
+    const {actions, topic, contract} = this.state;
+    var startDateError='';
+    var endDateError='';
+    var whoError = '';
+    if(contract.startDate==null){
+      startDateError = 'Start Date Required';
+    }
+    if(contract.who==null || contract.who.length==0){
+        whoError = 'Required';     
+    } 
+    if(contract.status=='Completed' && contract.startDate!==null){
+      if(contract.endDate==null){
+        endDateError = 'End Date Required';
+      }
+    }
+    this.setState(prevState => ({
+          contracterrors: {
+              ...prevState.contracterrors,
+              who: whoError,
+              startDate:startDateError,
+              endDate:endDateError
+          }
+      }),
+  this.sendcontract)
+    
+  }
+  sendcontract(){
+    const { dispatch, match, auth } = this.props;
+    const {actions, topic, contract, contracterrors} = this.state;
+    if(contracterrors.who=='' && contracterrors.startDate=='' && contracterrors.endDate==''){
+      var obj_contract = contract;
+      obj_contract._userId = auth.user.id;
+      //obj_contract.startDate =  new Date(obj_contract.startDate)/*.format('Y-m-d')*/;
+      dispatch(Actions.updatecontract(obj_contract));
+      this.contractClose();
+    }
   }
   contracthandleSave(){
-    const { dispatch, match, contract } = this.props;
-    const {actions, topic, startDate, endDate, selectedOption} = this.state;
-    console.log(startDate);
-    //console.log(startDate.format("YYYY-MM-DD"));
-    console.log(contract.rate)
-    /*contract: {
-        type:'me',
-        contractType:,
-        startDate:startDate,
-        endDate:endDate,
-        status:selectedOption,
-        who:null,
-        rate:null
-      }*/
-    /*this.validateInput(this.text.current.name, this.text.current.value, 'blur');
-    const { errors } = this.state;
-     if (errors.text=='') {
-      dispatch(Actions.updatetopic(profile.id,this.text.current.value,topic.type, actions.id));
-      this.topichandleClose();
-     }*/
+      this.validate_contract();  
   }
   handleChange(event) {
       const { name, value } = event.target;
@@ -371,7 +416,7 @@ class Home extends Component {
       },
     ]
     const { dispatch, products, auth , match, fetched, profile} = this.props;
-    const  {logged_in ,errors, proud, topic, actions, contract } = this.state;
+    const  {logged_in ,errors, contracterrors, proud, topic, actions, contract } = this.state;
     if(profile.image==null)
     var profile_img=profileplaceholder;
     else
@@ -417,6 +462,25 @@ class Home extends Component {
             </div>
             <div className="content">
                 <ul className="clearfix">
+                    
+                    <li className="Current">
+                        <div className="left fleft"><span className="sprite icon"></span></div>
+                        <div className="right fleft">
+                            <div className="num fleft">{profile.openContracts.length}</div>
+                            <div className="text fleft">Open
+                                <div>Contracts</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li className="Completed">
+                        <div className="left fleft"><span className="sprite icon"></span></div>
+                        <div className="right fleft">
+                            <div className="num fleft">{profile.completedContracts.length}</div>
+                            <div className="text fleft">Completed
+                                <div>Contracts</div>
+                            </div>
+                        </div>
+                    </li>
                     <li className="Inspire">
                         <div className="left fleft"><span className="sprite icon"></span></div>
                         <div className="right fleft">
@@ -432,24 +496,6 @@ class Home extends Component {
                             <div className="num fleft">{profile.aspire.length}</div>
                             <div className="text fleft">Aspire
                                 <div>Topics</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="Current">
-                        <div className="left fleft"><span className="sprite icon"></span></div>
-                        <div className="right fleft">
-                            <div className="num fleft">16</div>
-                            <div className="text fleft">Current
-                                <div>Contracts</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="Completed">
-                        <div className="left fleft"><span className="sprite icon"></span></div>
-                        <div className="right fleft">
-                            <div className="num fleft">289</div>
-                            <div className="text fleft">Completed
-                                <div>Contracts</div>
                             </div>
                         </div>
                     </li>
@@ -784,68 +830,85 @@ class Home extends Component {
           <Modal.Body>
           <div className={'form-input' + (errors.note ? ' has-error' : '')}>
               <label>
-                <input type="radio" value="Open" checked={this.state.selectedOption === 'Open'} onChange={this.handleOptionChange}/>
+                <input type="radio" value="Open" checked={contract.status === 'Open'} onChange={this.handleOptionChange}/>
                &nbsp; Open
               </label>
               <label>
-                <input type="radio" value="Completed" checked={this.state.selectedOption === 'Completed'} onChange={this.handleOptionChange}/>
+                <input type="radio" value="Completed" checked={contract.status === 'Completed'} onChange={this.handleOptionChange}/>
                 &nbsp; Completed
               </label>        
             </div>
             <div className={'form-input' + (errors.title ? ' has-error' : '')}>
               <label>
-              {this.state.selectedOption === 'Open' &&
+              {contract.status === 'Open' &&
               <SingleDatePicker
   placeholder="Start Date"              
-  date={this.state.startDate} // momentPropTypes.momentObj or null
-  onDateChange={date => this.setState({ startDate:date })} // PropTypes.func.isRequired
+  date={contract.startDate} // momentPropTypes.momentObj or null
+  onDateChange={date => this.setState(prevState => ({
+    contract: {
+        ...prevState.contract,
+        startDate: date
+    }
+}))} // PropTypes.func.isRequired
   focused={this.state.focused} // PropTypes.bool
   onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
   id="your_unique_id" // PropTypes.string.isRequired,
 />
             }
-              {this.state.selectedOption === 'Completed' &&
+              {contract.status === 'Completed' &&
                 <DateRangePicker
               
-  startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-  startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
-  endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-  endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
-  onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
-  focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-  onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
-/>}
+                startDate={contract.startDate} // momentPropTypes.momentObj or null,
+                startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
+                endDate={contract.endDate} // momentPropTypes.momentObj or null,
+                endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
+                onDatesChange={({ startDate, endDate }) => 
+              this.setState(prevState => ({
+                  contract: {
+                      ...prevState.contract,
+                      startDate: startDate,
+                      endDate: endDate
+                  }
+              }))
+              } // PropTypes.func.isRequired,
+                focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+                onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
+              />}
                 
-                {errors.title!='' &&
-                          <div className="help-block"> {errors.title}</div>
+                {contracterrors.startDate!='' &&
+                          <div className="help-block"> {contracterrors.startDate}</div>
                       }
+                {contracterrors.endDate!='' &&
+                    <div className="help-block"> {contracterrors.endDate}</div>
+                }
               </label>
             </div>
             
             <div className={'form-input' + (errors.note ? ' has-error' : '')}>
               <label>
               <span>Who the contract is with</span>
-                <Select options={profile.users} />
+                <Select options={profile.users} onChange={this.handleContractwho} />
 
-              {errors.note!='' &&
-                          <div style={{    top: "120px"}} className="help-block"> {errors.note}</div>
+              {contracterrors.who!='' &&
+                          <div className="help-block"> {contracterrors.who}</div>
                       }
               </label>        
             </div>
-            {this.state.selectedOption === 'Completed' &&
+            {/*this.state.selectedOption === 'Completed' &&
 <div className={'form-input' + (errors.note ? ' has-error' : '')}>
               <label>
               Rate&nbsp;
+              
             <Rating
-  emptySymbol="fa fa-star-o fa-2x"
-  fullSymbol="fa fa-star fa-2x"
-  fractions={2}
-  initialRate={0}
-  placeholderRate="Rate"
-  onChange={(rate) => (rate)}
-/>
+              emptySymbol="fa fa-star-o fa-2x"
+              fullSymbol="fa fa-star fa-2x"
+              fractions={2}
+              initialRate={0}
+              placeholderRate="Rate"
+              onChange={(rate) => (rate)}
+            />
 </label>        
-            </div>}
+            </div>*/}
           </Modal.Body>
           <Modal.Footer>
     <Button variant="secondary" onClick={this.contractClose}>Close</Button>&nbsp;&nbsp;
@@ -858,17 +921,17 @@ class Home extends Component {
             <div className="sideBtn">
               <div className="addButton"><a title="ADD" onClick={(e) => this.contracthandleShow('add', e)}><span data-icon="plus"></span>ADD</a></div>
             </div>}
-          <div className="selectHolder">
-             Sort by : 
-            <div className="styled-select">
-             <select>
-               <option>Current</option>
-               <option>Current y</option>
-               <option>Current n</option>
-             </select>
-            <span className="fa fa-sort-desc"></span>
-          </div>
-          </div>
+          {/*<div className="selectHolder">
+                       Sort by : 
+                      <div className="styled-select">
+                       <select>
+                         <option>Current</option>
+                         <option>Current y</option>
+                         <option>Current n</option>
+                       </select>
+                      <span className="fa fa-sort-desc"></span>
+                    </div>
+                    </div>*/}
 
             <div className="toggle tabs tabs_default TabSecond" >
                   <ul className="tabs">
@@ -881,70 +944,37 @@ class Home extends Component {
                         <table>
                           <thead>
                             <tr>
-                              <th>metopic name</th>
-                              <th>Date from - To</th>
-                              <th>description</th>
-                              <th>servied By</th>
+                              <th>From</th>
+                              <th>To</th>
+                              <th>Status</th>
+                              <th>Who</th>
 
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <td> Ut enim ad minima veniam</td>
-                              <td>17 August,  - 19 August</td>
-                              <td>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </td>
+                          {profile.serving_me.map((serving, index) => {
+                  if(serving.who.image==null)
+    var profile_img=profileplaceholder;
+    else
+                            var profile_img = API_URL.API_URL+'/public/'+serving.who._id+'/profile/'+serving.who.image;
+                                      
+                  return (<tr key={serving._id}>
+                              <td><Moment format="YYYY-MM-DD">{serving.from}</Moment></td>
+                              <td>{serving.to && <Moment format="YYYY-MM-DD">{serving.to}</Moment>}</td>
+                              <td>{serving.status}</td>
                               <td>
-                                  <div className="profile"><img src={small_profile} alt="image" /></div>
-                                 Paulo Dybala
-                                  <a href="#" className="view" title="view">view</a>
+                                  <div className="profile"><img src={profile_img} alt="image" /></div>
+                                 {serving.who.name}
+                                  <a href={serving.who.name} className="view" title="view">view</a>
 
                               </td>
-                            </tr>
-                           <tr>
-                              <td>Excepteur sint occaecat </td>
-                              <td>10 August,  - 15 August</td>
-                              <td>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </td>
-                              <td>
-                                  <div className="profile"><img src={small_profile} alt="image"/></div>
-                                 Luka Modric
-                                  <a href="#" className="view" title="view">view</a>
-
-                              </td>
-                            </tr><tr>
-                              <td>Excepteur sint occaecat </td>
-                              <td>10 August,  - 15 August</td>
-                              <td>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </td>
-                              <td>
-                                  <div className="profile"><img src={small_profile_5} alt="image"/></div>
-                                 Luka Modric
-                                  <a href="#" className="view" title="view">view</a>
-
-                              </td>
-                            </tr><tr>
-                              <td>Excepteur sint occaecat </td>
-                              <td>10 August,  - 15 August</td>
-                              <td>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </td>
-                              <td>
-                                  <div className="profile"><img src={small_profile_2} alt="image"/></div>
-                                 Luka Modric
-                                  <a href="#" className="view" title="view">view</a>
-
-                              </td>
-                            </tr><tr>
-                              <td>Excepteur sint occaecat </td>
-                              <td>10 August,  - 15 August</td>
-                              <td>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </td>
-                              <td>
-                                  <div className="profile"><img src={small_profile} alt="image"/></div>
-                                 Luka Modric
-                                  <a href="#" className="view" title="view">view</a>
-
-                              </td>
-                            </tr>
+                            </tr>)
+                            }).reverse()}
+                           
                           </tbody>
                         </table>
 
-                        <div className="viewAll"><a href="viewAlllink">view all</a></div></div>
+                       {/* <div className="viewAll"><a href="viewAlllink">view all</a></div>*/}</div>
                     <div id='tab-4' className={(contract.type=='others' ? 'tab-list-active' : '')}>
                         <table>
                           <thead>
@@ -957,62 +987,29 @@ class Home extends Component {
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <td>Excepteur sint occaecat </td>
-                              <td>10 August,  - 15 August</td>
-                              <td>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </td>
+                            {profile.serving_others.map((serving, index) => {
+                  if(serving.who.image==null)
+    var profile_img=profileplaceholder;
+    else
+                            var profile_img = API_URL.API_URL+'/public/'+serving.who._id+'/profile/'+serving.who.image;
+                                      
+                  return (<tr key={serving._id}>
+                              <td><Moment format="YYYY-MM-DD">{serving.from}</Moment></td>
+                              <td>{serving.to && <Moment format="YYYY-MM-DD">{serving.to}</Moment>}</td>
+                              <td>{serving.status}</td>
                               <td>
-                                  <div className="profile"><img src={small_profile} alt="image"/></div>
-                                 Luka Modric
-                                  <a href="#" className="view" title="view">view</a>
+                                  <div className="profile"><img src={profile_img} alt="image" /></div>
+                                 {serving.who.name}
+                                  <a  onClick={() => this.props.history.push('/'+serving.who.name)} className="view" title="view">view</a>
 
                               </td>
-                            </tr>
-                           <tr>
-                              <td>Excepteur sint occaecat </td>
-                              <td>10 August,  - 15 August</td>
-                              <td>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </td>
-                              <td>
-                                  <div className="profile"><img src={small_profile} alt="image"/></div>
-                                 Luka Modric
-                                  <a href="#" className="view" title="view">view</a>
-
-                              </td>
-                            </tr><tr>
-                              <td>Excepteur sint occaecat </td>
-                              <td>10 August,  - 15 August</td>
-                              <td>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </td>
-                              <td>
-                                  <div className="profile"><img src={small_profile} alt="image"/></div>
-                                 Luka Modric
-                                  <a href="#" className="view" title="view">view</a>
-
-                              </td>
-                            </tr><tr>
-                              <td>Excepteur sint occaecat </td>
-                              <td>10 August,  - 15 August</td>
-                              <td>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </td>
-                              <td>
-                                  <div className="profile"><img src={small_profile} alt="image"/></div>
-                                 Luka Modric
-                                  <a href="#" className="view" title="view">view</a>
-
-                              </td>
-                            </tr><tr>
-                              <td>Excepteur sint occaecat </td>
-                              <td>10 August,  - 15 August</td>
-                              <td>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque </td>
-                              <td>
-                                  <div className="profile"><img src={small_profile} alt="image"/></div>
-                                 Luka Modric
-                                  <a href="#" className="view" title="view">view</a>
-
-                              </td>
-                            </tr>
+                            </tr>)
+                            }).reverse()}
+                           
                           </tbody>
                         </table>
 
-                        <div className="viewAll"><a href="viewAlllink">view all</a></div></div>
+                        {/*<div className="viewAll"><a href="viewAlllink">view all</a></div>*/}</div>
                     
                  
                 </div>

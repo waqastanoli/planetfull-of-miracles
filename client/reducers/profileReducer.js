@@ -29,6 +29,8 @@ const initialState = {
   serving_me:[],
   serving_others:[],
   suggestions_list: [],
+  openContracts:[],
+  completedContracts:[],
   users:[]
 };
 const profileReducer = (state = initialState, action) => {
@@ -69,6 +71,20 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         error: null,
         ...action.payload
+      }
+    }
+    case 'CONTRACT_ADDED': {
+      if(action.payload.serving_me)
+      return {
+        ...state,
+        error: null,
+        serving_me: [...state.serving_me, action.payload.serving_me]        
+      }
+      if(action.payload.serving_others)
+      return {
+        ...state,
+        error: null,
+        serving_others: [...state.serving_others, action.payload.serving_others]        
       }
     }
     case 'PROUD_ADDED': {
