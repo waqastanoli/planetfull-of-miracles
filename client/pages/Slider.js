@@ -12,7 +12,7 @@ class Slider extends Component {
         return (
             <Carousel showStatus={false} infiniteLoop={true}   emulateTouch={true} swipeable={true} showThumbs={false} autoPlay={true}>
             {sliderData.map((slide, index) => {
-                  return (<div>
+                  return (<div key={index}>
                     <img src={slide.img} />
                     <p className={slide.class}>{slide.label}</p>
                 </div>)
@@ -23,8 +23,8 @@ class Slider extends Component {
         );
     }
 }
-export default connect(
+export default Slider;/*connect(
   state => ({
     profile: state.profile
   })
-)(Slider);
+)(Slider);*/

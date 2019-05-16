@@ -261,10 +261,24 @@ class Home extends Component {
       this.topichandleClose();
      }
   }
+  validate_contract(data){
+
+  }
   contracthandleSave(){
-    const { dispatch, match, profile } = this.props;
-    const {actions, topic, startDate} = this.state;
+    const { dispatch, match, contract } = this.props;
+    const {actions, topic, startDate, endDate, selectedOption} = this.state;
     console.log(startDate);
+    //console.log(startDate.format("YYYY-MM-DD"));
+    console.log(contract.rate)
+    /*contract: {
+        type:'me',
+        contractType:,
+        startDate:startDate,
+        endDate:endDate,
+        status:selectedOption,
+        who:null,
+        rate:null
+      }*/
     /*this.validateInput(this.text.current.name, this.text.current.value, 'blur');
     const { errors } = this.state;
      if (errors.text=='') {
@@ -762,15 +776,37 @@ class Home extends Component {
         </div>
         
 
-        <Modal show={this.state.contractshow} className="proud_modal" onHide={this.contractClose}>
+        <Modal show={this.state.contractshow} className="proud_modal contractform" onHide={this.contractClose}>
           <span className="close" onClick={this.contractClose}>close </span>
           <Modal.Header>
             <Modal.Title><h2>{actions.proud} Contract</h2></Modal.Title>
           </Modal.Header>
           <Modal.Body>
+          <div className={'form-input' + (errors.note ? ' has-error' : '')}>
+              <label>
+                <input type="radio" value="Open" checked={this.state.selectedOption === 'Open'} onChange={this.handleOptionChange}/>
+               &nbsp; Open
+              </label>
+              <label>
+                <input type="radio" value="Completed" checked={this.state.selectedOption === 'Completed'} onChange={this.handleOptionChange}/>
+                &nbsp; Completed
+              </label>        
+            </div>
             <div className={'form-input' + (errors.title ? ' has-error' : '')}>
               <label>
+              {this.state.selectedOption === 'Open' &&
+              <SingleDatePicker
+  placeholder="Start Date"              
+  date={this.state.startDate} // momentPropTypes.momentObj or null
+  onDateChange={date => this.setState({ startDate:date })} // PropTypes.func.isRequired
+  focused={this.state.focused} // PropTypes.bool
+  onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
+  id="your_unique_id" // PropTypes.string.isRequired,
+/>
+            }
+              {this.state.selectedOption === 'Completed' &&
                 <DateRangePicker
+              
   startDate={this.state.startDate} // momentPropTypes.momentObj or null,
   startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
   endDate={this.state.endDate} // momentPropTypes.momentObj or null,
@@ -778,23 +814,14 @@ class Home extends Component {
   onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
   focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
   onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
-/>
+/>}
                 
                 {errors.title!='' &&
                           <div className="help-block"> {errors.title}</div>
                       }
               </label>
             </div>
-            <div className={'form-input' + (errors.note ? ' has-error' : '')}>
-              <label>
-                <input type="radio" value="Open" checked={this.state.selectedOption === 'Open'} onChange={this.handleOptionChange}/>
-               &nbsp; Open
-              </label>
-              <label>
-                <input type="radio" value="Completed" checked={this.state.selectedOption === 'Completed'} onChange={this.handleOptionChange}/>
-                &nbsp;Completed
-              </label>        
-            </div>
+            
             <div className={'form-input' + (errors.note ? ' has-error' : '')}>
               <label>
               <span>Who the contract is with</span>
@@ -805,6 +832,7 @@ class Home extends Component {
                       }
               </label>        
             </div>
+            {this.state.selectedOption === 'Completed' &&
 <div className={'form-input' + (errors.note ? ' has-error' : '')}>
               <label>
               Rate&nbsp;
@@ -817,7 +845,7 @@ class Home extends Component {
   onChange={(rate) => (rate)}
 />
 </label>        
-            </div>
+            </div>}
           </Modal.Body>
           <Modal.Footer>
     <Button variant="secondary" onClick={this.contractClose}>Close</Button>&nbsp;&nbsp;

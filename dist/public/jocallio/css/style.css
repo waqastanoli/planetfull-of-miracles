@@ -240,7 +240,7 @@ _:-o-prefocus, .selector { .styled-select { background: none; }
 .modal-content .close:hover, .close:focus { color: #fff; text-decoration: underline; cursor: pointer; }
 
 /* Login Page*/
-.loginScreen { width: 973px; box-sizing: border-box; margin: 25px auto 25px; background: #f8f8fa; }
+.loginScreen { width: 973px; box-sizing: border-box; margin: 25px auto 25px; background: white;/*#f8f8fa;*/ }
 .loginScreen .rightPanel { width: 424px; float: right; position: relative; }
 .loginScreen .rightPanel img:hover { opacity: 1 }
 .loginScreen .rightPanel .textholder { position: absolute; top: 108px; font-family: roboto; left: 100px; }
@@ -438,3 +438,10 @@ margin-top: 5px;
 .smallP img{height: 60px;width: 60px;}
 .profile-text-block{ display: none; }
 .logged_in .profile-text-block{ display: block; }
+@media only screen and (min-width: 600px)  {
+	/*.contractform .form-input {
+	    margin: 15px 0 38px;
+	    width: 50%;
+	    float: left;
+	}*/
+}
