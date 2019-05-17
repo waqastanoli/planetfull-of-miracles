@@ -6,13 +6,13 @@ const router = express.Router();
 router.route('/register')
   // POST
   .post( userController.create );
+   // POST
 router.route('/updateproud')
-  // POST
-  .post( userController.updatecontract ); 
+  .post( userController.updateproud ); 
+    // POST
 router.route('/updatecontract')
-  // POST
   .post( userController.updatecontract ); 
-   
+
 router.route('/updatetopic')
   // POST
   .post( userController.updatetopic );  

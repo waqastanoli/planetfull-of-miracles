@@ -47,7 +47,7 @@ import API_URL from '../config/API_URL';
 import EdiText from 'react-editext';
 import Moment from 'react-moment';
 import Select from 'react-select';
-
+import SweetAlert from 'react-bootstrap-sweetalert';
 const override = 'display: block;margin: 0 auto;border-color: red;';
 
 class Home extends Component {
@@ -61,6 +61,7 @@ class Home extends Component {
     if(auth && match.params.userName==auth.user.name)
     logged_in = auth.isAuthenticated;
     this.state = {
+      alert: null,
       contractwho:null,
       selectedOption:"Open",
       proud: {
@@ -121,10 +122,33 @@ class Home extends Component {
     this.updateRating = this.updateRating.bind(this);
     this.handleContractwho = this.handleContractwho.bind(this); 
     this.sendcontract = this.sendcontract.bind(this); 
+    this.showsSuccessAlert = this.showsSuccessAlert.bind(this); 
     this.title = React.createRef();
     this.note = React.createRef();
     this.text = React.createRef();
 
+  }
+  showsSuccessAlert=( heading, message)=> {
+    const getAlert = () => (
+      <SweetAlert 
+        success
+        title={heading} 
+        onConfirm={() => this.hideAlert()}
+      >
+        {message}
+      </SweetAlert>
+    );
+
+    this.setState({
+      alert: getAlert()
+    });
+  }
+
+  hideAlert=()=> {
+    console.log('Hiding alert...');
+    this.setState({
+      alert: null
+    });
   }
   handleContractwho = (selectedOption) => {
     this.setState(prevState => ({
@@ -278,6 +302,8 @@ class Home extends Component {
      if (errors.note=='' && errors.title=='') {
       dispatch(Actions.updateproud(profile.id,this.note.current.value,this.title.current.value,actions.id));
       this.proudhandleClose();
+      this.showsSuccessAlert( "Success", "Proud Saved Successfully");
+      
      }
   }
   topichandleSave(){
@@ -288,6 +314,7 @@ class Home extends Component {
      if (errors.text=='') {
       dispatch(Actions.updatetopic(profile.id,this.text.current.value,topic.type, actions.id));
       this.topichandleClose();
+      this.showsSuccessAlert( "Success", "Topic Saved Successfully");
      }
   }
   validate_contract(){
@@ -326,6 +353,7 @@ class Home extends Component {
       //obj_contract.startDate =  new Date(obj_contract.startDate)/*.format('Y-m-d')*/;
       dispatch(Actions.updatecontract(obj_contract));
       this.contractClose();
+      this.showsSuccessAlert( "Success", "Contract Saved Successfully");
     }
   }
   contracthandleSave(){
@@ -437,6 +465,7 @@ class Home extends Component {
                 loading={true}
               />
               }
+              {this.state.alert}
       {profile.fetched && 
       <main className={"main "+((logged_in)?'logged_in':'')}>
         
