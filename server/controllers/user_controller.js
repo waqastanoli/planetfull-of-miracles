@@ -274,7 +274,8 @@ exports.updatecontract = async(req,res,next) => {
               to:req_cont.endDate,
               status:req_cont.status,
               serverType:req_cont.type,
-              who:req_cont.who.value
+              who:req_cont.who.value,
+              rating:req_cont.rate
             }
           );
   var responseContract = await newContract.populate('who').execPopulate();

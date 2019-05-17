@@ -48,6 +48,7 @@ import EdiText from 'react-editext';
 import Moment from 'react-moment';
 import Select from 'react-select';
 import SweetAlert from 'react-bootstrap-sweetalert';
+import StarRatings from 'react-star-ratings';
 const override = 'display: block;margin: 0 auto;border-color: red;';
 
 class Home extends Component {
@@ -100,7 +101,8 @@ class Home extends Component {
         startDate:'',
         endDate:'',
         status:'',
-        who:''
+        who:'',
+        rate:''
       }
     }
     this.handleShow = this.handleShow.bind(this);
@@ -123,6 +125,7 @@ class Home extends Component {
     this.handleContractwho = this.handleContractwho.bind(this); 
     this.sendcontract = this.sendcontract.bind(this); 
     this.showsSuccessAlert = this.showsSuccessAlert.bind(this); 
+    this.changeRating = this.changeRating.bind(this); 
     this.title = React.createRef();
     this.note = React.createRef();
     this.text = React.createRef();
@@ -159,9 +162,15 @@ class Home extends Component {
     }))
   }
   changeRating( newRating, name ) {
-    this.setState({
+    /*this.setState({
       rating: newRating
-    });
+    });*/
+    this.setState(prevState => ({
+      contract: {
+          ...prevState.contract,
+          rate: newRating
+      }
+    }))
   }
   componentDidMount() {
     this.setState({ search:'' })
@@ -322,6 +331,7 @@ class Home extends Component {
     var startDateError='';
     var endDateError='';
     var whoError = '';
+    var rateError = '';
     if(contract.startDate==null){
       startDateError = 'Start Date Required';
     }
@@ -332,13 +342,20 @@ class Home extends Component {
       if(contract.endDate==null){
         endDateError = 'End Date Required';
       }
+      
+
     }
+    if(contract.status=='Completed' && contract.rate===null){
+      rateError = 'Please rate the contract';
+    }
+    
     this.setState(prevState => ({
           contracterrors: {
               ...prevState.contracterrors,
               who: whoError,
               startDate:startDateError,
-              endDate:endDateError
+              endDate:endDateError,
+              rate:rateError
           }
       }),
   this.sendcontract)
@@ -347,7 +364,7 @@ class Home extends Component {
   sendcontract(){
     const { dispatch, match, auth } = this.props;
     const {actions, topic, contract, contracterrors} = this.state;
-    if(contracterrors.who=='' && contracterrors.startDate=='' && contracterrors.endDate==''){
+    if(contracterrors.rate=='' && contracterrors.who=='' && contracterrors.startDate=='' && contracterrors.endDate==''){
       var obj_contract = contract;
       obj_contract._userId = auth.user.id;
       //obj_contract.startDate =  new Date(obj_contract.startDate)/*.format('Y-m-d')*/;
@@ -923,21 +940,24 @@ class Home extends Component {
                       }
               </label>        
             </div>
-            {/*this.state.selectedOption === 'Completed' &&
+            {contract.status === 'Completed' &&
 <div className={'form-input' + (errors.note ? ' has-error' : '')}>
               <label>
               Rate&nbsp;
               
-            <Rating
-              emptySymbol="fa fa-star-o fa-2x"
-              fullSymbol="fa fa-star fa-2x"
-              fractions={2}
-              initialRate={0}
-              placeholderRate="Rate"
-              onChange={(rate) => (rate)}
-            />
+            <StarRatings
+          rating={(contract.rate)?contract.rate:0}
+          starRatedColor="blue"
+          changeRating={this.changeRating}
+          numberOfStars={5}
+          isAggregateRating={true}
+          name='rating'
+        />
+        {contracterrors.rate!='' &&
+                          <div className="help-block"> {contracterrors.rate}</div>
+                      }
 </label>        
-            </div>*/}
+            </div>}
           </Modal.Body>
           <Modal.Footer>
     <Button variant="secondary" onClick={this.contractClose}>Close</Button>&nbsp;&nbsp;
@@ -976,8 +996,9 @@ class Home extends Component {
                               <th>From</th>
                               <th>To</th>
                               <th>Status</th>
+                              
+                              <th>Rating</th>
                               <th>Who</th>
-
                             </tr>
                           </thead>
                           <tbody>
@@ -991,12 +1012,18 @@ class Home extends Component {
                               <td><Moment format="YYYY-MM-DD">{serving.from}</Moment></td>
                               <td>{serving.to && <Moment format="YYYY-MM-DD">{serving.to}</Moment>}</td>
                               <td>{serving.status}</td>
+                              <td class="rating">{serving.rating && <StarRatings
+        rating={serving.rating}
+        starDimension="12px"
+        starSpacing="2px"
+      />}</td>
                               <td>
                                   <div className="profile"><img src={profile_img} alt="image" /></div>
                                  {serving.who.name}
                                   <a href={serving.who.name} className="view" title="view">view</a>
 
                               </td>
+                              
                             </tr>)
                             }).reverse()}
                            
@@ -1011,6 +1038,7 @@ class Home extends Component {
                               <th>From</th>
                               <th>To</th>
                               <th>Status</th>
+                              <th>Rating</th>
                               <th>Who</th>
 
                             </tr>
@@ -1026,6 +1054,11 @@ class Home extends Component {
                               <td><Moment format="YYYY-MM-DD">{serving.from}</Moment></td>
                               <td>{serving.to && <Moment format="YYYY-MM-DD">{serving.to}</Moment>}</td>
                               <td>{serving.status}</td>
+                              <td class="rating">{serving.rating && <StarRatings
+        rating={serving.rating}
+        starDimension="12px"
+        starSpacing="2px"
+      />}</td>
                               <td>
                                   <div className="profile"><img src={profile_img} alt="image" /></div>
                                  {serving.who.name}
