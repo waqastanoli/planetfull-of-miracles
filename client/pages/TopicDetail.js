@@ -54,13 +54,13 @@ class TopicDetail extends Component {
     else
                             var profile_img = API_URL.API_URL+'/public/'+user._id+'/profile/'+user.image;
                   return (
-                            <tr key={user._id} onClick={() => this.props.history.push('/'+user.name)}>
+                            <tr key={user._id} >
                               <td>{user.name}</td>
                               <td>{ (user.current_situation)?user.current_situation.substr(0, 105)+((user.current_situation.length>105)?'...':''):''}</td>
                               <td>
                                   <div className="profile"><img src={profile_img} alt="image" /></div>
                                  
-                                  <a href="" className="view" title="view">view</a>
+                                  <a href={user.username} className="view" title="view">view</a>
 
                               </td>
                             </tr>)}).reverse()}
