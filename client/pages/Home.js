@@ -172,6 +172,9 @@ class Home extends Component {
       }
     }))
   }
+  componentWillUnmount(){
+    alert('here')
+  }
   componentDidMount() {
     this.setState({ search:'' })
     const { dispatch, match } = this.props;
@@ -569,12 +572,16 @@ class Home extends Component {
                         console.error(err);
                     }
                     if(img_res.length){
-                      if(this.state.modaltype=='profile')
-                      this.setState({ alert: {type:'success',heading:'',message:'Profile Image updated successfully'} });
-                      else
-                        this.setState({ alert: {type:'success',heading:'',message:'Cover Image updated successfully'} });
+                      if(this.state.modaltype=='profile'){
+                        this.showsSuccessAlert( "Success", "Profile Image updated successfully");
+                      }
+                      //this.setState({ alert: {type:'success',heading:'',message:'Profile Image updated successfully'} });
+                      else{
+                        this.showsSuccessAlert( "Success", "Cover Image updated successfully");
+                        //this.setState({ alert: {type:'success',heading:'',message:'Cover Image updated successfully'} });
+                      }
                       setTimeout(function(){
-                        this.setState({alert:false});
+                        //this.setState({alert:false});
                     }.bind(this),5000);
                       this.handleClose()
                       var splited_res = img_res[0].split("/");
