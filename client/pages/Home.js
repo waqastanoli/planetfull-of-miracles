@@ -59,7 +59,7 @@ class Home extends Component {
     const {  auth , match, dispatch} =props;
     var logged_in = false;
     dispatch(Actions.resetProfileAction());
-    if(auth && match.params.userName==auth.user.name)
+    if(auth && match.params.userName==auth.user.username)
     logged_in = auth.isAuthenticated;
     this.state = {
       alert: null,
@@ -473,6 +473,11 @@ class Home extends Component {
 
     return (
       <div>
+      {profile.not_found && 
+        <main className={"main "+((logged_in)?'logged_in':'')}>
+          <div className="content"><span>Profile Not Found</span></div>
+        </main>
+      }
       {profile.fetching && 
             <FadeLoader
                 css={override}
@@ -719,7 +724,7 @@ class Home extends Component {
 
   value={(profile.current_situation)?profile.current_situation:''}
    onSave={(e) => this.onSave('current', e)}
-/>}
+/>}{/*profile.current_situation==null && <span>Current life situation not added yet.</span>*/}
                      </div>
 
 
@@ -744,7 +749,7 @@ class Home extends Component {
 
   value={(profile.future_vision)?profile.future_vision:''}
    onSave={(e) => this.onSave('future', e)}
-/>}
+/>}{/*profile.future_vision==null && <span>Future vision not added yet.</span>*/}
               </div>
             </div>
         </div>
@@ -785,7 +790,7 @@ class Home extends Component {
                     <li className={'tab' + (topic.type=='inspire' ? ' active' : '')} onClick={(e) => this.updatetopichandle('inspire', e)}><a >Inspire</a></li>
                     <li className={'tab' + (topic.type=='aspire' ? ' active' : '')} onClick={(e) => this.updatetopichandle('aspire', e)}><a>Aspire</a></li>
                  </ul>
-                 <div id='tab-1' className={(topic.type=='inspire' ? 'tab-list-active' : '')}>
+                 <div id='tab-1' className={'scroll '+(topic.type=='inspire' ? 'tab-list-active' : '')}>
                   <ul className="ToptopicList">
                     {profile.inspire.map((inspire, index) => {
                   return (<li key={inspire._id} className="clearfix">
@@ -798,7 +803,7 @@ class Home extends Component {
                 }).reverse()}
                   </ul>  
                 </div>
-                <div id='tab-2' className={(topic.type=='aspire' ? 'tab-list-active' : '')}><ul className="ToptopicList">
+                <div id='tab-2' className={'scroll '+(topic.type=='aspire' ? 'tab-list-active' : '')}><ul className="ToptopicList">
                     {profile.aspire.map((inspire, index) => {
                   return (<li  key={inspire._id} className="clearfix">
                       <div className="left"><a href="#" title="{inspire.text}">{inspire.text}</a></div>
@@ -989,7 +994,7 @@ class Home extends Component {
                     
                   </ul>
                  
-                    <div id='tab-3' className={(contract.type=='me' ? 'tab-list-active' : '')}>
+                    <div id='tab-3' className={'scroll '+(contract.type=='me' ? 'tab-list-active' : '')}>
                         <table>
                           <thead>
                             <tr>
@@ -1020,7 +1025,7 @@ class Home extends Component {
                               <td>
                                   <div className="profile"><img src={profile_img} alt="image" /></div>
                                  {serving.who.name}
-                                  <a href={serving.who.name} className="view" title="view">view</a>
+                                  <a href={serving.who.username} className="view" title="view">view</a>
 
                               </td>
                               
@@ -1062,7 +1067,7 @@ class Home extends Component {
                               <td>
                                   <div className="profile"><img src={profile_img} alt="image" /></div>
                                  {serving.who.name}
-                                  <a  onClick={() => this.props.history.push('/'+serving.who.name)} className="view" title="view">view</a>
+                                  <a href={serving.who.username} className="view" title="view">view</a>
 
                               </td>
                             </tr>)

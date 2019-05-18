@@ -31,7 +31,8 @@ const initialState = {
   suggestions_list: [],
   openContracts:[],
   completedContracts:[],
-  users:[]
+  users:[],
+  not_found:null,
 };
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -48,6 +49,7 @@ const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         fetching: false,
+        not_found:true,
         error: action.payload
       }
     }

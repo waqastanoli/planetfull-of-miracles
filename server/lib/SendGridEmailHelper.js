@@ -1,5 +1,5 @@
 const sendGrid = require('sendgrid').mail;
-const sg = require('sendgrid')('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');
+const sg = require('sendgrid')('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');
 import API_URL from '../../client/config/API_URL';
 module.exports = (req, to, token) => {
     const hostUrl = process.env.hostURL;

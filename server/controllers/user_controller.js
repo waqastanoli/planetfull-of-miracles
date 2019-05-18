@@ -10,6 +10,7 @@ import mongoose from 'mongoose';
 var formidable = require('formidable');
 var fs = require('fs');
 import sendVerificationEmail  from '../lib/SendGridEmailHelper';
+//import UniqueUser  from '../lib/UniqueUser';
 exports.updatesection = async(req,res,next) => {
   const id = req.params.id;
 
@@ -96,6 +97,17 @@ exports.create = async(req,res,next) => {
     });
 
     if(not_exist==true){
+        var username = req.body.name.replace(/\s/g,'');
+        //var username = await UniqueUser(req);
+        await User.find({name:req.body.name})
+          .then(users => {
+          
+          if(users!=null) {
+              username=username+users.length
+          }      
+        });
+
+        
         const newUser = await User.create(
             {
               name:req.body.name,
@@ -103,10 +115,10 @@ exports.create = async(req,res,next) => {
               password:req.body.password,
               mobile:req.body.mobile,
               isVerified:false,
-              cartItems:req.body.cartItems
+              username:username
             }
           );
-
+        //console.log(newUser);
         bcrypt.genSalt(10, (err, salt) => {
             if(err) console.error('There was an error', err);
             else {
@@ -130,7 +142,7 @@ exports.create = async(req,res,next) => {
               name: newUser.name,
               image: newUser.image,
               email: newUser.email,
-              cartItems: newUser.cartItems
+              username: newUser.username
           }
           jwt.sign(payload, 'secret', {
               expiresIn: 7200
@@ -179,7 +191,7 @@ exports.confirm = async(req,res,next) => {
                     name: user.name,
                     email: user.email,
                     image: user.image,
-                    cartItems: user.cartItems
+                    username: user.username
                 }
                 jwt.sign(payload, 'secret', {
                     expiresIn: 7200
@@ -216,7 +228,7 @@ exports.login = async(req,res,next) => {
                             name: user.name,
                             image: user.image,
                             email: user.email,
-                            cartItems: user.cartItems
+                            username: user.username
                         }
                         jwt.sign(payload, 'secret', {
                             expiresIn: 7200
@@ -311,7 +323,7 @@ exports.profile = async(req,res,next) => {
   try {
     const name = req.params.name;
 
-    User.findOne({name:name})
+    User.findOne({username:name})
         .then(user => {
         if(!user) {
             return res.send({status: false, error: 'User does not exist'});
