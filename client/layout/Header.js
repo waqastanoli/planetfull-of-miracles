@@ -28,6 +28,7 @@ class Header extends Component {
     const { cartItems, auth, profile } = this.props;
     if(auth.isAuthenticated){
       var helloname = auth.user.name;
+      var username = auth.user.username;
     }
     
     if(auth.user.image==null)
@@ -66,7 +67,7 @@ class Header extends Component {
                     
                  
                   <NavDropdown title={helloname} id="collasible-nav-dropdown" className="profile_name">
-                  <NavDropdown.Item href={helloname} >My Account</NavDropdown.Item>
+                  <NavDropdown.Item href={username} >My Account</NavDropdown.Item>
                   <NavDropdown.Item href="#">Settings</NavDropdown.Item>
                     <NavDropdown.Item href="#" onClick={this.onLogout.bind(this)}>Logout</NavDropdown.Item>
                 </NavDropdown>
