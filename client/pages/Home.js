@@ -172,9 +172,7 @@ class Home extends Component {
       }
     }))
   }
-  componentWillUnmount(){
-    alert('here')
-  }
+  
   componentDidMount() {
     this.setState({ search:'' })
     const { dispatch, match } = this.props;
