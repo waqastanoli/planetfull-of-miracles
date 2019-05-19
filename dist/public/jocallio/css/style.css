@@ -447,7 +447,7 @@ margin-top: 5px;
 }
 .Inspire,.Aspire{ visibility: hidden; }
 .rating{padding: 0px !important;width: 80px;}
-#tab-1, #tab-2,#tab-3{    height: 287px;}
+#tab-1, #tab-2,#tab-3,#tab-4{    height: 287px;}
 
 @media screen and (max-width: 1000px){
   .loginScreen {
