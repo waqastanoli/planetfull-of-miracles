@@ -8,7 +8,7 @@ import Action from '../actions/accountActions';
 import logo from '../public/jocallio/image/logo.png';
 import API_URL from '../config/API_URL';
 import small_profile_img from '../public/jocallio/image/small_profile.png';
-import profileplaceholder from '../public/jocallio/image/profileplaceholder.png';
+import profileplaceholder from '../public/jocallio/image/small_profileL.png';
 // sub components
 import Checkout from './header/Checkout';
 import HeaderNav from './header/HomeBreadCrumbs';
