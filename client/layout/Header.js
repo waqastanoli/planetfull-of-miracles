@@ -24,6 +24,11 @@ class Header extends Component {
       const { dispatch } = this.props;
       dispatch(Action.logoutUser(this.props.history));
   }
+  onshowWorks(e){
+    e.preventDefault();
+      const { dispatch } = this.props;
+      dispatch(Action.showorks()); 
+  }
   render() {
     const { cartItems, auth, profile } = this.props;
     if(auth.isAuthenticated){
@@ -50,8 +55,8 @@ class Header extends Component {
                 <input type="Search" placeholder="Search" name="hello" />
             </div>
             <div className="fright">
-                <div className="buttonHolder inline-block">
-                    <button className="button" id="myBtn">how it works</button>
+                <div className="buttonHolder inline-block how_it_works">
+                    <button onClick={this.onshowWorks.bind(this)} className="button" id="myBtn">how it works</button>
                 </div>
                 { !auth.isAuthenticated &&
                    <div className="login inline-block">

@@ -119,7 +119,6 @@ const loginAction = (user) => {
 }
 export const clearErrors = (history) => dispatch => {
   dispatch({ type: 'CLEAR_ERRORS'});
-  console.log('i was here man')
 }
 export const logoutUser = (history) => dispatch => {
     localStorage.removeItem('jwtToken');
@@ -136,4 +135,16 @@ export const logoutUser = (history) => dispatch => {
 	
     history.push('/signin');
 }
-export default { clearErrors, verifyAction, registerAction, loginAction, logoutUser };
+export const showorks = () => dispatch => {
+    dispatch({
+        type: 'SET_SHOW_WORKS',
+        payload: {workshow:true}
+    })
+}
+export const closeworks = () => dispatch => {
+    dispatch({
+        type: 'SET_CLOSE_WORKS',
+        payload: {workshow:false}
+    })
+}
+export default { closeworks, showorks, clearErrors, verifyAction, registerAction, loginAction, logoutUser };

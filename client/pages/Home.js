@@ -8,6 +8,7 @@ import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 //import Actions from '../actions/productsAction';
 import Actions from '../actions/profileActions';
+import AccountAction from '../actions/accountActions';
 import Product from './home/Product';
 import Pagination from '../layout/Pagination';
 import SearchInput from '../layout/SearchInput';
@@ -62,6 +63,7 @@ class Home extends Component {
     if(auth && match.params.userName==auth.user.username)
     logged_in = auth.isAuthenticated;
     this.state = {
+      workshow: false,
       alert: null,
       contractwho:null,
       selectedOption:"Open",
@@ -105,6 +107,7 @@ class Home extends Component {
         rate:''
       }
     }
+
     this.handleShow = this.handleShow.bind(this);
     this.proudhandleShow = this.proudhandleShow.bind(this);
     this.topichandleShow = this.topichandleShow.bind(this);
@@ -126,10 +129,25 @@ class Home extends Component {
     this.sendcontract = this.sendcontract.bind(this); 
     this.showsSuccessAlert = this.showsSuccessAlert.bind(this); 
     this.changeRating = this.changeRating.bind(this); 
+    this.workhandleClose = this.workhandleClose.bind(this);
+    this.onshowWorks = this.onshowWorks.bind(this);
+    this.workshowOpen = this.workshowOpen.bind(this);
+
     this.title = React.createRef();
     this.note = React.createRef();
     this.text = React.createRef();
 
+  }
+  workhandleClose() {
+      const { dispatch } = this.props;
+      dispatch(AccountAction.closeworks()); 
+  }
+  onshowWorks(e){
+      const { dispatch } = this.props;
+      dispatch(AccountAction.showorks()); 
+  }
+  workshowOpen() {
+    this.setState({ workshow: true });
   }
   showsSuccessAlert=( heading, message)=> {
     const getAlert = () => (
@@ -177,7 +195,9 @@ class Home extends Component {
     this.setState({ search:'' })
     const { dispatch, match } = this.props;
     this.state.dispatch = dispatch;
-
+     if(this.state.logged_in==true){
+      this.onshowWorks();
+    }
     dispatch(Actions.getProfileAction(match.params.userName));
   }
   onSave = (type, val) => {
@@ -555,7 +575,12 @@ class Home extends Component {
             </div>
         </div>
         
-                
+        <Modal show={auth.workshow} className="" onHide={this.workhandleClose}>
+          <span className="close" onClick={this.workhandleClose}>close </span> 
+          <Modal.Body>
+            <iframe width="640" height="360" src="https://www.youtube.com/embed/TmerVCmPgA0" frameBorder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+          </Modal.Body>   
+  </Modal>        
 
         <Modal show={this.state.show} onHide={this.handleClose} className="profile_image_popup">
           <span className="close" onClick={this.handleClose}>close </span>
@@ -1000,7 +1025,7 @@ class Home extends Component {
                   </ul>
                  
                     <div id='tab-3' className={'scroll '+(contract.type=='me' ? 'tab-list-active' : '')}>
-                        <table>
+                        <table className="contable">
                           <thead>
                             <tr>
                               <th>From</th>
@@ -1022,7 +1047,7 @@ class Home extends Component {
                               <td><Moment format="YYYY-MM-DD">{serving.from}</Moment></td>
                               <td>{serving.to && <Moment format="YYYY-MM-DD">{serving.to}</Moment>}</td>
                               <td>{serving.status}</td>
-                              <td class="rating">{serving.rating && <StarRatings
+                              <td className="rating">{serving.rating && <StarRatings
         rating={serving.rating}
         starDimension="12px"
         starSpacing="2px"
@@ -1042,7 +1067,7 @@ class Home extends Component {
 
                        {/* <div className="viewAll"><a href="viewAlllink">view all</a></div>*/}</div>
                     <div id='tab-4' className={(contract.type=='others' ? 'tab-list-active' : '')}>
-                        <table>
+                        <table className="contable">
                           <thead>
                             <tr>
                               <th>From</th>
@@ -1064,7 +1089,7 @@ class Home extends Component {
                               <td><Moment format="YYYY-MM-DD">{serving.from}</Moment></td>
                               <td>{serving.to && <Moment format="YYYY-MM-DD">{serving.to}</Moment>}</td>
                               <td>{serving.status}</td>
-                              <td class="rating">{serving.rating && <StarRatings
+                              <td className="rating">{serving.rating && <StarRatings
         rating={serving.rating}
         starDimension="12px"
         starSpacing="2px"

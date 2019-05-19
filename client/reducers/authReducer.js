@@ -5,7 +5,8 @@ var initialState = {
     isAuthenticated: false,
     user: {},
     image:null,
-    token: null
+    token: null,
+    workshow:false
 }
 
 var jwtToken = localStorage.getItem('jwtToken');
@@ -33,6 +34,16 @@ export default function(state = initialState, action ) {
                 ...state,
                 ...action.payload
             }
+        case 'SET_SHOW_WORKS':
+            return {
+                ...state,
+                ...action.payload
+            }  
+        case 'SET_CLOSE_WORKS':
+            return {
+                ...state,
+                ...action.payload
+            }        
         default: 
             return state;
     }

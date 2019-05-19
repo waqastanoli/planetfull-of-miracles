@@ -41,7 +41,7 @@ mongoose.connect(connection_string, {
   useNewUrlParser: true
 });
 
-/*mongoose.connect('mongodb://localhost:27017/ecommerce-store', {
+/*mongoose.connect('mongodb://localhost:27017/planetful', {
   useCreateIndex: true,
   useNewUrlParser: true
 });*/

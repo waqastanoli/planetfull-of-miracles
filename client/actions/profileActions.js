@@ -46,6 +46,7 @@ const getProfileAction = (userName)=> {
         dispatch({ type: 'PROFILE_DETAIL_FULFILLED', payload:  data });
       } else {
         dispatch({ type: 'PROFILE_REJECTED'});
+        
       }
     }).catch(err => {
       console.log(' *** ERROR *** ', err);
