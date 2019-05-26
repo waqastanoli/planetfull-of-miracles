@@ -644,7 +644,9 @@ margin-top: 5px;
 		float: right;
 	}
 	.fright .how_it_works{
-		    float: right;
+		    /*float: right;*/
+		        margin-top: 10px;
+
 	}
 	.dropdown-toggle{
 		font-size:0; 
@@ -660,14 +662,59 @@ margin-top: 5px;
 	header .logo{
 		 border-right: 0px;
 	}
+	.topbanner .content ul {
+		width: 98%;
+		margin-left:5px;
+	}
+	.topbanner .profileS {
+
+	    top: 120px;
+	    left: 44px;
+	}
+	.topbanner .content{
+		margin-top: 60px;
+	}
+	.profileS .name{ color: #3e3f42; }
+	.topbanner .editcover {
+	    top: -92px;
+	    position: absolute;
+	    right: -140%;
+	}
+	header .login .imageHolder{ display: none; }
+	.topbanner .content ul li .text{
+		float: left;
+    	clear: both;
+	}
 
 }
-@media only screen and (max-width: 634px)  {
+@media only screen and (max-width: 612px)  {
 	header .search {
 	    width: 98%;
 	    margin-left: 5px;       
 	}
+	.topbanner .content ul {
+		width: 98%;
+		margin-left:5px;
+	}
+	.topbanner .profileS {
 
+	    top: 120px;
+	    left: 44px;
+	}
+	.topbanner .content{
+		margin-top: 60px;
+	}
+	.profileS .name{ color: #3e3f42; }
+	.topbanner .editcover {
+	    top: -92px;
+	    position: absolute;
+	    right: -140%;
+	}
+	header .login .imageHolder{ display: none; }
+	.topbanner .content ul li .text{
+		float: left;
+    	clear: both;
+	}
 }
 /** {
   background: #000 !important;
