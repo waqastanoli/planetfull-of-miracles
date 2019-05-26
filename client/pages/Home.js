@@ -928,7 +928,7 @@ class Home extends Component {
         <Modal show={this.state.contractshow} className="proud_modal contractform" onHide={this.contractClose}>
           <span className="close" onClick={this.contractClose}>close </span>
           <Modal.Header>
-            <Modal.Title><h2>{actions.proud} Contract</h2></Modal.Title>
+            <Modal.Title><h2>Add Contract</h2></Modal.Title>
           </Modal.Header>
           <Modal.Body>
           <div className={'form-input' + (errors.note ? ' has-error' : '')}>
