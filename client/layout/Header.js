@@ -55,9 +55,9 @@ class Header extends Component {
                 <input type="Search" placeholder="Search" name="hello" />
             </div>
             <div className="fright">
-                <div className="buttonHolder inline-block how_it_works">
+                {window.location.pathname === '/'+username && <div className="buttonHolder inline-block how_it_works">
                     <button onClick={this.onshowWorks.bind(this)} className="button" id="myBtn">how it works</button>
-                </div>
+                </div>}
                 { !auth.isAuthenticated &&
                    <div className="login inline-block">
                 <NavDropdown title="Accounts" id="collasible-nav-dropdown" className="profile_name">

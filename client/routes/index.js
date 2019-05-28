@@ -4,11 +4,16 @@ import { Route, Switch  } from 'react-router';
 // PAGES //
 import Home from '../pages/Home';
 import ProductDetail from '../pages/ProductDetail';
-import Wishlist from '../pages/Wishlist';
+//import Wishlist from '../pages/Wishlist';
 import Cart from '../pages/Cart';
 import Checkout from '../pages/Checkout';
 import Signup from '../pages/Signup';
 import Signin from '../pages/Signin';
+import Pep from '../pages/contents/Pep';
+import SoloTeam from '../pages/contents/SoloTeam';
+
+import Press from '../pages/contents/Press';
+
 import TopicDetail from '../pages/TopicDetail';
 import Verification from '../pages/Verification';
 // CONTAINERS //
@@ -26,7 +31,11 @@ export const renderRoutes = () => {
         <Route exact path="/signin" render={ props => <AppRoute Component={Signin} Layout={MinimumContainer} props={props} /> } />
         <Route exact path="/verification" render={ props => <AppRoute Component={Verification} Layout={MinimumContainer} props={props} /> } />
         <Route exact path="/topic/:topicID" render={ props => <AppRoute Component={TopicDetail} Layout={AppContainer} props={props} type={'detail'} /> } />
-        <Route exact path="/product/wishlist" render={ props => <AppRoute Component={Wishlist} Layout={AppContainer} props={props} type={'wishlist'} /> } />
+        <Route exact path="/page/pep" render={ props => <AppRoute Component={Pep} Layout={AppContainer} props={props} type={props} /> } />
+        <Route exact path="/page/SoloTeam" render={ props => <AppRoute Component={SoloTeam} Layout={AppContainer} props={props} type={props} /> } />
+        
+        <Route exact path="/page/Press" render={ props => <AppRoute Component={Press} Layout={AppContainer} props={props} type={props} /> } />
+        
         <Route exact path="/product/cart" render={ props => <AppRoute Component={Cart} Layout={AppContainer} props={props} type={'cart'} /> } />
         <Route exact path="/product/checkout" render={ props => <AppRoute Component={Checkout} Layout={AppContainer} props={props} type={'checkout'} /> } />
         <Route exact path="/:userName" render={ props => <AppRoute Component={Home} Layout={AppContainer} props={props} /> } />

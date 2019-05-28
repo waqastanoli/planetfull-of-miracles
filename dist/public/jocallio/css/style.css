@@ -65,7 +65,7 @@ template { display: none; }
 h1 { margin-bottom: 20px; color: #083d81; font-weight: bold; font-size: 26px; line-height: 1.5; }
 h2 { font-size: 14px; color: #b50a4b; line-height: 1.5; font-weight: 500; }
 h3 { font-size: 24px; line-height: 1.5; }
-img { width: 100%; display: block; }
+img{ width: 100%; display: block; }
 img:hover { opacity: .8; transition: opacity .3s ease; }
 
 /* button  */
@@ -716,6 +716,26 @@ margin-top: 5px;
     	clear: both;
 	}
 }
+.hiw-section .block_hiw{
+	overflow: hidden; margin-bottom: 20px;
+}
+blockquote.alignleft, .wp-caption.alignleft, img.alignleft {
+    margin: 0.4em 1.6em 1.6em 0;
+}
+.size-medium{
+	border: solid 1px #ccc !important;
+}
+.alignleft {
+    float: left;
+    margin: .5em 20px .5em 0;
+        border: solid 1px #ccc;
+}
+.size-medium, .alignleft{ width: inherit; }
+
+  .laparent{ counter-reset: item;padding-left: 0px; }
+  .laparent li { display: block ; counter-increment: item; }
+  .laparent li:before { content: " ("counter(item,lower-alpha)") "; }
+
 /** {
   background: #000 !important;
   color: #0f0 !important;
