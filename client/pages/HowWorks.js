@@ -8,6 +8,9 @@ export default class HowWorks extends Component {
       <div className="page-style">
             <p><strong><span className='heading_how_it_works'>How Planetful of Miracles (POM) Works</span></strong></p>
 <div className="hiw-section">
+<p>PlanetfulofMiracles (“PoM“), a subsidiary of Miraculous Media Enterprise, The Clearing House for Positivity, is all about collaborating together to make a lasting positive impact. We combine the reach of Television and the power of the Internet to significantly improve your life while empowering current and future generations.
+<br/><br/>
+With the influential forces of TV, watched more than ever, but viewed on a variety of devices, we can also use the Internet, to include your unique stories, expertise and voice. One full segment of the TV show is dedicated to the input and outcomes of those who participate through our website</p>
 <div className="block_hiw">
 <p><img className="size-medium wp-image-3814 alignleft" src="https://restoredvalor.org/wp-content/uploads/2019/05/resume-sm-300x194.jpg" alt="" width="300" height="194"/>1. <strong><span className="hiw-title">CV (traditional resume)</span></strong> is optional and is your standard job/work related information including history and education etc OR Personal and pertinent information about your life</p>
 </div>
@@ -27,7 +30,7 @@ export default class HowWorks extends Component {
 <div className="block_hiw">
 <p><img className="size-medium wp-image-3822 alignleft" src="https://restoredvalor.org/wp-content/uploads/2019/05/matches_sm-300x192.jpg" alt="" width="300" height="192"/>6. <strong><span className="hiw-title">TECK CHI</span></strong> will happen when you find the match you need to help further your goals. You may search the data base or the site can automatically choose your matches from the ASPIRE (learn) or INSPIRE (teach) lists. A review and reward process takes place. The better your reviews, which others can view, the more connections/contracts you can make. Some connections are free, some are for barter and others for a designated fee.</p>
 <p>T.E.C.K. – <strong>T</strong>ime/<strong>T</strong>alent | <strong>E</strong>xperience/<strong>E</strong>xpertise | <strong>C</strong>reative/<strong>C</strong>onnect | <strong>K</strong>nowledge/<strong>K</strong>udos</p>
-<p>C.H.I. – <strong>C</strong>ommunicate/<strong>C</strong>oach | <strong>H</strong>elp/<strong>H</strong>eroic | <strong>I</strong>mpact/<strong>I</strong>nnovate</p>
+<p>C.H.I. – <strong>C</strong>ommunicate/<strong>C</strong>oach | <strong>H</strong>elp/<strong>H</strong>eroic | <strong>I</strong>mpact/<strong>I</strong>nnovate&nbsp;<a href="/page/TECK"  >LEARN MORE</a></p>
 </div>
 <div className="block_hiw">
 <p><img className="size-medium wp-image-3812 alignleft" src="https://restoredvalor.org/wp-content/uploads/2019/05/advisory-team-2-300x190.jpg" alt="" width="300" height="190"/>7. <strong><span className="hiw-title">ADVISORY TEAM</span></strong> – a group of professionals, authorities and experts in their field who can assist guide direct or network with you. THEY ARE : AUTHORITIES OR PROFESSIONALS IN THEIR FIELDS WHO HAVE EXPRESSED A FORM OF EXTREME INTEREST OR ENDORSEMENT OF THE TV SHOW AND INTERNET SITE IN THE PAST OR CURRENTLY, AND ARE IN ALIGNMENT WITH THE PROJECT BY INTENTION, PURPOSE, OBJECTIVE AND PHILOSOPHY. They can help you to become a leader, monetize, or otherwise jump start your vision of intended greatness. (Future set up) They are in alignment with the principles and goals of PoM.</p>

@@ -13,7 +13,7 @@ import Pep from '../pages/contents/Pep';
 import SoloTeam from '../pages/contents/SoloTeam';
 
 import Press from '../pages/contents/Press';
-
+import TECK from '../pages/contents/TECK';
 import TopicDetail from '../pages/TopicDetail';
 import Verification from '../pages/Verification';
 // CONTAINERS //
@@ -33,7 +33,7 @@ export const renderRoutes = () => {
         <Route exact path="/topic/:topicID" render={ props => <AppRoute Component={TopicDetail} Layout={AppContainer} props={props} type={'detail'} /> } />
         <Route exact path="/page/pep" render={ props => <AppRoute Component={Pep} Layout={AppContainer} props={props} type={props} /> } />
         <Route exact path="/page/SoloTeam" render={ props => <AppRoute Component={SoloTeam} Layout={AppContainer} props={props} type={props} /> } />
-        
+         <Route exact path="/page/TECK" render={ props => <AppRoute Component={TECK} Layout={AppContainer} props={props} type={props} /> } />
         <Route exact path="/page/Press" render={ props => <AppRoute Component={Press} Layout={AppContainer} props={props} type={props} /> } />
         
         <Route exact path="/product/cart" render={ props => <AppRoute Component={Cart} Layout={AppContainer} props={props} type={'cart'} /> } />
