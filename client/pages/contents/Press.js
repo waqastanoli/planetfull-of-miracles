@@ -5,7 +5,7 @@ export default class Press extends Component {
   render() {
     return (
       <div className="main logged_in">
-      <div className="page-style">
+      <div className="page-style paddintop15">
             <p><strong><span className='heading_how_it_works'>PRESSING ISSUES OF HUMANITY (or Issue de jour)</span></strong></p>
 <div className="hiw-section">
 <p>

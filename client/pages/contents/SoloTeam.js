@@ -5,7 +5,7 @@ export default class SoloTeam extends Component {
   render() {
     return (
       <div className="main logged_in">
-      <div className="page-style">
+      <div className="page-style paddintop15">
             <p><strong><span className='heading_how_it_works'>SOLO or TEAM</span></strong></p>
 <div className="hiw-section">
 <p>

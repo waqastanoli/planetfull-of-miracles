@@ -5,7 +5,7 @@ export default class Pep extends Component {
   render() {
     return (
       <div className="main logged_in">
-      <div className="page-style">
+      <div className="page-style paddintop15">
             <p><strong><span className='heading_how_it_works'>P.E.P. – Finding your PASSION, ESSENTIALS and PURPOSE</span></strong></p>
 <div className="hiw-section">
 <p>

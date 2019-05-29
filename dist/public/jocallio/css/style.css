@@ -104,7 +104,7 @@ header .login .dropdown:before { border-width: 3px 3px 0 3px; top: 2px; border-c
 .topbanner .editcover a { cursor:pointer;color: #fff; display: block; }
 .topbanner .editcover a .icon { background-position: -51px -1px; width: 20px; height: 16px; vertical-align: -3px; margin-right: 6px; }
 .topbanner .content { box-shadow: inset 1px 0px 0px #eaedf3, 1px 0px 3px rgb(0, 0, 0, 0.2); border-radius: 0px 0px 5px 0px; padding: 18px 0 11px }
-.topbanner .content ul { width: 81%; margin-left: 130px; display: flex; flex-wrap: nowrap; justify-content: space-between; }
+.topbanner .content ul { width: 81%; margin: auto; display: flex; flex-wrap: nowrap; justify-content: space-between; }
 .topbanner .content ul li .left { height: 36px; width: 36px; border-radius: 100%; background: #ffbb41; margin-right: 7px; }
 .topbanner .content ul li .num { font-size: 36px; margin-right: 6px; font-family: "roboto"; font-weight: 300; }
 .topbanner .content ul li .text { font-size: 16px; color: #3e3f42; margin-top: 4px; }
@@ -445,7 +445,7 @@ margin-top: 5px;
 	    float: left;
 	}*/
 }
-.Aspire{ visibility: hidden; }
+.Aspire{ display: none; }
 .rating{padding: 0px !important;width: 80px;}
 #tab-1, #tab-2,#tab-3,#tab-4{    height: 287px;}
 
@@ -596,6 +596,7 @@ margin-top: 5px;
     max-width: none!important;
     margin: 1.75rem auto;
 }
+
 .modal-90w .modal-content{
 	position: relative;
    /* display: -ms-flexbox;
@@ -636,6 +637,8 @@ margin-top: 5px;
 }
 
 @media only screen and (max-width: 740px)  {
+	.modal-90w {margin: auto;}
+	.modal-90w .modal-content{width: auto;}
 	.fright {
 	    float: none;
 	        padding-right: 6px;
@@ -735,7 +738,7 @@ blockquote.alignleft, .wp-caption.alignleft, img.alignleft {
   .laparent{ counter-reset: item;padding-left: 0px; }
   .laparent li { display: block ; counter-increment: item; }
   .laparent li:before { content: " ("counter(item,lower-alpha)") "; }
-
+.paddintop15{padding-top: 15px;}
 /** {
   background: #000 !important;
   color: #0f0 !important;

@@ -10,7 +10,7 @@ import 'react-dates/lib/css/_datepicker.css';
 import Actions from '../actions/profileActions';
 import AccountAction from '../actions/accountActions';
 import Product from './home/Product';
-import HowWorks from './HowWorks';
+
 import Pagination from '../layout/Pagination';
 import SearchInput from '../layout/SearchInput';
 import placeholdercover from '../public/jocallio/image/placeholdercover.jpg';
@@ -131,7 +131,7 @@ class Home extends Component {
     this.sendcontract = this.sendcontract.bind(this); 
     this.showsSuccessAlert = this.showsSuccessAlert.bind(this); 
     this.changeRating = this.changeRating.bind(this); 
-    this.workhandleClose = this.workhandleClose.bind(this);
+    
     this.onshowWorks = this.onshowWorks.bind(this);
     this.workshowOpen = this.workshowOpen.bind(this);
 
@@ -140,10 +140,7 @@ class Home extends Component {
     this.text = React.createRef();
 
   }
-  workhandleClose() {
-      const { dispatch } = this.props;
-      dispatch(AccountAction.closeworks()); 
-  }
+  
   onshowWorks(e){
       const { dispatch } = this.props;
       dispatch(AccountAction.showorks()); 
@@ -577,12 +574,7 @@ class Home extends Component {
             </div>
         </div>
         
-        <Modal scrollable="true" dialogClassName="modal-90w" aria-labelledby="example-custom-modal-styling-title" show={auth.workshow} className="proud_modal" onHide={this.workhandleClose}>
-          <span className="close" onClick={this.workhandleClose}>close </span> 
-          <Modal.Body>
-            <HowWorks/>
-          </Modal.Body>   
-  </Modal>        
+                
 
         <Modal show={this.state.show} onHide={this.handleClose} className="profile_image_popup">
           <span className="close" onClick={this.handleClose}>close </span>
