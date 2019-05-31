@@ -691,6 +691,9 @@ margin-top: 5px;
 
 }
 @media only screen and (max-width: 612px)  {
+	.FutureVision .scroll,.CurrentLife .scroll{
+		height: 180px;
+	}
 	header .search {
 	    width: 98%;
 	    margin-left: 5px;       

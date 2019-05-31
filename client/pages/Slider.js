@@ -10,11 +10,11 @@ class Slider extends Component {
     render() {
     	const {sliderData} = this.props;
         return (
-            <Carousel showStatus={false} infiniteLoop={true}   emulateTouch={true} swipeable={true} showThumbs={false} autoPlay={true}>
+            <Carousel showStatus={false} infiniteLoop={true}   emulateTouch={true} swipeable={true} showThumbs={false} autoPlay={false}>
             {sliderData.map((slide, index) => {
                   return (<div key={index}>
                     <img src={slide.img} />
-                    <p className={slide.class}>{slide.label}</p>
+                    {/*<p className={slide.class}>{slide.label}</p>*/}
                 </div>)
                 })}
                 
