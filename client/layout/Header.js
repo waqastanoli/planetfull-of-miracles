@@ -39,7 +39,7 @@ class Header extends Component {
     if(auth.user.image==null)
     var profile_img=profileplaceholder;
     else
-    var profile_img = API_URL.API_URL+'/public/'+auth.user.id+'/profile/'+auth.user.image;
+    var profile_img = auth.user.image;//API_URL.API_URL+'/public/'+auth.user.id+'/profile/'+auth.user.image;
     
     return (
       

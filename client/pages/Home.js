@@ -485,11 +485,12 @@ class Home extends Component {
     if(profile.image==null)
     var profile_img=profileplaceholder;
     else
-    var profile_img = API_URL.API_URL+'/public/'+profile.id+'/profile/'+profile.image;
+    var profile_img = profile.image;  
+    //var profile_img = API_URL.API_URL+'/public/'+profile.id+'/profile/'+profile.image;
     if(profile.cover==null)
     var cover_img = placeholdercover
     else 
-    var cover_img = API_URL.API_URL+'/public/'+profile.id+'/cover/'+profile.cover;
+    var cover_img = profile.cover;//API_URL.API_URL+'/public/'+profile.id+'/cover/'+profile.cover;
 
     return (
       <div>
@@ -604,10 +605,10 @@ class Home extends Component {
                       var splited_res = img_res[0].split("/");
                       //console.log(splited_res)
                       if(this.state.modaltype=='profile'){
-                        profile.image = splited_res[splited_res.length-1]
+                        profile.image = img_res[0]//splited_res[splited_res.length-1]
                       }
                       else
-                        profile.cover = splited_res[splited_res.length-1]
+                        profile.cover = img_res[0]//splited_res[splited_res.length-1]
                     }
                 }}
                 label=""

@@ -721,6 +721,8 @@ margin-top: 5px;
 		float: left;
     	clear: both;
 	}
+	.size-medium, .alignleft,.alignnone{ height:auto !important;width: 100% !important; }
+
 }
 .hiw-section .block_hiw{
 	overflow: hidden; margin-bottom: 20px;
@@ -736,7 +738,7 @@ blockquote.alignleft, .wp-caption.alignleft, img.alignleft {
     margin: .5em 20px .5em 0;
         border: solid 1px #ccc;
 }
-.size-medium, .alignleft{ width: inherit; }
+.size-medium, .alignleft,.alignnone{ width: inherit; }
 
   .laparent{ counter-reset: item;padding-left: 0px; }
   .laparent li { display: block ; counter-increment: item; }

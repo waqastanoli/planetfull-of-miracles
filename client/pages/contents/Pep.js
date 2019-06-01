@@ -13,7 +13,7 @@ export default class Pep extends Component {
   <li>Singularity University </li>
   <li>Upworthy  </li>
   <li>Enneagrams </li>
-  <li>NLP or TRI </li>
+  <li>Neuro-Linguistic Programming </li>
   <li>Monetize You Passion  </li>
 </ol>
 ...AND MANY MORE!
