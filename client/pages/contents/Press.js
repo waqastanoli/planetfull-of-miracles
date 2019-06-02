@@ -11,7 +11,7 @@ export default class Press extends Component {
 <p>
 <ol className="laparent">
   <li>ECONOMIC RECOVERY, UNEMPLOYMENT & FOOD SUPPLY </li>
-  <li>WATER QUALITY & SUPPLY</li>
+  <li>CLIMATE, NATURE AND ANIMALS</li>
   <li>HEALTH CARE/MEDICINES, SPIRITUALITY & ALTERNATIVE TREATMENTS</li>
   <li>LONGEVITY & AGE RELATED CHALLENGES</li>
   

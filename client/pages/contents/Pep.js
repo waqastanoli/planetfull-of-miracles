@@ -14,7 +14,7 @@ export default class Pep extends Component {
   <li>Upworthy  </li>
   <li>Enneagrams </li>
   <li>Neuro-Linguistic Programming </li>
-  <li>Monetize You Passion  </li>
+  <li>Monetize Your Passion  </li>
 </ol>
 ...AND MANY MORE!
 </p>
