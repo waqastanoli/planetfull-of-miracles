@@ -34,7 +34,9 @@ import slider_image_two from '../public/jocallio/image/slider-images/2.jpg';
 import slider_image_three from '../public/jocallio/image/slider-images/3.jpg';
 import slider_image_four from '../public/jocallio/image/slider-images/4.jpg';
 import slider_image_five from '../public/jocallio/image/slider-images/5.jpg';
-import slider_image_six from '../public/jocallio/image/FakeProfileImages/baby.6.jpg';
+import slider_image_six from '../public/jocallio/image/slider-images/6.jpg';
+import slider_image_seven from '../public/jocallio/image/slider-images/7.jpg';
+
 import small_profileL from '../public/jocallio/image/small_profileL.png';
 import ImagesUploader from 'react-images-uploader';
 import 'react-images-uploader/styles.css';
@@ -473,7 +475,17 @@ class Home extends Component {
         img:slider_image_five,
         class:"legend",
         label:"Family"
-      }
+      },
+      {
+        img:slider_image_six,
+        class:"legend",
+        label:"Family"
+      },
+      {
+        img:slider_image_seven,
+        class:"legend",
+        label:"Family"
+      },
     ]
     const { dispatch, products, auth , match, fetched, profile} = this.props;
     const  {logged_in ,errors, contracterrors, proud, topic, actions, contract } = this.state;

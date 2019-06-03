@@ -638,8 +638,11 @@ margin-top: 5px;
 .page-style strong {
     font-weight: 700;
 }
-
+.unique_case{    margin-left: 324px !important;}
 @media only screen and (max-width: 740px)  {
+	.unique_case{   margin: 0 0 10px !important;}
+	.my-slide{margin: 0 0px 0 15%;}
+.Bottomslider .smallP:nth-child(3n) { margin-right: 17px; }
 	.modal-90w {margin: auto;}
 	.modal-90w .modal-content{width: auto;}
 	.fright {
