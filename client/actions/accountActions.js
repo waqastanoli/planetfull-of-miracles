@@ -27,8 +27,8 @@ const registerAction = (user, cartItems) => {
 	    name: user.name,
 	    email: user.email,
 	    password: user.password,
-      mobile: user.mobile,
-      cartItems:cartItems
+      mobile: user.mobile
+      
 	  })
     .then(res => {
       const { status, data, error } = res.data;
@@ -38,7 +38,8 @@ const registerAction = (user, cartItems) => {
         dispatch(setCurrentUser({
         	isAuthenticated:true,
         	user:decoded,
-        	token:data
+        	token:data,
+          new:true
         }));
         dispatch(setCurrentUserCart({
           cartItems:decoded.cartItems?decoded.cartItems:[]

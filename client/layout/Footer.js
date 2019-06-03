@@ -32,7 +32,7 @@ class Footer extends Component {
   	 const { dispatch, products, auth , match, fetched, profile} = this.props;
     return (
     	<div>
-      <footer>Copyright © 2019 Company S.L. All rights reserved.</footer>
+      <footer>Copyright © 2019 C.L. Morci. All Rights Reserved.</footer>
     	<Modal scrollable="true" dialogClassName="modal-90w" aria-labelledby="example-custom-modal-styling-title" show={auth.workshow} className="proud_modal" onHide={this.workhandleClose}>
           <span className="close" onClick={this.workhandleClose}>close </span> 
           <Modal.Body>

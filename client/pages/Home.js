@@ -28,12 +28,12 @@ import coins_icon from '../public/jocallio/image/coins-icon.png';
 import small_profile_2 from '../public/jocallio/image/small_profile_2.png';
 import small_profile_5 from '../public/jocallio/image/small_profile_5.png';
 import small_profile_3 from '../public/jocallio/image/small_profile_3.png';
-import slider_image_one from '../public/jocallio/image/FakeProfileImages/Brooks-Blog-14-1024x683.jpg';
+import slider_image_one from '../public/jocallio/image/slider-images/1.jpg';
 
-import slider_image_two from '../public/jocallio/image/FakeProfileImages/170717100550_1_900x600.jpg';
-import slider_image_three from '../public/jocallio/image/FakeProfileImages/The-Happiness-Doctor-is-In-452575741.jpg';
-import slider_image_four from '../public/jocallio/image/FakeProfileImages/living-independantly-feat.jpg';
-import slider_image_five from '../public/jocallio/image/FakeProfileImages/20180627194538-GettyImages-828514788.jpeg';
+import slider_image_two from '../public/jocallio/image/slider-images/2.jpg';
+import slider_image_three from '../public/jocallio/image/slider-images/3.jpg';
+import slider_image_four from '../public/jocallio/image/slider-images/4.jpg';
+import slider_image_five from '../public/jocallio/image/slider-images/5.jpg';
 import slider_image_six from '../public/jocallio/image/FakeProfileImages/baby.6.jpg';
 import small_profileL from '../public/jocallio/image/small_profileL.png';
 import ImagesUploader from 'react-images-uploader';
@@ -192,9 +192,9 @@ class Home extends Component {
   
   componentDidMount() {
     this.setState({ search:'' })
-    const { dispatch, match } = this.props;
+    const { dispatch, match, auth } = this.props;
     this.state.dispatch = dispatch;
-     if(this.state.logged_in==true){
+     if(auth.new==true){
       this.onshowWorks();
     }
     dispatch(Actions.getProfileAction(match.params.userName));
@@ -473,12 +473,7 @@ class Home extends Component {
         img:slider_image_five,
         class:"legend",
         label:"Family"
-      },
-      {
-        img:slider_image_six,
-        class:"legend",
-        label:"Cute"
-      },
+      }
     ]
     const { dispatch, products, auth , match, fetched, profile} = this.props;
     const  {logged_in ,errors, contracterrors, proud, topic, actions, contract } = this.state;
@@ -1036,7 +1031,7 @@ class Home extends Component {
                   if(serving.who.image==null)
     var profile_img=profileplaceholder;
     else
-                            var profile_img = API_URL.API_URL+'/public/'+serving.who._id+'/profile/'+serving.who.image;
+                            var profile_img = serving.who.image//API_URL.API_URL+'/public/'+serving.who._id+'/profile/'+serving.who.image;
                                       
                   return (<tr key={serving._id}>
                               <td><Moment format="YYYY-MM-DD">{serving.from}</Moment></td>
@@ -1078,7 +1073,7 @@ class Home extends Component {
                   if(serving.who.image==null)
     var profile_img=profileplaceholder;
     else
-                            var profile_img = API_URL.API_URL+'/public/'+serving.who._id+'/profile/'+serving.who.image;
+                            var profile_img = serving.who.image//API_URL.API_URL+'/public/'+serving.who._id+'/profile/'+serving.who.image;
                                       
                   return (<tr key={serving._id}>
                               <td><Moment format="YYYY-MM-DD">{serving.from}</Moment></td>

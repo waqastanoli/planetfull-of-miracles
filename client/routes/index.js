@@ -14,6 +14,7 @@ import SoloTeam from '../pages/contents/SoloTeam';
 
 import Press from '../pages/contents/Press';
 import TECK from '../pages/contents/TECK';
+import AdvisoryTeam from '../pages/contents/AdvisoryTeam';
 import TopicDetail from '../pages/TopicDetail';
 import Verification from '../pages/Verification';
 // CONTAINERS //
@@ -35,7 +36,7 @@ export const renderRoutes = () => {
         <Route exact path="/page/SoloTeam" render={ props => <AppRoute Component={SoloTeam} Layout={AppContainer} props={props} type={props} /> } />
          <Route exact path="/page/TECK" render={ props => <AppRoute Component={TECK} Layout={AppContainer} props={props} type={props} /> } />
         <Route exact path="/page/Press" render={ props => <AppRoute Component={Press} Layout={AppContainer} props={props} type={props} /> } />
-        
+        <Route exact path="/page/AdvisoryTeam" render={ props => <AppRoute Component={AdvisoryTeam} Layout={AppContainer} props={props} type={props} /> } />
         <Route exact path="/product/cart" render={ props => <AppRoute Component={Cart} Layout={AppContainer} props={props} type={'cart'} /> } />
         <Route exact path="/product/checkout" render={ props => <AppRoute Component={Checkout} Layout={AppContainer} props={props} type={'checkout'} /> } />
         <Route exact path="/:userName" render={ props => <AppRoute Component={Home} Layout={AppContainer} props={props} /> } />

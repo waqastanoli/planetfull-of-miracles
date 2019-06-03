@@ -2,6 +2,7 @@
 import jwt_decode from 'jwt-decode';
 
 var initialState = {
+    new:false,
     isAuthenticated: false,
     user: {},
     image:null,

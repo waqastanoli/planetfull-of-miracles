@@ -52,7 +52,7 @@ class TopicDetail extends Component {
                             if(user.image==null)
     var profile_img=profileplaceholder;
     else
-                            var profile_img = API_URL.API_URL+'/public/'+user._id+'/profile/'+user.image;
+                            var profile_img =user.image// API_URL.API_URL+'/public/'+user._id+'/profile/'+user.image;
                   return (
                             <tr key={user._id} >
                               <td>{user.name}</td>
