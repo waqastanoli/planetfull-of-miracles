@@ -525,8 +525,8 @@ class Home extends Component {
               {this.state.alert}
       {profile.fetched && 
       <main className={"main "+((logged_in)?'logged_in':'')}>
-        {logged_in && <div style={{paddingBottom:'2px'}} className="Contracts shadowbox">
-          <h1 style={{textAlign:'center'}}>Your Profile</h1>
+        {logged_in && <div className="yo_pro">
+          <h1 style={{textAlign:'center',width:'-webkit-fill-available',display:'inline-block',marginTop:'-13px',marginBottom:'0px'}}>Your Profile</h1>
         </div>
       }
         <div className="topbanner">

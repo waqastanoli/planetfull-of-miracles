@@ -49,20 +49,22 @@ class Header extends Component {
                 <a href="#" title="JocialIO">
                     <img src={logo} alt="JocialIO" />
                 </a>
+                <h5 className="techchi">TECK CHI.com</h5>
             </div>
             <div className="search">
                 <span className="sprite iconsearch"></span>
                 <input type="Search" placeholder="Search" name="hello" />
             </div>
-            <div className="fright">
-                <div className="buttonHolder inline-block how_it_works">
-                    <button onClick={this.onshowWorks.bind(this)} className="button" id="myBtn">how it works</button>
+            <div className="buttonHolder inline-block how_it_works">
+                    <button onClick={this.onshowWorks.bind(this)} className="button" id="myBtn">HOW IT WORKS</button>
                 </div>
+            <div className="fright">
+                
                 { !auth.isAuthenticated &&
                    <div className="login inline-block">
                 <NavDropdown title="Accounts" id="collasible-nav-dropdown" className="profile_name">
-                  <NavDropdown.Item onClick={() => this.props.history.push('signin')}>Sign in</NavDropdown.Item>
-                  <NavDropdown.Item onClick={() => this.props.history.push('register')}>Sign up</NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => this.props.history.push('/signin')}>Sign in</NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => this.props.history.push('/register')}>Sign up</NavDropdown.Item>
                 </NavDropdown>
                 </div>
               }

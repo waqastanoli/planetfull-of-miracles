@@ -244,7 +244,7 @@ _:-o-prefocus, .selector { .styled-select { background: none; }
 .loginScreen { width: 973px; box-sizing: border-box; margin: 25px auto 25px; background: white;/*#f8f8fa;*/ }
 .loginScreen .rightPanel { width: 424px; float: right; position: relative; }
 .loginScreen .rightPanel img:hover { opacity: 1 }
-.loginScreen .rightPanel .textholder { position: absolute; top: 108px; font-family: roboto; left: 100px; }
+.loginScreen .rightPanel .textholder { width: 50%; position: absolute; top: 108px; font-family: roboto; left: 100px; }
 .loginScreen .rightPanel .title { font-size: 28px; color: #ffffff; font-weight: 300; }
 .loginScreen .rightPanel p { font-size: 16px; color: #dfdfdf; text-align: left; margin-top: 7px; font-weight: 300; }
 .loginScreen .leftPanel { float: left; width: 430px; padding: 39px 0 25px 84px; }
@@ -812,3 +812,16 @@ blockquote.alignleft, .wp-caption.alignleft, img.alignleft {
 .vc_figure{
 	margin: 0;
 }
+.yo_pro {
+    position: relative;
+    margin-top: 30px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+.techchi{
+	    position: relative;
+    top: -30px;
+    left: 44px;
+}
+
+#myBtn{background:#21f13b;}

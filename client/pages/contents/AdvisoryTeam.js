@@ -26,7 +26,7 @@ export default class AdvisoryTeam extends Component {
 
   <div className="wpb_text_column wpb_content_element ">
     <div className="wpb_wrapper">
-      <p>Combines the forces of TV and Internet to create opportunity and outcomes.</p>
+      <p>We combine the forces of TV and Internet to create opportunity and outcomes.</p>
 
     </div>
   </div>
@@ -68,7 +68,7 @@ export default class AdvisoryTeam extends Component {
 
   <div className="wpb_text_column wpb_content_element ">
     <div className="wpb_wrapper">
-      <p>(MLB) TV &amp; Film Director, Exec Producer, consultant</p>
+      <p>(MLB) TV & Film Director, Exec Producer, consultant ("Babe Ruth", "Derek Jeter", etc.)</p>
 
     </div>
   </div>
@@ -76,7 +76,7 @@ export default class AdvisoryTeam extends Component {
 </div></div></div></div><div className="vc_row wpb_row vc_row-fluid"><div className="wpb_column vc_column_container vc_col-sm-4"><div className="vc_column-inner "><div className="wpb_wrapper">
   <div className="wpb_text_column wpb_content_element ">
     <div className="wpb_wrapper">
-      <p><strong>Lorraine B. Ling, Esq. </strong>(juris doctorate)<strong><br/>
+      <p><strong>Lorraine B. Ling, Esq.</strong><strong><br/>
 </strong></p>
 
     </div>
@@ -91,7 +91,7 @@ export default class AdvisoryTeam extends Component {
 
   <div className="wpb_text_column wpb_content_element ">
     <div className="wpb_wrapper">
-      <p>M.S. Biology, M.A English, B.A. Chemistry. Mindfulness certified</p>
+      <p>Patent Attorney, VP corp.: M.S. Biology, M.A English, B.A. Chemistry. Mindfulness certified</p>
 
     </div>
   </div>
@@ -112,7 +112,7 @@ export default class AdvisoryTeam extends Component {
 
   <div className="wpb_text_column wpb_content_element ">
     <div className="wpb_wrapper">
-      <p>PGA Pro. Instructor to Tony Robbins. Results specialist</p>
+      <p>PGA Pro. Personal instructor to Tony Robbins. Results specialist TRI</p>
 
     </div>
   </div>
@@ -133,7 +133,7 @@ export default class AdvisoryTeam extends Component {
 
   <div className="wpb_text_column wpb_content_element ">
     <div className="wpb_wrapper">
-      <p>CEO iTV Alliance of Silicon Valley. foremost authority</p>
+      <p>CEO iTV Alliance of Silicon Valley. Foremost authority of Internet and TV interaction</p>
 
     </div>
   </div>

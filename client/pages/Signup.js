@@ -168,6 +168,7 @@ class Signup extends Component {
     } 
     <div className="logohere">
                 <a href="" title="logo"><img width="99"  src={logo} alt="image" /></a>
+              <h5 className="techchi">TECK CHI.com</h5>
             </div>
             <h2>Registration</h2>
             <form name="form" onSubmit={this.handleSubmit}>
@@ -254,8 +255,7 @@ class Signup extends Component {
       }
 <div className="rightPanel"><img src={loginimage} alt="login"/>
             <div className="textholder">
-                <div className="title">Welcome to Family</div>
-                <p>A workspace to over 12 Million influencers around the globe.</p>
+                <p>TECK CHI is a website that captures your unique talents and gives you results, profit & rewards by following the roadmap.</p>
             </div>
         </div>
       </main>
