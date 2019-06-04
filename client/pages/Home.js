@@ -36,6 +36,7 @@ import slider_image_four from '../public/jocallio/image/slider-images/4.jpg';
 import slider_image_five from '../public/jocallio/image/slider-images/5.jpg';
 import slider_image_six from '../public/jocallio/image/slider-images/6.jpg';
 import slider_image_seven from '../public/jocallio/image/slider-images/7.jpg';
+import slider_image_eight from '../public/jocallio/image/slider-images/8.jpg';
 
 import small_profileL from '../public/jocallio/image/small_profileL.png';
 import ImagesUploader from 'react-images-uploader';
@@ -483,6 +484,11 @@ class Home extends Component {
       },
       {
         img:slider_image_seven,
+        class:"legend",
+        label:"Family"
+      },
+      {
+        img:slider_image_eight,
         class:"legend",
         label:"Family"
       },
