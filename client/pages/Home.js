@@ -453,6 +453,11 @@ class Home extends Component {
   render() {
     const sliderimages = [
       {
+        img:slider_image_eight,
+        class:"legend",
+        label:"Family"
+      },
+      {
         img:slider_image_one,
         class:"legend",
         label:"Family"
@@ -487,11 +492,7 @@ class Home extends Component {
         class:"legend",
         label:"Family"
       },
-      {
-        img:slider_image_eight,
-        class:"legend",
-        label:"Family"
-      },
+
     ]
     const { dispatch, products, auth , match, fetched, profile} = this.props;
     const  {logged_in ,errors, contracterrors, proud, topic, actions, contract } = this.state;
@@ -524,7 +525,10 @@ class Home extends Component {
               {this.state.alert}
       {profile.fetched && 
       <main className={"main "+((logged_in)?'logged_in':'')}>
-        
+        {logged_in && <div style={{paddingBottom:'2px'}} className="Contracts shadowbox">
+          <h1 style={{textAlign:'center'}}>Your Profile</h1>
+        </div>
+      }
         <div className="topbanner">
             <div className="imagearea">
                 <img src={cover_img} alt="image" />
@@ -1120,6 +1124,10 @@ class Home extends Component {
                 </div>
         </section>
         
+        <div className="Contracts shadowbox">
+          <h2 style={{textAlign:'center'}}><a target='_new' href='/JohnSmith'>VIEW SAMPLE PROFILE</a></h2>
+        </div>
+      
         <section className="resources">
           <h2>Resources</h2>
           <ul>
