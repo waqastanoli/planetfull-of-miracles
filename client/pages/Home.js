@@ -526,7 +526,7 @@ class Home extends Component {
       {profile.fetched && 
       <main className={"main "+((logged_in)?'logged_in':'')}>
         {logged_in && <div className="yo_pro">
-          <h1 style={{textAlign:'center',width:'-webkit-fill-available',display:'inline-block',marginTop:'-13px',marginBottom:'0px'}}>Your Profile</h1>
+          <h1 style={{textAlign:'center',display:'inline-block',marginTop:'-13px',marginBottom:'0px'}}>Your Profile</h1>
         </div>
       }
         <div className="topbanner">

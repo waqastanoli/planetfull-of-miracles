@@ -824,4 +824,9 @@ blockquote.alignleft, .wp-caption.alignleft, img.alignleft {
     left: 44px;
 }
 
-#myBtn{background:#21f13b;}
+#myBtn{background:#21f13b;font-weight: bold;}
+.yo_pro h1{ width: 100%;
+    width: -moz-available;          /* WebKit-based browsers will ignore this. */
+    width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+    width: fill-available;
+}
