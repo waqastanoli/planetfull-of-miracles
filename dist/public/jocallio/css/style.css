@@ -80,7 +80,7 @@ button:hover { opacity: .7; }
 /* Header CSS */
 header { height: 38px; padding: 16px 0; background: #fff; box-shadow: 1px 0px 0px #eaedf3; }
 header .logo { float: left; border-right: solid 1px #eaedf3; padding: 9px 30px 9px 0; padding-top: 0px;
-    padding-bottom: 0px;}
+    padding-bottom: 0px; height: 40px;}
 header .search { float: left; margin-left: 30px; margin-top: 8px; }
 header .search .iconsearch { height: 20px; width: 20px; background-position: -3px -29px; }
 header .search input[type="search"] { vertical-align: middle; border: none; margin-left: 8px; height: 20px; width: 150px; color: #9ea0a5; font-size: 14px; }
@@ -652,7 +652,7 @@ margin-top: 5px;
 	.fright .login{
 		float: right;
 	}
-	.fright .how_it_works{
+	.how_it_works{
 		    /*float: right;*/
 		        margin-top: 10px;
 
@@ -696,6 +696,9 @@ margin-top: 5px;
 	}
 
 }
+.how_it_works{
+		    
+		    margin-left: 46px;}
 @media only screen and (max-width: 612px)  {
 	.FutureVision .scroll,.CurrentLife .scroll{
 		height: 180px;
@@ -813,6 +816,7 @@ blockquote.alignleft, .wp-caption.alignleft, img.alignleft {
 	margin: 0;
 }
 .yo_pro {
+	text-align: center;
     position: relative;
     margin-top: 30px;
     padding: 0px;

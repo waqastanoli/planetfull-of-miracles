@@ -525,10 +525,11 @@ class Home extends Component {
               {this.state.alert}
       {profile.fetched && 
       <main className={"main "+((logged_in)?'logged_in':'')}>
-        {logged_in && <div className="yo_pro">
-          <h1 style={{textAlign:'center',display:'inline-block',marginTop:'-13px',marginBottom:'0px'}}>Your Profile</h1>
+        <div className="yo_pro">
+        CV | CV ME | P.E.P | SOLO or TEAM | ASPIRE/INSPIRE | TECH CHI | ADVISORY TEAM | P.R.O.U.D CHART |<br/> ISSUES OF HUMANITY | REWARDS AND RECOGNITION
+          {logged_in && <h1 style={{textAlign:'center',display:'inline-block',marginTop:'10px',marginBottom:'0px'}}>Your Profile</h1>}
         </div>
-      }
+      
         <div className="topbanner">
             <div className="imagearea">
                 <img src={cover_img} alt="image" />

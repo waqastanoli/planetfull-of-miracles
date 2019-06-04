@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Action from '../actions/cartActions';
-import example_profile from '../public/jocallio/image/example_profile.png';
+import example_profile from '../public/jocallio/image/example_profile.jpg';
 export default class HowWorks extends Component {
   render() {
     return (
@@ -57,11 +57,11 @@ I – <strong>I</strong>mpact/<strong>I</strong>nnovate<br/><br/>
 <p>&nbsp;</p>
 <p><strong><span className="heading_how_it_works">OVERALL FLOWCHART</span></strong></p>
 
-<div className="block_hiw"><img className="wp-image-3830 size-large alignleft" src="https://restoredvalor.org/wp-content/uploads/2019/05/flowchart-768x1024.jpg" alt="" width="768" height="1024" srcset="https://restoredvalor.org/wp-content/uploads/2019/05/flowchart-768x1024.jpg 768w, https://restoredvalor.org/wp-content/uploads/2019/05/flowchart-225x300.jpg 225w" sizes="(max-width: 768px) 100vw, 768px"/></div>
+<div className="block_hiw"><img className="wp-image-3830 size-large alignleft" src="https://restoredvalor.org/wp-content/uploads/2019/05/flowchart-768x1024.jpg" alt="" width="768" height="1024" srcSet="https://restoredvalor.org/wp-content/uploads/2019/05/flowchart-768x1024.jpg 768w, https://restoredvalor.org/wp-content/uploads/2019/05/flowchart-225x300.jpg 225w" sizes="(max-width: 768px) 100vw, 768px"/></div>
 
 <p style={{clear:"both"}}>(PATENT PENDING)</p>
 <p><strong><span className="heading_how_it_works">EXAMPLE PROFILE</span></strong></p>
-<div className="block_hiw"><img className="alignnone wp-image-3838 size-full" src={example_profile} alt="" width="543" height="703" srcset="https://restoredvalor.org/wp-content/uploads/2019/06/profile.jpg 543w, https://restoredvalor.org/wp-content/uploads/2019/06/profile-232x300.jpg 232w" sizes="(max-width: 543px) 100vw, 543px"/></div>
+<div className="block_hiw"><img className="alignnone wp-image-3838 size-full" src={example_profile} alt="" width="543" height="703" srcSet={`${example_profile} 543w, ${example_profile} 232w`} sizes="(max-width: 543px) 100vw, 543px"/></div>
 <div className="clearfix"></div>
 
 <p style={{marginTop:"15px"}}>* © C.L. Morci 917-940-8170. Planetful of Miracles is a subsidiary of MIRACLE MEDIA ENTERPRISE, a Clearing House for Positivity. We collaborate towards making a positive impact both personally and globally. MORCILING, INC.</p>
