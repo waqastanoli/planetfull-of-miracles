@@ -78,9 +78,15 @@ button:hover { opacity: .7; }
 .container { padding: 30px 0; }
 
 /* Header CSS */
+.spacer_head{
+	    border-right: solid 1px #eaedf3;
+    height: 40px;
+    width: 1px;
+    float: left;
+}
 header { height: 38px; padding: 16px 0; background: #fff; box-shadow: 1px 0px 0px #eaedf3; }
-header .logo { float: left; border-right: solid 1px #eaedf3; padding: 9px 30px 9px 0; padding-top: 0px;
-    padding-bottom: 0px; height: 40px;}
+header .logo { float: left; /*border-right: solid 1px #eaedf3;*/ padding: 9px 30px 9px 0; padding-top: 0px;
+    padding-bottom: 0px; height: 40px;margin-top: -18px;}
 header .search { float: left; margin-left: 30px; margin-top: 8px; }
 header .search .iconsearch { height: 20px; width: 20px; background-position: -3px -29px; }
 header .search input[type="search"] { vertical-align: middle; border: none; margin-left: 8px; height: 20px; width: 150px; color: #9ea0a5; font-size: 14px; }
@@ -249,6 +255,7 @@ _:-o-prefocus, .selector { .styled-select { background: none; }
 .loginScreen .rightPanel p { font-size: 16px; color: #dfdfdf; text-align: left; margin-top: 7px; font-weight: 300; }
 .loginScreen .leftPanel { float: left; width: 430px; padding: 39px 0 25px 84px; }
 .loginScreen .leftPanel .logohere { max-width: max-content; }
+.logohere image,.logo img{ width: 280px; }
 .loginScreen h2 { margin-top: 26px; font-weight: 400; font-size: 30px; }
 .loginHolder { text-align: center; margin: 0 auto 60px; font-size: 13px; color: #666666; }
 .loginHolder a { color: #55c0cb; }
@@ -640,6 +647,7 @@ margin-top: 5px;
 }
 .unique_case{    margin-left: 324px !important;}
 @media only screen and (max-width: 740px)  {
+	.spacer_head{ display: none; }
 	.unique_case{   margin: 0 0 10px !important;}
 	.my-slide{margin: 0 0px 0 15%;}
 .Bottomslider .smallP:nth-child(3n) { margin-right: 17px; }
@@ -704,8 +712,12 @@ margin-top: 5px;
 		height: 180px;
 	}
 	header .search {
-	    width: 98%;
-	    margin-left: 5px;       
+		margin: 0 auto;
+	        margin-top: 35px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #b1b1b2;
+    padding: 5px;
+    width: 90%;      
 	}
 	.topbanner .content ul {
 		width: 98%;
@@ -826,6 +838,7 @@ blockquote.alignleft, .wp-caption.alignleft, img.alignleft {
 	    position: relative;
     top: -30px;
     left: 44px;
+    display: none;
 }
 
 #myBtn{background:#21f13b;font-weight: bold;}
@@ -835,7 +848,7 @@ blockquote.alignleft, .wp-caption.alignleft, img.alignleft {
     width: fill-available;
 }
 
-@media all and (max-width: 400px) {
+@media all and (max-width: 500px) {
   .loginScreen .rightPanel .textholder {
 	    left: 20%;
 	    right: 20%;
@@ -844,11 +857,12 @@ blockquote.alignleft, .wp-caption.alignleft, img.alignleft {
 		font-weight: bold;
 	}
 	header .search{
-		    margin-top: 15px;
+		margin: 0 auto;
+		    margin-top: 35px;
     margin-bottom: 15px;
     border-bottom: 1px solid #b1b1b2;
     padding: 5px;
-    width: 90%;
+    width: 88%;
 	}
 	.yo_pro{
 		padding-left: 5%;
@@ -863,8 +877,9 @@ blockquote.alignleft, .wp-caption.alignleft, img.alignleft {
 	    border-right: 0px;
 	    padding: 0px;
 	    height: 40px;
-	    width: 192px;
+	    width: 280px;
 	    margin: 0 auto;
+	    margin-top: -10px
 	}
 	.how_it_works {
 	    margin-left: 0px;

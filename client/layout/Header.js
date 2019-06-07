@@ -51,10 +51,12 @@ class Header extends Component {
                 </a>
                 <h5 className="techchi">TECK CHI.com</h5>
             </div>
+            <div className='spacer_head'>&nbsp;</div>
             <div className="search">
                 <span className="sprite iconsearch"></span>
                 <input type="Search" placeholder="Search" name="hello" />
             </div>
+
             <div className="buttonHolder inline-block how_it_works">
                     <button onClick={this.onshowWorks.bind(this)} className="button" id="myBtn">HOW IT WORKS</button>
                 </div>
