@@ -858,4 +858,20 @@ blockquote.alignleft, .wp-caption.alignleft, img.alignleft {
 	.profileS .name{
 		margin-top: 10px;
 	}
+	header .logo {
+	    float: none;
+	    border-right: 0px;
+	    padding: 0px;
+	    height: 40px;
+	    width: 192px;
+	    margin: 0 auto;
+	}
+	.how_it_works {
+	    margin-left: 0px;
+	    width: 156px;
+	    margin: 0 auto;
+	    float: none;
+	    position: relative;
+	    display: block;
+	}
 }
