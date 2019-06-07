@@ -1133,6 +1133,7 @@ class Home extends Component {
           <h2>Resources</h2>
           <ul>
             <li>
+            <a href='/page/pep' target='_blank'>
               <div className="imagearea"><img src={resource_1}  alt="image"/></div>
               <div className="overlay">
                   <div className="iconholder">
@@ -1140,8 +1141,10 @@ class Home extends Component {
                   </div>
                   PEP
               </div>
+              </a>
             </li>
             <li>  
+            <a href='/page/AdvisoryTeam' target='_blank'>
               <div className="imagearea"><img src={resource_2} alt="image"/></div>
               <div className="overlay">
                   <div className="iconholder">
@@ -1149,8 +1152,10 @@ class Home extends Component {
                   </div>
                   Advisors
               </div>
+            </a>
             </li>
             <li>
+            <a href='/page/Press' target='_blank'>
               <div className="imagearea"><img src={resource_3} alt="image" /></div>
               <div className="overlay">
                   <div className="iconholder Humanity">
@@ -1158,6 +1163,7 @@ class Home extends Component {
                   </div>
                   Issues of Humanity
               </div>
+            </a>  
             </li>
             <li>
               <div className="imagearea"><img src={resource_4} alt="image" /></div>
