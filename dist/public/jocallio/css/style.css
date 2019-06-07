@@ -844,12 +844,16 @@ blockquote.alignleft, .wp-caption.alignleft, img.alignleft {
 		font-weight: bold;
 	}
 	header .search{
-		margin-top: 17px;
+		    margin-top: 15px;
     margin-bottom: 15px;
+    border-bottom: 1px solid #b1b1b2;
+    padding: 5px;
+    width: 90%;
 	}
 	.yo_pro{
 		padding-left: 5%;
     padding-right: 5%;
+    padding-bottom: 4%;
 	}
 	.profileS .name{
 		margin-top: 10px;
