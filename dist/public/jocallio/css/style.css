@@ -834,3 +834,24 @@ blockquote.alignleft, .wp-caption.alignleft, img.alignleft {
     width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
     width: fill-available;
 }
+
+@media all and (max-width: 400px) {
+  .loginScreen .rightPanel .textholder {
+	    left: 20%;
+	    right: 20%;
+	}
+	.loginScreen .rightPanel .textholder p{
+		font-weight: bold;
+	}
+	header .search{
+		margin-top: 17px;
+    margin-bottom: 15px;
+	}
+	.yo_pro{
+		padding-left: 5%;
+    padding-right: 5%;
+	}
+	.profileS .name{
+		margin-top: 10px;
+	}
+}
