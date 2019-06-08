@@ -852,6 +852,7 @@ blockquote.alignleft, .wp-caption.alignleft, img.alignleft {
   .loginScreen .rightPanel .textholder {
 	    left: 20%;
 	    right: 20%;
+	    top: 14%;
 	}
 	.loginScreen .rightPanel .textholder p{
 		font-weight: bold;
