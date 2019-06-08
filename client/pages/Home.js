@@ -197,9 +197,9 @@ class Home extends Component {
     this.setState({ search:'' })
     const { dispatch, match, auth } = this.props;
     this.state.dispatch = dispatch;
-     if(auth.new==true){
+     /*if(auth.new==true){
       this.onshowWorks();
-    }
+    }*/
     dispatch(Actions.getProfileAction(match.params.userName));
   }
   onSave = (type, val) => {
