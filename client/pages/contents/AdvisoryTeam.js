@@ -114,7 +114,7 @@ export default class AdvisoryTeam extends Component {
                             </div>
                             <div className="wpb_text_column wpb_content_element ">
                                <div className="wpb_wrapper">
-                                  <p>(MLB) TV & Film Director, Exec Producer, consultant</p>
+                                  <p>(MLB) TV & Film Director ('Babe Ruth', 'Jerek Jeter', etc.), Exec Producer, consultant</p>
                                </div>
                             </div>
                          </div>
@@ -181,7 +181,7 @@ export default class AdvisoryTeam extends Component {
                             </div>
                             <div className="wpb_text_column wpb_content_element ">
                                <div className="wpb_wrapper">
-                                  <p>CEO iTV Alliance of Silicon Valley. foremost authority</p>
+                                  <p>CEO iTV Alliance of Silicon Valley. foremost authority in internet and TV interaction</p>
                                </div>
                             </div>
                          </div>
@@ -204,7 +204,7 @@ export default class AdvisoryTeam extends Component {
                             </div>
                             <div className="wpb_text_column wpb_content_element ">
                                <div className="wpb_wrapper">
-                                  <p>Director of Sports of the Barclay Bank Sports (Staples Arena) Center and Nassau Coliseum (Ret.), of the East Coast; Executive Producer</p>
+                                  <p>Director of Sports of the Barclay Bank Sports (Staples Arena) Center and Nassau Coliseum, of the East Coast; Executive Producer (Ret.)</p>
                                </div>
                             </div>
                          </div>

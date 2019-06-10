@@ -64,7 +64,7 @@ I – <strong>I</strong>mpact/<strong>I</strong>nnovate<br/><br/>
 <div className="block_hiw"><img className="alignnone wp-image-3838 size-full" src={example_profile} alt="" width="543" height="703" srcSet={`${example_profile} 543w, ${example_profile} 232w`} sizes="(max-width: 543px) 100vw, 543px"/></div>
 <div className="clearfix"></div>
 
-<p style={{marginTop:"15px"}}>* © C.L. Morci 917-940-8170. Planetful of Miracles is a subsidiary of MIRACLE MEDIA ENTERPRISE, a Clearing House for Positivity. We collaborate towards making a positive impact both personally and globally. MORCILING, INC.</p>
+<p style={{marginTop:"15px"}}>* © C.L. Morci 917-940-8170. Planetful of Miracles is a subsidiary of MIRACULOUS MEDIA ENTERPRISE, a Clearing House for Positivity. We collaborate towards making a positive impact both personally and globally. MORCILING, INC.</p>
               <div className="clearfix"></div>
               <div className="page-single-pagination">
                               </div>
