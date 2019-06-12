@@ -861,7 +861,8 @@ blockquote.alignleft, .wp-caption.alignleft, img.alignleft {
 	}
 	.loginScreen .rightPanel .textholder p{
 		font-weight: bold;
-		font-size: 18px;
+		font-size: 17px;
+		margin-top: -19px;
 	}
 	header .search{
 		margin: 0 auto;
