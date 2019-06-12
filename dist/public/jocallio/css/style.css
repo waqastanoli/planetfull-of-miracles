@@ -252,7 +252,7 @@ _:-o-prefocus, .selector { .styled-select { background: none; }
 .loginScreen .rightPanel img:hover { opacity: 1 }
 .loginScreen .rightPanel .textholder { width: 50%; position: absolute; top: 108px; font-family: roboto; left: 100px; }
 .loginScreen .rightPanel .title { font-size: 28px; color: #ffffff; font-weight: 300; }
-.loginScreen .rightPanel p { font-size: 16px; color: #dfdfdf; text-align: left; margin-top: 7px; font-weight: 300; }
+.loginScreen .rightPanel p { font-size: 18px; color: white; text-align: left; margin-top: 7px; font-weight: bold; }
 .loginScreen .leftPanel { float: left; width: 430px; padding: 39px 0 25px 84px; }
 .loginScreen .leftPanel .logohere { max-width: max-content; }
 .logohere image,.logo img{ width: 280px; }
