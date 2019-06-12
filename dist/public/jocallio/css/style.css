@@ -778,11 +778,7 @@ blockquote.alignleft, .wp-caption.alignleft, img.alignleft {
   .laparent li { display: block ; counter-increment: item; }
   .laparent li:before { content: " ("counter(item,lower-alpha)") "; }
 .paddintop15{padding-top: 15px;}
-/** {
-  background: #000 !important;
-  color: #0f0 !important;
-  outline: solid #f00 1px !important;
-}*/
+
 .col-sm-12 {
     width: 100%;
 }
@@ -847,8 +843,17 @@ blockquote.alignleft, .wp-caption.alignleft, img.alignleft {
     width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
     width: fill-available;
 }
-
+.techchi{ display: none; }
 @media all and (max-width: 500px) {
+	.loginScreen{
+		display:flex; flex-direction: column;     overflow-x: hidden;    margin-top: 0px;
+	}
+	.loginScreen .leftPanel{
+		 order: 2; 
+	}
+	.loginScreen .rightPanel{
+		 order: 1; 
+	}
   .loginScreen .rightPanel .textholder {
 	    left: 20%;
 	    right: 20%;
@@ -891,3 +896,8 @@ blockquote.alignleft, .wp-caption.alignleft, img.alignleft {
 	    display: block;
 	}
 }
+/** {
+  background: #000 !important;
+  color: #0f0 !important;
+  outline: solid #f00 1px !important;
+}*/

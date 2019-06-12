@@ -114,7 +114,7 @@ export default class AdvisoryTeam extends Component {
                             </div>
                             <div className="wpb_text_column wpb_content_element ">
                                <div className="wpb_wrapper">
-                                  <p>(MLB) TV & Film Director ('Babe Ruth', 'Jerek Jeter', etc.), Exec Producer, consultant</p>
+                                  <p>(MLB) TV & Film Director ('Babe Ruth', 'Derek Jeter', etc.), Exec Producer, consultant</p>
                                </div>
                             </div>
                          </div>
