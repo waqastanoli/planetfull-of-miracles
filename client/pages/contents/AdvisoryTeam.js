@@ -82,7 +82,7 @@ export default class AdvisoryTeam extends Component {
                          <div className="wpb_wrapper">
                             <div className="wpb_text_column wpb_content_element ">
                                <div className="wpb_wrapper">
-                                  <p><strong>Lorraine B. Ling, Esq.</strong>&nbsp;(juris doctorate)<br/>
+                                  <p><strong>Lorraine B. Ling, Esq</strong><br/>
                                   </p>
                                </div>
                             </div>
@@ -93,7 +93,7 @@ export default class AdvisoryTeam extends Component {
                             </div>
                             <div className="wpb_text_column wpb_content_element ">
                                <div className="wpb_wrapper">
-                                  <p>M.S. Biology, M.A English, B.A. Chemistry. Mindfulness certified</p>
+                                  <p>Patent Attorney, Corp. VP, M.S. Biology, M.A. English, B.A. Chemistry. Mindfulness certified.</p>
                                </div>
                             </div>
                          </div>
