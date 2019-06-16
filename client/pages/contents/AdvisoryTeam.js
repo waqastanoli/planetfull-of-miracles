@@ -1,6 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import christine from '../../public/jocallio/image/Advisory/christine-m.png';
+
+import chris from '../../public/jocallio/image/Advisory/chris-lemmon.png';
+
+import justin from '../../public/jocallio/image/Advisory/justin-prust.jpg';
+
+import lorraine from '../../public/jocallio/image/Advisory/lorraine-ling.png';
+
+import jeff from '../../public/jocallio/image/Advisory/jeff-spaulding.png';
+
+import craig from '../../public/jocallio/image/Advisory/craig-curcio.png';
+
+import tim from '../../public/jocallio/image/Advisory/tim-hurja.png';
+
+import allison from '../../public/jocallio/image/Advisory/allison-dollar.png';
+
+import ed_manetta from '../../public/jocallio/image/Advisory/ed-manetta.png';
+
 export default class AdvisoryTeam extends Component {
   render() {
     return (
@@ -20,7 +38,7 @@ export default class AdvisoryTeam extends Component {
                             </div>
                             <div className="wpb_single_image wpb_content_element vc_align_left">
                                <figure className="wpb_wrapper vc_figure">
-                                  <div className="vc_single_image-wrapper   vc_box_border_grey"><img width="255" height="300" src="https://restoredvalor.org/wp-content/uploads/2019/06/christine-m.png" className="vc_single_image-img attachment-full" alt=""/></div>
+                                  <div className="vc_single_image-wrapper   vc_box_border_grey"><img width="255" height="300" src={christine} className="vc_single_image-img attachment-full" alt=""/></div>
                                </figure>
                             </div>
                             <div className="wpb_text_column wpb_content_element ">
@@ -41,7 +59,7 @@ export default class AdvisoryTeam extends Component {
                             </div>
                             <div className="wpb_single_image wpb_content_element vc_align_left">
                                <figure className="wpb_wrapper vc_figure">
-                                  <div className="vc_single_image-wrapper   vc_box_border_grey"><img width="244" height="299" src="https://restoredvalor.org/wp-content/uploads/2019/06/chris-lemmon.png" className="vc_single_image-img attachment-full" alt=""/></div>
+                                  <div className="vc_single_image-wrapper   vc_box_border_grey"><img width="244" height="299" src={chris} className="vc_single_image-img attachment-full" alt=""/></div>
                                </figure>
                             </div>
                             <div className="wpb_text_column wpb_content_element ">
@@ -64,7 +82,7 @@ export default class AdvisoryTeam extends Component {
                             </div>
                             <div className="wpb_single_image wpb_content_element vc_align_left">
                                <figure className="wpb_wrapper vc_figure">
-                                  <div className="vc_single_image-wrapper   vc_box_border_grey"><img width="244" height="299" src="https://restoredvalor.org/wp-content/uploads/2019/06/justin-prust.jpg" className="vc_single_image-img attachment-full" alt=""/></div>
+                                  <div className="vc_single_image-wrapper   vc_box_border_grey"><img width="244" height="299" src={justin} className="vc_single_image-img attachment-full" alt=""/></div>
                                </figure>
                             </div>
                             <div className="wpb_text_column wpb_content_element ">
@@ -88,7 +106,7 @@ export default class AdvisoryTeam extends Component {
                             </div>
                             <div className="wpb_single_image wpb_content_element vc_align_left">
                                <figure className="wpb_wrapper vc_figure">
-                                  <div className="vc_single_image-wrapper   vc_box_border_grey"><img width="244" height="299" src="https://restoredvalor.org/wp-content/uploads/2019/06/lorraine-ling.png" className="vc_single_image-img attachment-full" alt=""/></div>
+                                  <div className="vc_single_image-wrapper   vc_box_border_grey"><img width="244" height="299" src={lorraine} className="vc_single_image-img attachment-full" alt=""/></div>
                                </figure>
                             </div>
                             <div className="wpb_text_column wpb_content_element ">
@@ -109,7 +127,7 @@ export default class AdvisoryTeam extends Component {
                             </div>
                             <div className="wpb_single_image wpb_content_element vc_align_left">
                                <figure className="wpb_wrapper vc_figure">
-                                  <div className="vc_single_image-wrapper   vc_box_border_grey"><img width="252" height="298" src="https://restoredvalor.org/wp-content/uploads/2019/06/jeff-spaulding.png" className="vc_single_image-img attachment-full" alt=""/></div>
+                                  <div className="vc_single_image-wrapper   vc_box_border_grey"><img width="252" height="298" src={jeff} className="vc_single_image-img attachment-full" alt=""/></div>
                                </figure>
                             </div>
                             <div className="wpb_text_column wpb_content_element ">
@@ -132,7 +150,7 @@ export default class AdvisoryTeam extends Component {
                             </div>
                             <div className="wpb_single_image wpb_content_element vc_align_left">
                                <figure className="wpb_wrapper vc_figure">
-                                  <div className="vc_single_image-wrapper   vc_box_border_grey"><img width="231" height="300" src="https://restoredvalor.org/wp-content/uploads/2019/06/craig-curcio.png" className="vc_single_image-img attachment-full" alt=""/></div>
+                                  <div className="vc_single_image-wrapper   vc_box_border_grey"><img width="231" height="300" src={craig} className="vc_single_image-img attachment-full" alt=""/></div>
                                </figure>
                             </div>
                             <div className="wpb_text_column wpb_content_element ">
@@ -155,7 +173,7 @@ export default class AdvisoryTeam extends Component {
                             </div>
                             <div className="wpb_single_image wpb_content_element vc_align_left">
                                <figure className="wpb_wrapper vc_figure">
-                                  <div className="vc_single_image-wrapper   vc_box_border_grey"><img width="257" height="297" src="https://restoredvalor.org/wp-content/uploads/2019/06/tim-hurja.png" className="vc_single_image-img attachment-full" alt=""/></div>
+                                  <div className="vc_single_image-wrapper   vc_box_border_grey"><img width="257" height="297" src={tim} className="vc_single_image-img attachment-full" alt=""/></div>
                                </figure>
                             </div>
                             <div className="wpb_text_column wpb_content_element ">
@@ -176,7 +194,7 @@ export default class AdvisoryTeam extends Component {
                             </div>
                             <div className="wpb_single_image wpb_content_element vc_align_left">
                                <figure className="wpb_wrapper vc_figure">
-                                  <div className="vc_single_image-wrapper   vc_box_border_grey"><img width="251" height="298" src="https://restoredvalor.org/wp-content/uploads/2019/06/allison-dollar.png" className="vc_single_image-img attachment-full" alt=""/></div>
+                                  <div className="vc_single_image-wrapper   vc_box_border_grey"><img width="251" height="298" src={allison} className="vc_single_image-img attachment-full" alt=""/></div>
                                </figure>
                             </div>
                             <div className="wpb_text_column wpb_content_element ">
@@ -199,7 +217,7 @@ export default class AdvisoryTeam extends Component {
                             </div>
                             <div className="wpb_single_image wpb_content_element vc_align_left">
                                <figure className="wpb_wrapper vc_figure">
-                                  <div className="vc_single_image-wrapper   vc_box_border_grey"><img width="237" height="300" src="https://restoredvalor.org/wp-content/uploads/2019/06/ed-manetta.png" className="vc_single_image-img attachment-full" alt=""/></div>
+                                  <div className="vc_single_image-wrapper   vc_box_border_grey"><img width="237" height="300" src={ed_manetta} className="vc_single_image-img attachment-full" alt=""/></div>
                                </figure>
                             </div>
                             <div className="wpb_text_column wpb_content_element ">
