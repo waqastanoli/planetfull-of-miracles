@@ -467,11 +467,11 @@ class Home extends Component {
         class:"legend",
         label:"Friends"
       },
-      {
-        img:slider_image_three,
-        class:"legend",
-        label:"Friends"
-      },
+      // {
+      //   img:slider_image_three,
+      //   class:"legend",
+      //   label:"Friends"
+      // },
       {
         img:slider_image_four,
         class:"legend",
@@ -487,11 +487,11 @@ class Home extends Component {
         class:"legend",
         label:"Family"
       },
-      {
-        img:slider_image_seven,
-        class:"legend",
-        label:"Family"
-      },
+      // {
+      //   img:slider_image_seven,
+      //   class:"legend",
+      //   label:"Family"
+      // },
 
     ]
     const { dispatch, products, auth , match, fetched, profile} = this.props;

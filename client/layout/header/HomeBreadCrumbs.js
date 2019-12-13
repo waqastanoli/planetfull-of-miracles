@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TPS615 from '../../public/images/products/TPS615.png';
+//import TPS615 from '../../public/images/products/TPS615.png';
 
 export default class HomeNavBar extends Component {
   render() {
@@ -16,7 +16,7 @@ export default class HomeNavBar extends Component {
                             <a className='btn btn-white' href="#">Read More</a>*/}
             </div>
             <div className="col-sm-5 fadeInRight animated ">
-              <img src={TPS615} className="main-img img-responsive" />
+              {/*<img src={TPS615} className="main-img img-responsive" />*/}
             </div>
           </div>	
         </div> 
