@@ -1166,6 +1166,7 @@ class Home extends Component {
             </a>  
             </li>
             <li>
+            <a href='/page/Reward' target='_blank'>
               <div className="imagearea"><img src={resource_4} alt="image" /></div>
               <div className="overlay ">
                   <div className="iconholder Rewards">
@@ -1173,6 +1174,7 @@ class Home extends Component {
                   </div>
                   Rewards
               </div>
+              </a>
             </li>
           </ul>
         </section>
