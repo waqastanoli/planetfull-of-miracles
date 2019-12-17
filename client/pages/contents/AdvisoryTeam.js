@@ -26,7 +26,7 @@ export default class AdvisoryTeam extends Component {
     return (
       <div className="main logged_in">
         <div className="page-style paddintop15">
-          <p>
+          <p style={{ textAlign: "center" }}>
             <strong>
               <span className="heading_how_it_works mg15">
                 ADVISORY TEAM AND FRIENDS OF POM

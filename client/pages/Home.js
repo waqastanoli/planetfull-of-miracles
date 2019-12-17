@@ -467,11 +467,11 @@ class Home extends Component {
         class:"legend",
         label:"Friends"
       },
-      // {
-      //   img:slider_image_three,
-      //   class:"legend",
-      //   label:"Friends"
-      // },
+      {
+        img:slider_image_three,
+        class:"legend",
+        label:"Friends"
+      },
       {
         img:slider_image_four,
         class:"legend",
