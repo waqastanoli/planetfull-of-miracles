@@ -888,6 +888,9 @@ blockquote.alignleft, .wp-caption.alignleft, img.alignleft {
 }
 .techchi{ display: none; }
 @media all and (max-width: 500px) {
+    .main {
+        min-height: auto;
+    }
 	.loginScreen{
 		display:flex; flex-direction: column;     overflow-x: hidden;    margin-top: 0px;
 	}
