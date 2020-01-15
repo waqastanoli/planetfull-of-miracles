@@ -1041,6 +1041,50 @@ class Home extends Component {
                  
                 </div>
         </section>
+        {isMobile && <div className="topbanner">
+            
+            <div className="content">
+                <ul className="clearfix">
+                    
+                    <li className="Current">
+                        <div className="left fleft"><span className="sprite icon"></span></div>
+                        <div className="right fleft">
+                            <div className="num fleft">{profile.openContracts.length}</div>
+                            <div className="text fleft">Open
+                                <div>Contracts</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li className="Completed">
+                        <div className="left fleft"><span className="sprite icon"></span></div>
+                        <div className="right fleft">
+                            <div className="num fleft">{profile.completedContracts.length}</div>
+                            <div className="text fleft">Completed
+                                <div>Contracts</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li className="Inspire">
+                        <div className="left fleft"><span className="coin icon"><img src={coins_icon}/></span></div>
+                        <div className="right fleft">
+                            <div className="num fleft">0</div>
+                            <div className="text fleft">Kudos
+                                <div>Coins</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li className="Aspire">
+                        <div className="left fleft"><span className="sprite icon"></span></div>
+                        <div className="right fleft">
+                            <div className="num fleft">{profile.aspire.length}</div>
+                            <div className="text fleft">Aspire
+                                <div>Topics</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>}
         {isMobile &&   
         <div className="clearfix">
         <section className="shadowbox Proud">
@@ -1175,50 +1219,7 @@ class Home extends Component {
         <div className="Contracts shadowbox">
           <h2 style={{textAlign:'center'}}><a target='_new' href='/JohnSmith'>VIEW SAMPLE PROFILE</a></h2>
         </div>
-        {isMobile && <div className="topbanner">
-            
-            <div className="content">
-                <ul className="clearfix">
-                    
-                    <li className="Current">
-                        <div className="left fleft"><span className="sprite icon"></span></div>
-                        <div className="right fleft">
-                            <div className="num fleft">{profile.openContracts.length}</div>
-                            <div className="text fleft">Open
-                                <div>Contracts</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="Completed">
-                        <div className="left fleft"><span className="sprite icon"></span></div>
-                        <div className="right fleft">
-                            <div className="num fleft">{profile.completedContracts.length}</div>
-                            <div className="text fleft">Completed
-                                <div>Contracts</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="Inspire">
-                        <div className="left fleft"><span className="coin icon"><img src={coins_icon}/></span></div>
-                        <div className="right fleft">
-                            <div className="num fleft">0</div>
-                            <div className="text fleft">Kudos
-                                <div>Coins</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li className="Aspire">
-                        <div className="left fleft"><span className="sprite icon"></span></div>
-                        <div className="right fleft">
-                            <div className="num fleft">{profile.aspire.length}</div>
-                            <div className="text fleft">Aspire
-                                <div>Topics</div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>}
+        
         <section className="resources">
           <h2>Resources</h2>
           <ul>
