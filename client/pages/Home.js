@@ -68,6 +68,7 @@ class Home extends Component {
     if(auth && match.params.userName==auth.user.username)
     logged_in = auth.isAuthenticated;
     this.state = {
+      width: window.outerWidth,
       workshow: false,
       alert: null,
       contractwho:null,
@@ -192,7 +193,16 @@ class Home extends Component {
       }
     }))
   }
+  componentWillMount() {
+    window.addEventListener('resize', this.handleWindowSizeChange);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleWindowSizeChange);
+  }
   
+  handleWindowSizeChange = () => {
+    this.setState({ width: window.outerWidth });
+  };
   componentDidMount() {
     this.setState({ search:'' })
     const { dispatch, match, auth } = this.props;
@@ -451,6 +461,8 @@ class Home extends Component {
    }))
   }
   render() {
+    const { width } = this.state;
+    const isMobile = width <= 500;
     const sliderimages = [
       {
         img:slider_image_eight,
@@ -883,7 +895,8 @@ class Home extends Component {
     <Button variant="secondary" onClick={this.proudhandleClose}>Close</Button>&nbsp;&nbsp;
     <Button variant="primary" onClick={this.proudhandleSave}>Save</Button>
   </Modal.Footer>
-        </Modal>      
+        </Modal>   
+        {!isMobile &&   
         <section className="shadowbox Proud">
           <h2>P.R.O.U.D Chart</h2>
           {logged_in && 
@@ -912,106 +925,10 @@ class Home extends Component {
           </ul>
 
 
-        </section>      
+        </section>   
+        }   
         </div>
         
-
-        <Modal show={this.state.contractshow} className="proud_modal contractform" onHide={this.contractClose}>
-          <span className="close" onClick={this.contractClose}>close </span>
-          <Modal.Header>
-            <Modal.Title><h2>Add Contract</h2></Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-          <div className={'form-input' + (errors.note ? ' has-error' : '')}>
-              <label>
-                <input type="radio" value="Open" checked={contract.status === 'Open'} onChange={this.handleOptionChange}/>
-               &nbsp; Open
-              </label>
-              <label>
-                <input type="radio" value="Completed" checked={contract.status === 'Completed'} onChange={this.handleOptionChange}/>
-                &nbsp; Completed
-              </label>        
-            </div>
-            <div className={'form-input' + (errors.title ? ' has-error' : '')}>
-              <label>
-              {contract.status === 'Open' &&
-              <SingleDatePicker
-  placeholder="Start Date"              
-  date={contract.startDate} // momentPropTypes.momentObj or null
-  onDateChange={date => this.setState(prevState => ({
-    contract: {
-        ...prevState.contract,
-        startDate: date
-    }
-}))} // PropTypes.func.isRequired
-  focused={this.state.focused} // PropTypes.bool
-  onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
-  id="your_unique_id" // PropTypes.string.isRequired,
-/>
-            }
-              {contract.status === 'Completed' &&
-                <DateRangePicker
-              
-                startDate={contract.startDate} // momentPropTypes.momentObj or null,
-                startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
-                endDate={contract.endDate} // momentPropTypes.momentObj or null,
-                endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
-                onDatesChange={({ startDate, endDate }) => 
-              this.setState(prevState => ({
-                  contract: {
-                      ...prevState.contract,
-                      startDate: startDate,
-                      endDate: endDate
-                  }
-              }))
-              } // PropTypes.func.isRequired,
-                focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-                onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
-              />}
-                
-                {contracterrors.startDate!='' &&
-                          <div className="help-block"> {contracterrors.startDate}</div>
-                      }
-                {contracterrors.endDate!='' &&
-                    <div className="help-block"> {contracterrors.endDate}</div>
-                }
-              </label>
-            </div>
-            
-            <div className={'form-input' + (errors.note ? ' has-error' : '')}>
-              <label>
-              <span>Who the contract is with</span>
-                <Select options={profile.users} onChange={this.handleContractwho} />
-
-              {contracterrors.who!='' &&
-                          <div className="help-block"> {contracterrors.who}</div>
-                      }
-              </label>        
-            </div>
-            {contract.status === 'Completed' &&
-<div className={'form-input' + (errors.note ? ' has-error' : '')}>
-              <label>
-              Rate&nbsp;
-              
-            <StarRatings
-          rating={(contract.rate)?contract.rate:0}
-          starRatedColor="blue"
-          changeRating={this.changeRating}
-          numberOfStars={5}
-          isAggregateRating={true}
-          name='rating'
-        />
-        {contracterrors.rate!='' &&
-                          <div className="help-block"> {contracterrors.rate}</div>
-                      }
-</label>        
-            </div>}
-          </Modal.Body>
-          <Modal.Footer>
-    <Button variant="secondary" onClick={this.contractClose}>Close</Button>&nbsp;&nbsp;
-    <Button variant="primary" onClick={this.contracthandleSave}>Save</Button>
-  </Modal.Footer>
-        </Modal>
         <section className="Contracts shadowbox">
           <h2>My Contracts</h2>
           {logged_in && 
@@ -1124,11 +1041,184 @@ class Home extends Component {
                  
                 </div>
         </section>
+        {isMobile &&   
+        <div className="clearfix">
+        <section className="shadowbox Proud">
+          <h2>P.R.O.U.D Chart</h2>
+          {logged_in && 
+            <div className="sideBtn">
+              <div className="addButton"><a title="ADD" onClick={(e) => this.proudhandleShow('add', e)}><span data-icon="plus"></span>ADD</a></div>
+            </div>}
+
+
+          <ul className="scroll">
+          {
+                
+                profile.proud_chart.map((proud, index) => {
+                  return (
+             <li key={proud._id}>       
+              <div className="date"><span className="sprite icon"></span><Moment format="D MMMM, HH:mm">{proud.createdAt}</Moment> </div>
+              <h3><a href="#" title={proud.title}>{proud.title}</a></h3>
+              <p>{proud.note}</p>
+              <span className="proud_actions">
+                {logged_in && <a onClick={(e) => this.proudhandleShow('edit',proud, e)} title="EDIT">EDIT</a>}
+              </span>
+            </li>
+                  )
+                }).reverse()
+              }
+            
+          </ul>
+
+
+        </section>   
+        </div>
+        }
+        <Modal show={this.state.contractshow} className="proud_modal contractform" onHide={this.contractClose}>
+          <span className="close" onClick={this.contractClose}>close </span>
+          <Modal.Header>
+            <Modal.Title><h2>Add Contract</h2></Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+          <div className={'form-input' + (errors.note ? ' has-error' : '')}>
+              <label>
+                <input type="radio" value="Open" checked={contract.status === 'Open'} onChange={this.handleOptionChange}/>
+               &nbsp; Open
+              </label>
+              <label>
+                <input type="radio" value="Completed" checked={contract.status === 'Completed'} onChange={this.handleOptionChange}/>
+                &nbsp; Completed
+              </label>        
+            </div>
+            <div className={'form-input' + (errors.title ? ' has-error' : '')}>
+              <label>
+              {contract.status === 'Open' &&
+              <SingleDatePicker
+  placeholder="Start Date"              
+  date={contract.startDate} // momentPropTypes.momentObj or null
+  onDateChange={date => this.setState(prevState => ({
+    contract: {
+        ...prevState.contract,
+        startDate: date
+    }
+}))} // PropTypes.func.isRequired
+  focused={this.state.focused} // PropTypes.bool
+  onFocusChange={({ focused }) => this.setState({ focused })} // PropTypes.func.isRequired
+  id="your_unique_id" // PropTypes.string.isRequired,
+/>
+            }
+              {contract.status === 'Completed' &&
+                <DateRangePicker
+              
+                startDate={contract.startDate} // momentPropTypes.momentObj or null,
+                startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
+                endDate={contract.endDate} // momentPropTypes.momentObj or null,
+                endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
+                onDatesChange={({ startDate, endDate }) => 
+              this.setState(prevState => ({
+                  contract: {
+                      ...prevState.contract,
+                      startDate: startDate,
+                      endDate: endDate
+                  }
+              }))
+              } // PropTypes.func.isRequired,
+                focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+                onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
+              />}
+                
+                {contracterrors.startDate!='' &&
+                          <div className="help-block"> {contracterrors.startDate}</div>
+                      }
+                {contracterrors.endDate!='' &&
+                    <div className="help-block"> {contracterrors.endDate}</div>
+                }
+              </label>
+            </div>
+            
+            <div className={'form-input' + (errors.note ? ' has-error' : '')}>
+              <label>
+              <span>Who the contract is with</span>
+                <Select options={profile.users} onChange={this.handleContractwho} />
+
+              {contracterrors.who!='' &&
+                          <div className="help-block"> {contracterrors.who}</div>
+                      }
+              </label>        
+            </div>
+            {contract.status === 'Completed' &&
+<div className={'form-input' + (errors.note ? ' has-error' : '')}>
+              <label>
+              Rate&nbsp;
+              
+            <StarRatings
+          rating={(contract.rate)?contract.rate:0}
+          starRatedColor="blue"
+          changeRating={this.changeRating}
+          numberOfStars={5}
+          isAggregateRating={true}
+          name='rating'
+        />
+        {contracterrors.rate!='' &&
+                          <div className="help-block"> {contracterrors.rate}</div>
+                      }
+</label>        
+            </div>}
+          </Modal.Body>
+          <Modal.Footer>
+    <Button variant="secondary" onClick={this.contractClose}>Close</Button>&nbsp;&nbsp;
+    <Button variant="primary" onClick={this.contracthandleSave}>Save</Button>
+  </Modal.Footer>
+        </Modal>
+        
         
         <div className="Contracts shadowbox">
           <h2 style={{textAlign:'center'}}><a target='_new' href='/JohnSmith'>VIEW SAMPLE PROFILE</a></h2>
         </div>
-      
+        {isMobile && <div className="topbanner">
+            
+            <div className="content">
+                <ul className="clearfix">
+                    
+                    <li className="Current">
+                        <div className="left fleft"><span className="sprite icon"></span></div>
+                        <div className="right fleft">
+                            <div className="num fleft">{profile.openContracts.length}</div>
+                            <div className="text fleft">Open
+                                <div>Contracts</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li className="Completed">
+                        <div className="left fleft"><span className="sprite icon"></span></div>
+                        <div className="right fleft">
+                            <div className="num fleft">{profile.completedContracts.length}</div>
+                            <div className="text fleft">Completed
+                                <div>Contracts</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li className="Inspire">
+                        <div className="left fleft"><span className="coin icon"><img src={coins_icon}/></span></div>
+                        <div className="right fleft">
+                            <div className="num fleft">0</div>
+                            <div className="text fleft">Kudos
+                                <div>Coins</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li className="Aspire">
+                        <div className="left fleft"><span className="sprite icon"></span></div>
+                        <div className="right fleft">
+                            <div className="num fleft">{profile.aspire.length}</div>
+                            <div className="text fleft">Aspire
+                                <div>Topics</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>}
         <section className="resources">
           <h2>Resources</h2>
           <ul>
