@@ -949,3 +949,4 @@ blockquote.alignleft, .wp-caption.alignleft, img.alignleft {
   color: #0f0 !important;
   outline: solid #f00 1px !important;
 }*/
+.margiVertical0{ margin-top: 0 !important; margin-bottom: 0 !important;}

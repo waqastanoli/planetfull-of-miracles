@@ -1041,9 +1041,9 @@ class Home extends Component {
                  
                 </div>
         </section>
-        {isMobile && <div className="topbanner">
+        {isMobile && <div className="topbanner margiVertical0">
             
-            <div className="content">
+            <div className="content margiVertical0">
                 <ul className="clearfix">
                     
                     <li className="Current">

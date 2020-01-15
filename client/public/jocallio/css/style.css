@@ -280,3 +280,4 @@ _:-o-prefocus, .selector { .styled-select { background: none; }
 .Forgot { margin-top: 40px; font-size: 13px; }
 .Forgot a { color: rgba(76, 76, 76, .60) }
 .Forgot a:hover { color: #67aaf9; }
+.margiVertical0{ margin-top: 0; margin-bottom: 0;}
