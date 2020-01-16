@@ -834,7 +834,7 @@ class Home extends Component {
   </Modal.Footer>
         </Modal>
         <section className="shadowbox Toptopic">
-          <h2>My Top Topics </h2>
+          <h2>My TECH CHI Top Topics </h2>
           {logged_in && 
             <div className="sideBtn">
               <div className="addButton"><a title="ADD" onClick={(e) => this.topichandleShow('add', e)}><span data-icon="plus"></span>ADD</a></div>
