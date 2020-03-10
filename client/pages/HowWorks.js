@@ -194,7 +194,7 @@ export default class HowWorks extends Component {
               designated fee. We can connect you with groups of people who want
               your TECK CHI!
             </p>
-            <p>
+            <p className="unique_case">
               T – <strong>T</strong>ime/<strong>T</strong>alent
               <br />E – <strong>E</strong>xperience/<strong>E</strong>xpertise
               <br />C – <strong>C</strong>reative/<strong>C</strong>onnect
@@ -308,7 +308,9 @@ export default class HowWorks extends Component {
               including TV exposure on our sister show. Segment 3 is solely
               dedicated to the input and outcome of the Internet success
               stories. The TECK CHI website can also be a stand-alone: there
-              will be a rewards and recognition page.
+              will be a rewards and recognition page. <a href="/page/reward" target="_blank">
+                LEARN MORE
+              </a>
             </p>
           </div>
         </div>
