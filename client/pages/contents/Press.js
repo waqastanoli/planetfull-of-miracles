@@ -13,7 +13,7 @@ export default class Press extends Component {
   <li>ECONOMIC RECOVERY, UNEMPLOYMENT & FOOD SUPPLY </li>
   <li>CLIMATE, NATURE AND ANIMALS</li>
   <li>HEALTH CARE: BODY, MIND & SPIRIT</li>
-  <li>YOUTH, LONGEVITY & AGE RELATED</li>
+  <li>DIVERSITY, ANTI-DISCRIMINATION & SOCIAL INJUSTICE</li>
   
 </ol>
 E.g.  Problem:<br/>
