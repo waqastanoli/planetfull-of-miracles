@@ -56,7 +56,7 @@ export default class HowWorks extends Component {
               />
               1.{" "}
               <strong>
-                <span className="hiw-title">CV (traditional resume)</span>
+                <span className="hiw-title">iNOW (traditional resume)</span>
               </strong>{" "}
               is optional and is your standard job/work related information
               including history and education etc OR{" "}
@@ -74,7 +74,7 @@ export default class HowWorks extends Component {
               />
               2.{" "}
               <strong>
-                <span className="hiw-title">CV ME (or REAL ME)</span>
+                <span className="hiw-title">iFUTURE (or REAL ME)</span>
               </strong>{" "}
               is who or what you desire and aspire to be and a statement of
               desired goals now and future.

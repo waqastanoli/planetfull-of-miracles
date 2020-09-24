@@ -6,7 +6,7 @@ import Alert from 'react-bootstrap/Alert';
 import Action from '../actions/accountActions';
 import AlertMessage from '../layout/AlertMessage';
 import { NavLink } from 'react-router-dom';
-import logo from '../public/jocallio/image/logo.png';
+import logo from '../public/jocallio/image/logo.gif';
 import loginimage from '../public/jocallio/image/loginimage.png';
 class Signin extends Component {
   constructor(props) {
@@ -148,7 +148,7 @@ class Signin extends Component {
       }
       <div className="rightPanel"><img src={loginimage} alt="login" />
             <div className="textholder">
-                <p>TECK CHI is a website that captures your unique talents and gives you results, profit & rewards by following the roadmap.</p>
+                <p>TECK CHI is an opportunity to obtain specific resources needed for you to succeed, and get results, profits and rewards.</p>
             </div>
         </div>
         </main>

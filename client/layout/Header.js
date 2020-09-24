@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import _ from "lodash";
 import Action from "../actions/accountActions";
 // image
-import logo from "../public/jocallio/image/logo.png";
+import logo from "../public/jocallio/image/logo.gif";
 import API_URL from "../config/API_URL";
 import small_profile_img from "../public/jocallio/image/small_profile.png";
 import profileplaceholder from "../public/jocallio/image/small_profileL.png";

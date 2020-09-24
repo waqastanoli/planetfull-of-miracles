@@ -557,8 +557,8 @@ class Home extends Component {
         {profile.fetched && (
           <main className={"main " + (logged_in ? "logged_in" : "")}>
             <div className="yo_pro">
-              CV | CV ME | P.E.P | SOLO or TEAM | ASPIRE/INSPIRE | TECH CHI |
-              ADVISORY TEAM | P.R.O.U.D CHART |<br /> ISSUES OF HUMANITY |
+            iNOW | iFUTURE | P.E.P | SOLO or TEAM | ASPIRE/INSPIRE | TECH CHI |
+              ADVISORY TEAM | P.R.O.U.D. CHART |<br /> ISSUES OF HUMANITY |
               REWARDS AND RECOGNITION
               {logged_in && (
                 <h1
@@ -1427,7 +1427,7 @@ class Home extends Component {
             {isMobile && (
               <div className="clearfix">
                 <section className="shadowbox Proud">
-                  <h2>P.R.O.U.D Chart</h2>
+                  <h2>P.R.O.U.D. Chart</h2>
                   {logged_in && (
                     <div className="sideBtn">
                       <div className="addButton">
@@ -1621,7 +1621,7 @@ class Home extends Component {
               </Modal.Footer>
             </Modal>
 
-            <div className="Contracts shadowbox">
+            <div className="Contracts shadowbox rainbow_button">
               <h2 style={{ textAlign: "center" }}>
                 <a target="_new" href="/JohnSmith">
                   VIEW SAMPLE PROFILE

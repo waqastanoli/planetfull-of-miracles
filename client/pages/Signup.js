@@ -7,7 +7,7 @@ import Modal from 'react-bootstrap/Modal';
 import Action from '../actions/accountActions';
 import AlertMessage from '../layout/AlertMessage';
 import { NavLink } from 'react-router-dom';
-import logo from '../public/jocallio/image/logo.png';
+import logo from '../public/jocallio/image/logo.gif';
 import loginimage from '../public/jocallio/image/loginimage.png';
 class Signup extends Component {
   constructor(props) {
