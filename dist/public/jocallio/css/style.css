@@ -2178,7 +2178,7 @@ p.section-subtext,
   display: none;
 }
 
-#myBtn {
+#myBtn,#sampleLink {
   background: turquoise;
   font-weight: bold;
 }
@@ -2269,4 +2269,26 @@ p.section-subtext,
 
 #root{
   overflow-x: hidden;
+}
+
+#tab-1,#tab-2{
+  float: left;
+  width: 49%;
+}
+
+.borderLeft{
+  border-left: 1px solid #eaedf3;
+}
+
+.headingList{
+  display: flex;
+  margin-top: 10px;
+}
+
+.headingList li{
+  flex: 1;
+  text-align: center;
+  color: #6b6c6f;
+  font-size: 14px;
+  height: 30px;
 }

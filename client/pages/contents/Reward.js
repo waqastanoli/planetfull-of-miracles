@@ -20,7 +20,7 @@ export default class Reward extends Component {
               exposure on our sister show. Segment 3 is solely dedicated to the
               input and outcome of the Internet success stories. The TECK CHI
               website can also be a stand-alone and/or there will be a rewards
-              and recognition page.
+              and recognition page. You can gain Kudos Coins by getting good reviews in your contracts. These can be given away or traded.
             </p>
           </div>
         </div>

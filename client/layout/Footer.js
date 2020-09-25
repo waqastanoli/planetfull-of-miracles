@@ -32,7 +32,10 @@ class Footer extends Component {
   	 const { dispatch, products, auth , match, fetched, profile} = this.props;
     return (
     	<div>
-      <footer>Copyright © 2019 C.L. Morci. All Rights Reserved.</footer>
+      <footer>© C.L. Morci 917-940-8170. Planetful of Miracles is a subsidiary of
+          CHOPCI, a Clearing Hub for Positivity Consciousness, Inc. We
+          collaborate towards making a positive impact both personally and
+          globally.</footer>
     	<Modal scrollable="true" dialogClassName="modal-90w" aria-labelledby="example-custom-modal-styling-title" show={auth.workshow} className="proud_modal" onHide={this.workhandleClose}>
           <span className="close" onClick={this.workhandleClose}>close </span> 
           <Modal.Body>

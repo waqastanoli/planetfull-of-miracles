@@ -40,8 +40,7 @@ export default class HowWorks extends Component {
             <br />
             Using TECK CHI as a springboard you can transform your unique skills
             into money-making endeavors. With the influential forces of TV,
-            watched more than ever, but viewed on a variety of devices, we use
-            the Internet to include your unique stories, expertise and voice.
+            watched more than ever, endeavors. We use the influential forces of TV, watched more than ever, as well as the Internet to to include your unique stories, expertise and voice.
             One full segment of the TV show is dedicated to the input and
             outcomes of those who participate through our website.
           </p>
@@ -202,7 +201,7 @@ export default class HowWorks extends Component {
             </p>
             <p className="unique_case">
               C – <strong>C</strong>ommunicate/<strong>C</strong>oach
-              <br />H – <strong>H</strong>elp/<strong>H</strong>eroi
+              <br />H – <strong>H</strong>ope/<strong>H</strong>eroi
               <strong>c</strong>
               <br />I – <strong>I</strong>mpact/<strong>I</strong>nnovate
               <br />
@@ -354,9 +353,9 @@ export default class HowWorks extends Component {
 
         <p style={{ marginTop: "15px" }}>
           * © C.L. Morci 917-940-8170. Planetful of Miracles is a subsidiary of
-          MIRACULOUS MEDIA ENTERPRISE, a Clearing House for Positivity. We
+          CHOPCI, a Clearing Hub for Positivity Consciousness, Inc. We
           collaborate towards making a positive impact both personally and
-          globally. MORCILING, INC.
+          globally.
         </p>
         <div className="clearfix"></div>
         <div className="page-single-pagination"></div>

@@ -844,7 +844,7 @@ class Home extends Component {
                 </div>
               </div>
               <div className="shadowbox CurrentLife">
-                <h2>My Current Life </h2>
+                <h2>INOW (My Current Life) </h2>
                 <div className="scroll holder">
                   {!logged_in && profile.current_situation}
                   {profile.name && logged_in && (
@@ -871,7 +871,7 @@ class Home extends Component {
                 </div>
               </div>
               <div className="shadowbox FutureVision">
-                <h2>My Future Vision</h2>
+                <h2>IFUTURE (My Future Vision)</h2>
 
                 <div className="scroll holder">
                   {!logged_in && profile.future_vision}
@@ -959,7 +959,7 @@ class Home extends Component {
                   </div>
                 )}
                 <div className="toggle tabs tabs_default TabFirst">
-                  <ul className="tabs">
+                  <ul className="headingList">
                     <li
                       className={
                         "tab" + (topic.type == "inspire" ? " active" : "")
@@ -981,7 +981,7 @@ class Home extends Component {
                     id="tab-1"
                     className={
                       "scroll " +
-                      (topic.type == "inspire" ? "tab-list-active" : "")
+                      (topic.type == "inspire" ? "tab-list-active" : "tab-list-active")
                     }
                   >
                     <ul className="ToptopicList">
@@ -997,8 +997,7 @@ class Home extends Component {
                               <div className="right">
                                 <span className="numhold">
                                   {inspire._userIds.length}
-                                </span>{" "}
-                                people inspiring for this topic{" "}
+                                </span>
                                 <a
                                   onClick={e =>
                                     this.topicPagehandle(inspire, e)
@@ -1018,8 +1017,8 @@ class Home extends Component {
                   <div
                     id="tab-2"
                     className={
-                      "scroll " +
-                      (topic.type == "aspire" ? "tab-list-active" : "")
+                      "scroll borderLeft " +
+                      (topic.type == "aspire" ? "tab-list-active" : "tab-list-active")
                     }
                   >
                     <ul className="ToptopicList">
@@ -1035,8 +1034,7 @@ class Home extends Component {
                               <div className="right">
                                 <span className="numhold">
                                   {inspire._userIds.length}
-                                </span>{" "}
-                                people aspiring for this topic{" "}
+                                </span>
                                 <a
                                   className="view"
                                   title="view"
@@ -1621,11 +1619,18 @@ class Home extends Component {
               </Modal.Footer>
             </Modal>
 
-            <div className="Contracts shadowbox rainbow_button">
+            <div className="Contracts shadowbox">
               <h2 style={{ textAlign: "center" }}>
-                <a target="_new" href="/JohnSmith">
-                  VIEW SAMPLE PROFILE
-                </a>
+              <div class="buttonHolder inline-block rainbow_button">
+                <button class="button" id="sampleLink" onClick={()=>window.location='/JohnSmith'}>VIEW SAMPLE PROFILE</button>
+                </div>
+
+                {/* <div className="buttonHolder inline-block how_it_works rainbow_button">
+                  <a target="_new" href="/JohnSmith" className="button">
+                    VIEW SAMPLE PROFILE
+                  </a>
+                </div> */}
+                
               </h2>
             </div>
 
