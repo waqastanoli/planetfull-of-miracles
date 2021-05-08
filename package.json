@@ -63,7 +63,7 @@
     "jwt-decode": "^2.2.0",
     "less": "^2.7.3",
     "less-loader": "^4.1.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "material-ui-datetime-range-picker": "^0.2.2",
     "moment": "^2.24.0",
     "mongoose": "^5.4.5",
