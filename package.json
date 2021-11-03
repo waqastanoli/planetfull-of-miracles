@@ -103,7 +103,7 @@
     "sendgrid": "^5.2.3",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
-    "validator": "^10.11.0",
+    "validator": "^13.7.0",
     "webpack": "^4.25.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-middleware": "^3.4.0",
